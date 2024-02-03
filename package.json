@@ -1,0 +1,22 @@
+{
+  "name": "anokhi-pehel",
+  "version": "1.0.0",
+  "description": "anokhi pehel website repository",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install":"cd client && npm install ; cd server && npm install",
+    "build": "cd client && npm run build",
+    "start": "cd server && node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hey-aayush/anokhi-pehel.git"
+  },
+  "author": "aayush shandilya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hey-aayush/anokhi-pehel/issues"
+  },
+  "homepage": "https://github.com/hey-aayush/anokhi-pehel#readme"
+}
