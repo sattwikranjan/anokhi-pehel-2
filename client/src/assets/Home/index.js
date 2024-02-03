@@ -35,6 +35,5 @@ export {
   sandeep,
   study2,
   connectWithUs,
-  
   connectWithUs3,
 };
