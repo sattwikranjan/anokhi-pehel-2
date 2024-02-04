@@ -1,24 +1,15 @@
 const express = require("express");
 const colors = require("colors");
 const dotenv = require("dotenv");
-const PORT = 8080;
 const app = express();
 const cors = require("cors");
 const path = require('path');
-//  const PORT = process.env.PORT;
 dotenv.config();
-
+const PORT = process.env.PORT;
 const mongoDB = require("./config/db");
 const authMiddleware = require("./middlewares/authMiddleware");
 const { authController } = require("./controller/userCOntroller");
 mongoDB();
-
-// Serve your static files from the Vite build
-app.use(express.static(path.join(__dirname, '../client/dist')));
-app.get('*', (req, res) => {
-  console.log(path.join(__dirname, '../client/dist/index.html'));
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-});
 
 app.use(cors());
 
@@ -50,6 +41,12 @@ app.use("/api/v1/user", require("./routers/ClassSchedule"));
 app.use("/api/v1/user", require("./routers/Attendance"));
 app.use("/api/v1/user", require("./routers/Topic"));
 app.post("/api/v1/user/getUserData", authMiddleware, authController);
+
+// Serve your static files from the Vite build
+app.use(express.static(path.join(__dirname, '../client/dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`server is running at ${PORT}`.bgCyan.white);
