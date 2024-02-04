@@ -1,5 +1,5 @@
 import styles from "../../style";
-import { study,class1 } from "../../assets/Home";
+import { study, class1 } from "../../assets/Home";
 import Contribute from "./Contribute";
 
 const Hero = () => {
@@ -17,7 +17,6 @@ const Hero = () => {
 
         <div className="flex flex-row justify-between items-center w-full">
           <h1 className="flex-1 अपना font-semibold ss:text-[72px] text-[52px] text-gray-800 ss:leading-[100.8px] leading-[75px]">
-          अपना😍<br className="sm:block hidden" />{" "}
             <span className="text-gradient">Anokhi पहल</span>{" "}
           </h1>
           {/* <div className="ss:flex md:mr-4 mr-0">
