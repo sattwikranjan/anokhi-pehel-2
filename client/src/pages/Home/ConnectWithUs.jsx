@@ -1,21 +1,22 @@
 import styles from "../../style";
 import React from "react";
 import HomePageLayout from "../../components/Home/HomePageLayout";
-import { connectWithUs, connectWithUs3 } from "../../assets/Home";
+import { connectWithUs, connectWithUs4 } from "../../assets/Home";
 const App = () => (
   <HomePageLayout>
     <div className={`bg-primary ${styles.flexStart}`}>
       <div className={`${styles.boxWidth}`}>
-        <h2 className="text-black text-center font-bold text-2xl md:text-3xl lg:text-4xl">
-          Connect with Us
-        </h2>
+        <div className="text-black text-center font-bold text-2xl md:text-3xl lg:text-4xl relative">
+          <img
+            src={connectWithUs4}
+            alt="Connect with Us"
+            className="mx-auto w-full h-auto md:max-w-md lg:max-w-lg lg:w-full lg:h-full"
+          />
+          <h2 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            Connect with Us
+          </h2>
+        </div>
 
-        <img
-          src={connectWithUs3}
-          alt="Connect with Us"
-          //   className="h-16 w-16 md:h-20 md:w-20 lg:h-24 lg:w-24"
-          className="mx-auto w-full h-auto md:max-w-md lg:max-w-lg"
-        />
         <p className="leading-relaxed p-4 md:p-8 lg:p-12 font-base md:font-medium text-center hover:text-blue-900 sm:text-xl text-base">
           Connect with us to help the society and make this world a better
           place. Fill the membership form and get a Membership ID.
@@ -48,11 +49,12 @@ const App = () => (
           <div className="flex mb-8 md:mb-12 px-3 justify-center">
             <div className="w-16 h-1 rounded-full bg-teal-500 inline-flex"></div>
           </div>
-          <div className="text-gray-600 body-font w-full flex justify-center">
+          {/* <div className="text-gray-600 body-font w-full flex justify-center"> */}
+          <div className="text-gray-600 body-font lg:flex lg:justify-center">
             <div className=" w-full p-1 hover:text-white">
               <div className="border-2 border-teal-200 p-2 h-full rounded-2xl bg-stone-50 hover:bg-teal-400 shadow-inner ">
                 <h1 className="md:text-3xl text-2xl font-medium title-font text-gray-900 title-font mb-2 text-center italic ">
-                  Admitted them to schools
+                  Admit them to schools
                 </h1>
                 <p className="leading-relaxed p-4 md:p-8 lg:p-6 font-base md:font-medium text-center hover:text-stone-100 sm:text-xl text-base">
                   "Support our cause to ensure education for all. Help us enroll
@@ -89,17 +91,9 @@ const App = () => (
           </div>
 
           <div className="flex mb-8 md:mb-12 px-3 justify-center"></div>
-          <div className="text-gray-600 body-font w-full flex justify-center">
+          <div className="text-gray-600 body-font flex flex-col items-center">
             <div className=" w-full p-1 hover:text-white">
-              <div>
-                {/* <h1 className="md:text-3xl text-2xl font-medium title-font text-gray-900 title-font mb-2 text-center italic ">
-                  admitted to schools
-                </h1>
-                <p className="leading-relaxed p-4 md:p-8 lg:p-6 font-base md:font-medium text-center hover:text-stone-100 sm:text-xl text-base">
-                  Anokhi Pehel is a decentralized, zero funds platform with no
-                  employees, office space, and insurance.
-                </p> */}
-              </div>
+              <div></div>
             </div>
             <div className=" w-full p-1 hover:text-white">
               <div className="border-2 border-teal-200 p-2 h-full rounded-2xl bg-stone-50 hover:bg-teal-400 shadow-inner ">
@@ -207,7 +201,7 @@ const App = () => (
                       type="tel"
                       id="tel"
                       name="tel"
-                      placeholder="eg : 7282827749"
+                      placeholder="eg : 9787876546"
                       className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                     />
                   </div>
