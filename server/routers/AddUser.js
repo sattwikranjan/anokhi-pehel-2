@@ -44,7 +44,6 @@ router.route("/createUser").post(upload.single("photo"), async (req, res) => {
   const photo = req.file.filename;
   const Ppassword = req.body.password;
   const saltRounds = 10;
-  // console.log(name, "", className, "", location, " ", photo);
 
   try {
     const password = await bcrypt.hash(Ppassword, saltRounds);
