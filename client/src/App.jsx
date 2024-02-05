@@ -66,7 +66,7 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-             <Route
+            <Route
               path="/checkAttendance1"
               element={
                 <ProtectedRoute>
@@ -198,9 +198,9 @@ const App = () => {
             <Route
               path="/AddMentors"
               element={
-                <ProtectedRoute>
+                <PublicRoute>
                   <AddMentors />
-                </ProtectedRoute>
+                </PublicRoute>
               }
             />
             <Route
