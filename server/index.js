@@ -3,7 +3,7 @@ const colors = require("colors");
 const dotenv = require("dotenv");
 const app = express();
 const cors = require("cors");
-const path = require('path');
+const path = require("path");
 dotenv.config();
 const PORT = process.env.PORT;
 const mongoDB = require("./config/db");
@@ -14,7 +14,10 @@ mongoDB();
 app.use(cors());
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://anokhi-pehel.azurewebsites.net/"
+  );
   res.header(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, PATCH, DELETE" // Include DELETE here
@@ -43,9 +46,9 @@ app.use("/api/v1/user", require("./routers/Topic"));
 app.post("/api/v1/user/getUserData", authMiddleware, authController);
 
 // Serve your static files from the Vite build
-app.use(express.static(path.join(__dirname, '../client/dist')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+app.use(express.static(path.join(__dirname, "../client/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
 
 app.listen(PORT, () => {
