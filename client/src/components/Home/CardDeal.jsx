@@ -10,8 +10,7 @@ const CardDeal = () => (
         makes the world better!
       </h2>
       <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-        Arcu tortor, purus in mattis at sed integer faucibus. Aliquet quis
-        aliquet eget mauris tortor.ç Aliquet ultrices ac, ametau.
+        Your contribution is instrumental in making the world a better place.
       </p>
 
       <Button styles={`mt-10`} text="Contribute Now!" />

@@ -12,8 +12,8 @@ const Footer = () => (
           className="w-[266px] h-[72.14px] object-contain"
         />
         <p className={`${styles.paragraph} mt-4 max-w-[312px]`}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit
-          quod tenetur.
+          Ensuring equal access to education for all children, regardless of
+          their socio-economic background.
         </p>
       </div>
 

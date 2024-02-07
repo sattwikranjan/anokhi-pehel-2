@@ -6,6 +6,9 @@ import {
   star,
   send,
   shield,
+  DirectorImg,
+  BasantSir,
+  RajivSir,
 } from "../../assets/Home";
 
 export const navLinks = [
@@ -81,26 +84,26 @@ export const feedback = [
   {
     id: "feedback-1",
     content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit quod tenetur.",
-    name: "Vivek Kumar",
-    title: "Founder & Leader",
-    img: sandeep,
-  },
-  {
-    id: "feedback-2",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit quod tenetur..",
-    name: "Shailendra Kumar",
-    title: "Founder & Leader",
-    img: sandeep,
+      "As the director, I commend the students of MNNIT for their impactful initiative, Anokhi Pehel, dedicated to providing quality education to children from economically weaker backgrounds. ",
+    name: "Professor Rama Shanker Verma",
+    title: "Director MNNIT",
+    img: DirectorImg,
   },
   {
     id: "feedback-3",
     content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit quod tenetur.",
-    name: "Sandeep Kumar",
-    title: "Developer",
-    img: sandeep,
+      "I am immensely proud of the students at MNNIT for their dedication to improving the lives of underprivileged children through education. Their initiative reflects the power of empathy and collective action in creating positive change within our society.",
+    name: "DR. Rajeev Tripathi",
+    title: "Professor Department of Electronics & Communication Engineering",
+    img: RajivSir,
+  },
+  {
+    id: "feedback-2",
+    content:
+      "I deeply appreciate the altruistic efforts of the students behind Anokhi Pehel at MNNIT. Their dedication to uplifting the underprivileged through education exemplifies the values of compassion and social responsibility that we aim to instill in our students.",
+    name: "Dr. Basant Kumar",
+    title: "Faculty Incharge, Anokhi Pehel Club",
+    img: BasantSir,
   },
 ];
 
@@ -110,23 +113,15 @@ export const footerLinks = [
     links: [
       {
         name: "Content",
-        link: "https://www.KoOlScHoOl.com/content/",
+        link: "https://anokhi-pehel.azurewebsites.net/",
       },
       {
         name: "How it Works",
-        link: "https://www.KoOlScHoOl.com/how-it-works/",
+        link: "https://anokhi-pehel.azurewebsites.net/",
       },
       {
         name: "Create",
-        link: "https://www.KoOlScHoOl.com/create/",
-      },
-      {
-        name: "Explore",
-        link: "https://www.KoOlScHoOl.com/explore/",
-      },
-      {
-        name: "Terms & Services",
-        link: "https://www.KoOlScHoOl.com/terms-and-services/",
+        link: "https://anokhi-pehel.azurewebsites.net/",
       },
     ],
   },
@@ -135,23 +130,15 @@ export const footerLinks = [
     links: [
       {
         name: "Help Center",
-        link: "https://www.KoOlScHoOl.com/help-center/",
+        link: "https://anokhi-pehel.azurewebsites.net/",
       },
       {
         name: "Partners",
-        link: "https://www.KoOlScHoOl.com/partners/",
+        link: "https://anokhi-pehel.azurewebsites.net/",
       },
       {
         name: "Suggestions",
-        link: "https://www.KoOlScHoOl.com/suggestions/",
-      },
-      {
-        name: "Blog",
-        link: "https://www.KoOlScHoOl.com/blog/",
-      },
-      {
-        name: "Newsletters",
-        link: "https://www.KoOlScHoOl.com/newsletters/",
+        link: "https://anokhi-pehel.azurewebsites.net/",
       },
     ],
   },
@@ -160,11 +147,11 @@ export const footerLinks = [
     links: [
       {
         name: "Our Partner",
-        link: "https://www.KoOlScHoOl.com/our-partner/",
+        link: "https://anokhi-pehel.azurewebsites.net/",
       },
       {
         name: "Become a Partner",
-        link: "https://www.KoOlScHoOl.com/become-a-partner/",
+        link: "https://anokhi-pehel.azurewebsites.net/",
       },
     ],
   },
@@ -184,6 +171,6 @@ export const socialMedia = [
   {
     id: "linkedin",
     icon: linkedin,
-    link: "https://www.linkedin.com/company/anokhi-pehel/mycompany/",
+    link: "https://www.linkedin.com/company/anokhi-pehel",
   },
 ];

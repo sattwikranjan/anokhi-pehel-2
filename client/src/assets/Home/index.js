@@ -17,6 +17,9 @@ import study2 from "./study2.png";
 import connectWithUs from "./connectWithUs.svg";
 import connectWithUs3 from "./connectWithUs3.svg";
 import connectWithUs4 from "./connectWithUs4.jpeg";
+import DirectorImg from "./directorImg.jpeg";
+import BasantSir from "./BasantSir.jpg";
+import RajivSir from "./RajivSir.jpg";
 export {
   logo,
   close,
@@ -37,4 +40,7 @@ export {
   connectWithUs,
   connectWithUs4,
   connectWithUs3,
+  DirectorImg,
+  BasantSir,
+  RajivSir,
 };
