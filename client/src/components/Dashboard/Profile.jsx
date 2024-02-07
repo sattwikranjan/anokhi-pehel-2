@@ -8,6 +8,7 @@ import { setIsClicked } from "../../redux/features/navlinkSlice";
 import { SERVER_URL } from "../../Service/helper";
 const Profile = () => {
   const currentColor = "#03C9D7";
+  const currentColor2 = "#374151";
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -17,6 +18,9 @@ const Profile = () => {
   const handleLogout = () => {
     localStorage.clear();
     navigate("/");
+  };
+  const handleChangePassword = () => {
+    navigate("/changePassword");
   };
 
   const handleClick = (clicked) => {
@@ -49,14 +53,24 @@ const Profile = () => {
         </div>
       </div>
       {/* <div>userProfileData</div> */}
-      <div className="mt-5">
+      <div className="mt-1">
         <Button
           color="white"
           bgColor={currentColor}
           text="Logout"
-          borderRadius="10px"
+          borderRadius="8px"
           width="full"
           custumFunc={handleLogout}
+        />
+      </div>
+      <div className="mt-3">
+        <Button
+          color="white"
+          bgColor={currentColor2}
+          text="Change Password"
+          borderRadius="10px"
+          width="full"
+          custumFunc={handleChangePassword}
         />
       </div>
     </div>

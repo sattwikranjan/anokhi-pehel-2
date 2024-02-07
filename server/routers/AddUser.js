@@ -67,6 +67,38 @@ router.route("/createUser").post(upload.single("photo"), async (req, res) => {
   }
 });
 
+// changePassword
+router.route("/changePassword").post(async (req, res) => {
+  const oldPassword = req.body.oldPassword;
+  const newPassword = req.body.newPassword;
+  const userId = req.body.userId;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    // Compare the old password provided by the user with the hashed password stored in the database
+    const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update user's password with the new hashed password
+    user.password = hashedPassword;
+    await user.save();
+
+    res.status(200).json({ message: "Password changed successfully" });
+  } catch (error) {
+    console.error("Error changing password:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 router.get("/mentorList", async (req, res) => {
   try {
     const users = await User.find();

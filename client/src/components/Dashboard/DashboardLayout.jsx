@@ -41,7 +41,7 @@ const DashboardLayout = ({ children }) => {
         </div>
 
         <div>{children}</div>
-        <div class=" inset-x-0 m-90 mx-auto">
+        <div className=" inset-x-0 m-90 mx-auto">
           <Footer />
         </div>
       </div>

@@ -31,6 +31,7 @@ import AttendanceTable from "./pages/Dashboard/AttendanceTable";
 import AddTopic from "./pages/Dashboard/AddTopic";
 import FindTopic from "./pages/Dashboard/FindTopic";
 import ConnectWithUs from "./pages/Home/ConnectWithUs";
+import ChangePassword from "./components/Dashboard/ChangePassword";
 const App = () => {
   const { loading } = useSelector((state) => state.alerts);
 
@@ -63,6 +64,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <Attendance />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/changePassword"
+              element={
+                <ProtectedRoute>
+                  <ChangePassword />
                 </ProtectedRoute>
               }
             />
