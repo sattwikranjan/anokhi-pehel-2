@@ -45,9 +45,9 @@ app.use("/api/v1/user", require("./routers/Topic"));
 app.post("/api/v1/user/getUserData", authMiddleware, authController);
 
 // Serve your static files from the Vite build
-app.use(express.static(path.join(__dirname, "../client")));
+app.use(express.static(path.join(__dirname, "../client/dist")));
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/index.html"));
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
 
 app.listen(PORT, () => {
