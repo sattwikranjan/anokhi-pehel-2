@@ -16,7 +16,7 @@ app.use(cors());
 app.use((req, res, next) => {
   res.setHeader(
     "Access-Control-Allow-Origin",
-    "https://anokhi-pehel.azurewebsites.net/"
+    "https://anokhi-pehel.azurewebsites.net"
   );
   res.header(
     "Access-Control-Allow-Methods",
@@ -40,15 +40,14 @@ app.use("/api/v1/user", require("./routers/AddUser"));
 app.use("/api/v1/user", require("./routers/AddScore"));
 app.use("/api/v1/user", require("./routers/LineSchedule"));
 app.use("/api/v1/user", require("./routers/ClassSchedule"));
-
 app.use("/api/v1/user", require("./routers/Attendance"));
 app.use("/api/v1/user", require("./routers/Topic"));
 app.post("/api/v1/user/getUserData", authMiddleware, authController);
 
 // Serve your static files from the Vite build
-app.use(express.static(path.join(__dirname, "../client/dist")));
+app.use(express.static(path.join(__dirname, "../client")));
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+  res.sendFile(path.join(__dirname, "../client/index.html"));
 });
 
 app.listen(PORT, () => {

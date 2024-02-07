@@ -16,7 +16,7 @@ const Profile = () => {
   // logout funtion
   const handleLogout = () => {
     localStorage.clear();
-    navigate("/login");
+    navigate("/");
   };
 
   const handleClick = (clicked) => {

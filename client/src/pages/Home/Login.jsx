@@ -26,10 +26,14 @@ export default function Login() {
         navigate("/Dashboard");
       } else {
         message.error("Login failed");
+        navigate("/login");
       }
     } catch (err) {
       console.log(err);
       message.error("Login failed");
+      navigate("/login");
+    } finally {
+      window.location.reload();
     }
   };
 

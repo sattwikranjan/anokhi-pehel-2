@@ -19,14 +19,6 @@ const DashboardLayout = ({ children }) => {
           <FiSettings />
         </button>
       </div>
-      {/* <div className="bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen">
-        <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
-          <Navbar />
-          <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
-            <Sidebar />
-          </div>
-        </div>
-      </div> */}
 
       {activeMenu ? (
         <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
@@ -44,11 +36,14 @@ const DashboardLayout = ({ children }) => {
             : "bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2 "
         }
       >
-        <div className="fixed md:static navbar w-full ">
+        <div className="fixed md:static navbar w-full bg-slate-900 ">
           <Navbar />
         </div>
+
         <div>{children}</div>
-        <Footer />
+        <div class=" inset-x-0 m-90 mx-auto">
+          <Footer />
+        </div>
       </div>
     </div>
   );
