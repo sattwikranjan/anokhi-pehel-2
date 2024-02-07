@@ -1,14 +1,14 @@
 import styles from "../../style";
 import React from "react";
 import HomePageLayout from "../../components/Home/HomePageLayout";
-import { connectWithUs, connectWithUs4 } from "../../assets/Home";
+import { connectWithUs } from "../../assets/Home";
 const App = () => (
   <HomePageLayout>
     <div className={`bg-primary ${styles.flexStart}`}>
       <div className={`${styles.boxWidth}`}>
         <div className="text-black text-center font-bold text-2xl md:text-3xl lg:text-4xl relative">
           <img
-            src={connectWithUs4}
+            src={connectWithUs}
             alt="Connect with Us"
             className="mx-auto w-full h-auto md:max-w-md lg:max-w-lg lg:w-full lg:h-full"
           />
