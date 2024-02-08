@@ -2,7 +2,7 @@ import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import { BASE_URL } from "../../../src/Service/helper";
+import { BASE_URL, SERVER_URL } from "../../../src/Service/helper";
 
 const Student = () => {
   const location = useLocation();
@@ -43,7 +43,7 @@ const Student = () => {
               <div className="flex flex-col md:flex-row md:space-x-8 justify-center items-center">
                 <div className="flex-shrink-0">
                   <img
-                    src={`https://anokhi-pehel.azurewebsites.net/images/${student.photo}`}
+                    src={`${SERVER_URL}/images/${student.photo}`}
                     className="mentor-photo h-40 w-40 rounded-full"
                     alt="Student"
                   />

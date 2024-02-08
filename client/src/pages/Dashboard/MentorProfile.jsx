@@ -2,7 +2,8 @@ import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import { BASE_URL } from "../../../src/Service/helper";
+import { BASE_URL,SERVER_URL } from "../../../src/Service/helper";
+ 
 const Student = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -62,7 +63,7 @@ const Student = () => {
           {mentor ? (
             <div className="mentor-card flex items-center">
               <img
-                src={`https://anokhi-pehel.azurewebsites.net/images/${mentor?.photo}`}
+                src={`${SERVER_URL}/images/${mentor?.photo}`}
                 className="mentor-photo h-40 w-40 rounded-full"
                 alt="Student"
               />
