@@ -43,7 +43,7 @@ const Student = () => {
               <div className="flex flex-col md:flex-row md:space-x-8 justify-center items-center">
                 <div className="flex-shrink-0">
                   <img
-                    src={`http://localhost:8080/images/${student.photo}`}
+                    src={`https://anokhi-pehel.azurewebsites.net/images/${student.photo}`}
                     className="mentor-photo h-40 w-40 rounded-full"
                     alt="Student"
                   />

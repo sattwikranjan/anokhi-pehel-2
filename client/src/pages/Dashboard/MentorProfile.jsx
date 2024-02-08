@@ -62,7 +62,7 @@ const Student = () => {
           {mentor ? (
             <div className="mentor-card flex items-center">
               <img
-                src={`http://localhost:8080/images/${mentor?.photo}`}
+                src={`https://anokhi-pehel.azurewebsites.net/images/${mentor?.photo}`}
                 className="mentor-photo h-40 w-40 rounded-full"
                 alt="Student"
               />
