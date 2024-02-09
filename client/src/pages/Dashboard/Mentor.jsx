@@ -14,7 +14,7 @@ const Mentor = () => {
   const { user } = useSelector((state) => state.user);
 
   const onClick = () => {
-    navigate("/AddMentors");
+    navigate("/AddMentors7282vdsghbhdghd");
   };
   const [users, setMentors] = useState([]);
   const [filterName, setFilterName] = useState("");

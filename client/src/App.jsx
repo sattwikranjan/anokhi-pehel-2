@@ -205,11 +205,11 @@ const App = () => {
               }
             />
             <Route
-              path="/AddMentors"
+              path="/AddMentors7282vdsghbhdghd"
               element={
-                <PublicRoute>
+                <ProtectedRoute>
                   <AddMentors />
-                </PublicRoute>
+                </ProtectedRoute>
               }
             />
             <Route
