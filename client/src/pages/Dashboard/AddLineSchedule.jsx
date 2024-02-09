@@ -148,11 +148,13 @@ const AddLineSchedule = () => {
                               onChange={(e) => onChange(e, index)}
                             >
                               <option value="">Select a mentor</option>
-                              {userNames.map((user) => (
-                                <option key={user._id} value={user._id}>
-                                  {user.name}
-                                </option>
-                              ))}
+                              {userNames
+                                .sort((a, b) => a.name.localeCompare(b.name))
+                                .map((user) => (
+                                  <option key={user._id} value={user._id}>
+                                    {user.name}
+                                  </option>
+                                ))}
                             </select>
                           </div>
 
@@ -172,11 +174,13 @@ const AddLineSchedule = () => {
                               onChange={(e) => onChange(e, index)}
                             >
                               <option value="">Select a mentor</option>
-                              {userNames.map((user) => (
-                                <option key={user._id} value={user._id}>
-                                  {user.name}
-                                </option>
-                              ))}
+                              {userNames
+                                .sort((a, b) => a.name.localeCompare(b.name))
+                                .map((user) => (
+                                  <option key={user._id} value={user._id}>
+                                    {user.name}
+                                  </option>
+                                ))}
                             </select>
                           </div>
                         </div>

@@ -122,22 +122,23 @@ const Mentor = () => {
                 </tr>
               </thead>
               <tbody className="text-center">
-                {filteredUsers.map((user) => (
-                  <tr key={user._id}>
-                    <td className="border px-4 py-2">{user.name}</td>
-                    <td className="border px-4 py-2">{user.regnumber}</td>
-                    <td className="border px-4 py-2">{user.phone}</td>
-                    <td className="border px-4 py-2">{user.email}</td>
-
-                    <td className="border px-4 py-2">
-                      <Link to={`/mentorProfile?mentor._id=${user._id}`}>
-                        <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-normal hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-                          Profile
-                        </button>
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
+                {filteredUsers
+                  .sort((a, b) => a.name.localeCompare(b.name))
+                  .map((user) => (
+                    <tr key={user._id}>
+                      <td className="border px-4 py-2">{user.name}</td>
+                      <td className="border px-4 py-2">{user.regnumber}</td>
+                      <td className="border px-4 py-2">{user.phone}</td>
+                      <td className="border px-4 py-2">{user.email}</td>
+                      <td className="border px-4 py-2">
+                        <Link to={`/mentorProfile?mentor._id=${user._id}`}>
+                          <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-normal hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                            Profile
+                          </button>
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>

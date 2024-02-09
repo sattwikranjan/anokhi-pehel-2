@@ -145,11 +145,13 @@ const AddClassSchedule = () => {
                               onChange={(e) => onChange(e, index)}
                             >
                               <option value="">Select a mentor</option>
-                              {userNames.map((user) => (
-                                <option key={user._id} value={user._id}>
-                                  {user.name}
-                                </option>
-                              ))}
+                              {userNames
+                                .sort((a, b) => a.name.localeCompare(b.name))
+                                .map((user) => (
+                                  <option key={user._id} value={user._id}>
+                                    {user.name}
+                                  </option>
+                                ))}
                             </select>
                           </div>
 
@@ -168,12 +170,14 @@ const AddClassSchedule = () => {
                               value={daySchedule.subject}
                               onChange={(e) => onChange(e, index)}
                             >
-                              <option value="">Select Subject</option>
-                              {subjects.map((item, index) => (
-                                <option key={index} value={item.id}>
-                                  {item.subject}
-                                </option>
-                              ))}
+                              <option value="">Select a mentor</option>
+                              {userNames
+                                .sort((a, b) => a.name.localeCompare(b.name))
+                                .map((user) => (
+                                  <option key={user._id} value={user._id}>
+                                    {user.name}
+                                  </option>
+                                ))}
                             </select>
                           </div>
                         </div>
