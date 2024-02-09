@@ -45,9 +45,15 @@ router.route("/addStudent").post(upload.single("photo"), async (req, res) => {
   const school = req.body.school;
   const photo = req.file.filename;
 
-  // console.log(name, "", className, "", location, " ", photo);
-
   try {
+    // Check if student with the same Aadhar number already exists
+    const existingStudent = await Student.findOne({ aadhar: aadhar });
+    if (existingStudent) {
+      return res
+        .status(400)
+        .json({ message: "Student with this Aadhar number already exists" });
+    }
+
     const newStudentData = {
       name,
       className,

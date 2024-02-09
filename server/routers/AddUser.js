@@ -46,6 +46,14 @@ router.route("/createUser").post(upload.single("photo"), async (req, res) => {
   const saltRounds = 10;
 
   try {
+    // Check if user with the same registration number already exists
+    const existingUser = await User.findOne({ regnumber: regnumber });
+    if (existingUser) {
+      return res
+        .status(400)
+        .json({ message: "User with this registration number already exists" });
+    }
+
     const password = await bcrypt.hash(Ppassword, saltRounds);
     const newUserData = {
       name,

@@ -9,6 +9,7 @@ const Sidebar = () => {
   const { activeMenu, screenSize } = useSelector(
     (state) => state.dashboardContext
   );
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const currentColor = "#03C9D7";
 
@@ -32,11 +33,7 @@ const Sidebar = () => {
               to="/Dashboard"
               className="items-center gap-3 ml-3 mt-4 flex text-xl text-black font-extrabold tracking-tight text-slate-900"
             >
-              <img
-                src={logo}
-                alt="logo"
-                className="w-[20%] h-[20%]"
-              />{" "}
+              <img src={logo} alt="logo" className="w-[20%] h-[20%]" />{" "}
               <span>Anokhi पहल</span>
             </Link>
             <button
