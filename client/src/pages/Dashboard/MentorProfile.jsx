@@ -1,17 +1,51 @@
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { BASE_URL,SERVER_URL } from "../../../src/Service/helper";
- 
+import { useSelector } from "react-redux";
+import Button from "../../components/Dashboard/Button";
+import { BASE_URL, SERVER_URL } from "../../../src/Service/helper";
+
 const Student = () => {
   const location = useLocation();
+  const currentColor = "#15803d";
+  const currentColor1 = "#dc2626";
+
+  let navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
+  const { user } = useSelector((state) => state.user);
   const userId = searchParams.get("mentor._id");
   const [mentor, setMentor] = useState(null);
   const [classSchedule, setClassSchedule] = useState([]); // Store class schedule data
   const [lineSchedule, setLineSchedule] = useState([]); // Store line schedule data
   const [lineSchedule1, setLineSchedule1] = useState([]); // Store line schedule data
+
+  const onClick = async () => {
+    try {
+      if (userId) {
+        // Pass userId as a parameter to the navigate function
+        await navigate(`/changeRole?userId=${userId}`);
+      } else {
+        console.log("userId is not available");
+      }
+    } catch (error) {
+      console.error("Error navigating:", error);
+    }
+  };
+  const onClick1 = async () => {
+    try {
+      const response = await axios.delete(`${BASE_URL}/deleteUser/${userId}`);
+      if (response.status === 200) {
+        // User deleted successfully
+        console.log("User deleted successfully");
+      } else {
+        console.error("Failed to delete user");
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
   useEffect(() => {
     if (userId) {
       axios
@@ -59,7 +93,8 @@ const Student = () => {
     <DashboardLayout>
       <div>
         <h2 className="text-2xl font-bold">Mentor Profile</h2>
-        <div className="mentor-profile bg-gray-100 p-4 rounded-lg">
+
+        <div className="mentor-profile bg-gray-100 p-4 rounded-lg flex flex-col lg:flex-row gap-4">
           {mentor ? (
             <div className="mentor-card flex items-center">
               <img
@@ -87,7 +122,34 @@ const Student = () => {
           ) : (
             <p>No Mentor data available.</p>
           )}
+          <div className=" justify-center items-center">
+            {user?.email === "kumarvivek@gmail.com" && (
+              <Button
+                color="white"
+                bgColor={currentColor}
+                text="Change Role"
+                borderRadius="8px"
+                width="5px"
+                height="10px"
+                custumFunc={onClick}
+              />
+            )}
+          </div>
+          <div className=" justify-center items-center">
+            {user?.email === "kumarvivek@gmail.com" && (
+              <Button
+                color="white"
+                bgColor={currentColor1}
+                text="Remove Mentor"
+                borderRadius="8px"
+                width="5px"
+                height="10px"
+                custumFunc={onClick1}
+              />
+            )}
+          </div>
         </div>
+
         <div className="class-schedule-container ml-6">
           <h2 className="schedule-title text-center font-bold underline underline-offset-8">
             Class Schedule

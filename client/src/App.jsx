@@ -33,6 +33,7 @@ import FindTopic from "./pages/Dashboard/FindTopic";
 import ConnectWithUs from "./pages/Home/ConnectWithUs";
 import ChangePassword from "./components/Dashboard/ChangePassword";
 import EditProfile from "./components/Dashboard/EditProfile";
+import ChangeRole from "./pages/Dashboard/ChangeRole";
 const App = () => {
   const { loading } = useSelector((state) => state.alerts);
 
@@ -56,6 +57,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <ViewTestScore />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/changeRole"
+              element={
+                <ProtectedRoute>
+                  <ChangeRole />
                 </ProtectedRoute>
               }
             />

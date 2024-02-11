@@ -149,12 +149,49 @@ router.patch("/update-mentor", upload.single("photo"), async (req, res) => {
 
 router.get("/mentorList", async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find({ role: { $ne: "Alumni" } }); // Exclude users with role "Alumni"
 
     res.json(users);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.delete("/deleteUser/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const deletedUser = await User.findByIdAndDelete(userId);
+    if (!deletedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/updateUserRole", async (req, res) => {
+  const { id } = req.query; // Get user ID from query parameters
+  // const { role } = req.body.role; // Get new role from request body
+  // console.log(req.body.role);
+  try {
+    // Find the user by ID
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Update user's role
+    user.role = req.body.role;
+    await user.save();
+
+    // Respond with success message
+    return res.status(200).json({ message: "User role updated successfully" });
+  } catch (error) {
+    console.error("Error updating user role:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 });
 

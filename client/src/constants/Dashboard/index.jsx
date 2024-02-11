@@ -109,6 +109,7 @@ export const role = [
   { id: "Admin", role: "Admin" },
   { id: "Final Year Coordinator", role: "Final Year Coordinator" },
   { id: "Coordinator", role: "Coordinator" },
+  { id: "Alumni", role: "Alumni" },
 ];
 
 export const day = [
