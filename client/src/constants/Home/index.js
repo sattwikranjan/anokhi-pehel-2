@@ -86,15 +86,15 @@ export const feedback = [
     content:
       "As the director, I commend the students of MNNIT for their impactful initiative, Anokhi Pehel, dedicated to providing quality education to children from economically weaker backgrounds. ",
     name: "Professor Rama Shanker Verma",
-    title: "Director MNNIT",
+    title: "Director MNNIT Allahabad",
     img: DirectorImg,
   },
   {
     id: "feedback-3",
     content:
       "I am immensely proud of the students at MNNIT for their dedication to improving the lives of underprivileged children through education. Their initiative reflects the power of empathy and collective action in creating positive change within our society.",
-    name: "DR. Rajeev Tripathi",
-    title: "Professor Department of Electronics & Communication Engineering",
+    name: "Prof. Rajeev Tripathi",
+    title: "Director when Anokhi Pehel was founded",
     img: RajivSir,
   },
   {
@@ -102,7 +102,7 @@ export const feedback = [
     content:
       "I deeply appreciate the altruistic efforts of the students behind Anokhi Pehel at MNNIT. Their dedication to uplifting the underprivileged through education exemplifies the values of compassion and social responsibility that we aim to instill in our students.",
     name: "Dr. Basant Kumar",
-    title: "Faculty Incharge, Anokhi Pehel Club",
+    title: "Faculty In-charge, Anokhi Pehel",
     img: BasantSir,
   },
 ];

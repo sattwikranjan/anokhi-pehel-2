@@ -154,6 +154,7 @@ const AddClassSchedule = () => {
                                 ))}
                             </select>
                           </div>
+                          
 
                           {/* Drop select input */}
                           <div className="mt-2 sm:mt-0">

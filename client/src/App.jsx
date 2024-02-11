@@ -32,6 +32,7 @@ import AddTopic from "./pages/Dashboard/AddTopic";
 import FindTopic from "./pages/Dashboard/FindTopic";
 import ConnectWithUs from "./pages/Home/ConnectWithUs";
 import ChangePassword from "./components/Dashboard/ChangePassword";
+import EditProfile from "./components/Dashboard/EditProfile";
 const App = () => {
   const { loading } = useSelector((state) => state.alerts);
 
@@ -55,6 +56,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <ViewTestScore />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/editProfile"
+              element={
+                <ProtectedRoute>
+                  <EditProfile />
                 </ProtectedRoute>
               }
             />

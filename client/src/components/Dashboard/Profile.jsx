@@ -3,15 +3,16 @@ import { MdOutlineCancel } from "react-icons/md";
 import avatar from "../../assets/Dashboard/avatar.jpg";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsClicked } from "../../redux/features/navlinkSlice";
 import { SERVER_URL } from "../../Service/helper";
+import { FiEdit } from "react-icons/fi";
 const Profile = () => {
   const currentColor = "#03C9D7";
   const currentColor2 = "#374151";
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const { user } = useSelector((state) => state.user);
 
   // logout funtion
@@ -31,6 +32,7 @@ const Profile = () => {
     <div className="nav-item absolute right-1 top-16 bg-gray-100 p-8 rounded-lg w-96">
       <div className="flex justify-between items-center">
         <p className="font-bold text-lg text-gray-600">User Profile</p>
+
         <Button
           icon={<MdOutlineCancel />}
           color="rgb(110 120 125)"
@@ -47,7 +49,18 @@ const Profile = () => {
           alt="user-profile"
         />
         <div>
-          <p className="font-semibold text-xl"> {user?.name} </p>
+          <div className="flex items-center justify-between mx-auto">
+            <p className="font-semibold text-xl mr-14"> {user?.name} </p>
+
+            <Link
+              to={`/editProfile?mentor._id=${user._id}`}
+              className="text-sm flex items-center"
+            >
+              Edit
+              <FiEdit className="ml-1" />
+            </Link>
+          </div>
+
           <p className="text-gray-600 text-sm"> {user.role} </p>
           <p className="text-gray-600 text-sm font-semibold"> {user?.email} </p>
         </div>
