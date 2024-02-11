@@ -60,7 +60,7 @@ const Student = () => {
       axios
         .get(`${BASE_URL}/getClassScheduleByMentorId?mentorId=${userId}`)
         .then((res1) => {
-          // console.log("Fetched class schedule data:", res1.data); // Log fetched data
+          console.log("Fetched class schedule data:", res1.data); // Log fetched data
           setClassSchedule(res1.data);
         })
         .catch((err) => {
@@ -169,7 +169,10 @@ const Student = () => {
                 <tbody className="text-center">
                   {classSchedule && classSchedule.length > 0 ? (
                     classSchedule[0].schedule.map((scheduleItem, index) => {
-                      if (scheduleItem.mentor === userId) {
+                      if (
+                        scheduleItem.mentor === userId ||
+                        scheduleItem.mentor1 === userId
+                      ) {
                         return (
                           <tr key={index}>
                             <td className="border px-4 py-2">
@@ -219,7 +222,7 @@ const Student = () => {
                   <tbody className="text-center">
                     {lineSchedule && lineSchedule.length > 0 ? (
                       lineSchedule[0].schedule.map((scheduleItem, index) => {
-                        if (scheduleItem.pickup === userId) {
+                        if (scheduleItem.pickup === userId ||scheduleItem.pickup1 === userId) {
                           return (
                             <tr key={index}>
                               {/* <td className="border px-4 py-2">
@@ -263,7 +266,7 @@ const Student = () => {
                   <tbody className="text-center">
                     {lineSchedule1 && lineSchedule1.length > 0 ? (
                       lineSchedule1[0].schedule.map((scheduleItem, index) => {
-                        if (scheduleItem.drop === userId) {
+                        if (scheduleItem.drop === userId||scheduleItem.drop1 === userId) {
                           return (
                             <tr key={index}>
                               {/* <td className="border px-4 py-2">

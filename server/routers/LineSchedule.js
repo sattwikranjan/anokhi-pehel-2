@@ -43,11 +43,17 @@ router.get("/getClassScheduleByMentorId", async (req, res) => {
   try {
     const mentorId = req.query.mentorId;
     const classSchedule = await Schedule.find(
-      { "schedule.mentor": mentorId },
+      {
+        $or: [
+          { "schedule.mentor": mentorId },
+          { "schedule.mentor1": mentorId },
+        ],
+      },
       {
         className: 1,
         "schedule.day": 1,
         "schedule.mentor": 1,
+        "schedule.mentor1": 1,
         "schedule.subject": 1,
         _id: 0,
       }
@@ -69,10 +75,16 @@ router.get("/getLineScheduleByMentorId", async (req, res) => {
   try {
     const mentorId = req.query.mentorId;
     const lineSchedule = await LineSchedule.find(
-      { "schedule.pickup": mentorId },
+      {
+        $or: [
+          { "schedule.pickup": mentorId },
+          { "schedule.pickup1": mentorId },
+        ],
+      },
       {
         location: 1,
         "schedule.pickup": 1,
+        "schedule.pickup1": 1,
         "schedule.day": 1,
 
         _id: 0,
@@ -96,10 +108,13 @@ router.get("/getLineSchedule1ByMentorId", async (req, res) => {
     const mentorId = req.query.mentorId;
 
     const lineSchedule = await LineSchedule.find(
-      { "schedule.drop": mentorId },
+      {
+        $or: [{ "schedule.drop": mentorId }, { "schedule.drop1": mentorId }],
+      },
       {
         location: 1,
         "schedule.drop": 1,
+        "schedule.drop1": 1,
         "schedule.day": 1,
 
         _id: 0,

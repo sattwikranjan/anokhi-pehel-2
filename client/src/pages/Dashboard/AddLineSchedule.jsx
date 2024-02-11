@@ -24,6 +24,8 @@ const AddLineSchedule = () => {
       day,
       pickup: "",
       drop: "",
+      pickup1: "",
+      drop1: "",
     })),
   });
 
@@ -59,6 +61,8 @@ const AddLineSchedule = () => {
               day,
               pickup: "",
               drop: "",
+              pickup1: "",
+              drop1: "",
             })),
           });
         } else if (res.data === "Schedule for this location already exists") {
@@ -171,6 +175,60 @@ const AddLineSchedule = () => {
                               placeholder="Drop"
                               name="drop"
                               value={daySchedule.drop}
+                              onChange={(e) => onChange(e, index)}
+                            >
+                              <option value="">Select a mentor</option>
+                              {userNames
+                                .sort((a, b) => a.name.localeCompare(b.name))
+                                .map((user) => (
+                                  <option key={user._id} value={user._id}>
+                                    {user.name}
+                                  </option>
+                                ))}
+                            </select>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 sm:gap-y-0 sm:gap-x-6">
+                          {/* Pickup select input */}
+                          <div className="mt-2 sm:mt-0">
+                            <label
+                              htmlFor={`mentor${index}`}
+                              className="block text-sm font-medium leading-6 text-gray-900"
+                            >
+                              Pickup1
+                            </label>
+                            <select
+                              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                              placeholder="Pickup1"
+                              name="pickup1"
+                              value={daySchedule.pickup1}
+                              onChange={(e) => onChange(e, index)}
+                            >
+                              <option value="">Select a mentor</option>
+                              {userNames
+                                .sort((a, b) => a.name.localeCompare(b.name))
+                                .map((user) => (
+                                  <option key={user._id} value={user._id}>
+                                    {user.name}
+                                  </option>
+                                ))}
+                            </select>
+                          </div>
+
+                          {/* Drop select input */}
+                          <div className="mt-2 sm:mt-0">
+                            <label
+                              htmlFor={`mentor${index}`}
+                              className="block text-sm font-medium leading-6 text-gray-900"
+                            >
+                              Drop1
+                            </label>
+                            <select
+                              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                              placeholder="Drop1"
+                              name="drop1"
+                              value={daySchedule.drop1}
                               onChange={(e) => onChange(e, index)}
                             >
                               <option value="">Select a mentor</option>

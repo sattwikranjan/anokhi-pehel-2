@@ -25,6 +25,7 @@ const AddClassSchedule = () => {
       day,
       subject: "",
       mentor: "",
+      mentor1: "",
     })),
   });
 
@@ -59,6 +60,7 @@ const AddClassSchedule = () => {
               day,
               subject: "",
               mentor: "",
+              mentor1: "",
             })),
           });
         }
@@ -154,9 +156,34 @@ const AddClassSchedule = () => {
                                 ))}
                             </select>
                           </div>
-                          
 
                           {/* Drop select input */}
+
+                          <div className="mt-2 sm:mt-0">
+                            <label
+                              htmlFor={`mentor${index}`}
+                              className="block text-sm font-medium leading-6 text-gray-900"
+                            >
+                              Mentor1
+                            </label>
+                            <select
+                              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                              name="mentor1"
+                              placeholder="Mentor1"
+                              value={daySchedule.mentor1}
+                              onChange={(e) => onChange(e, index)}
+                            >
+                              <option value="">Select a mentor</option>
+                              {userNames
+                                .sort((a, b) => a.name.localeCompare(b.name))
+                                .map((user) => (
+                                  <option key={user._id} value={user._id}>
+                                    {user.name}
+                                  </option>
+                                ))}
+                            </select>
+                          </div>
+
                           <div className="mt-2 sm:mt-0">
                             <label
                               htmlFor={`mentor${index}`}
@@ -171,12 +198,14 @@ const AddClassSchedule = () => {
                               value={daySchedule.subject}
                               onChange={(e) => onChange(e, index)}
                             >
-                              <option value="">Select a mentor</option>
-                              {userNames
-                                .sort((a, b) => a.name.localeCompare(b.name))
-                                .map((user) => (
-                                  <option key={user._id} value={user._id}>
-                                    {user.name}
+                              <option value="">Select Subject</option>
+                              {subjects
+                                .sort((a, b) =>
+                                  a.subject.localeCompare(b.subject)
+                                )
+                                .map((subject) => (
+                                  <option key={subject.id} value={subject.id}>
+                                    {subject.subject}
                                   </option>
                                 ))}
                             </select>

@@ -122,6 +122,8 @@ const Student = () => {
                     {entry.schedule.map((scheduleItem, itemIndex) => {
                       const pickupInfo = getUserInfo(scheduleItem.pickup);
                       const dropInfo = getUserInfo(scheduleItem.drop);
+                      const pickupInfo1 = getUserInfo(scheduleItem.pickup1);
+                      const dropInfo1 = getUserInfo(scheduleItem.drop1);
                       return (
                         <tr key={`${index}-${itemIndex}`}>
                           {itemIndex === 0 ? (
@@ -134,13 +136,21 @@ const Student = () => {
                           </td>
 
                           <td className="border px-4 py-2">
-                            {pickupInfo.name}
+                            <div>{pickupInfo.name}</div>
+                            <div>{pickupInfo1.name}</div>
                           </td>
                           <td className="border px-4 py-2">
-                            {pickupInfo.phone}
+                            <div>{pickupInfo.phone}</div>
+                            <div>{pickupInfo1.phone}</div>
                           </td>
-                          <td className="border px-4 py-2">{dropInfo.name}</td>
-                          <td className="border px-4 py-2">{dropInfo.phone}</td>
+                          <td className="border px-4 py-2">
+                            <div>{dropInfo.name}</div>
+                            <div>{dropInfo1.name}</div>
+                          </td>
+                          <td className="border px-4 py-2">
+                            <div>{dropInfo.phone}</div>
+                            <div>{dropInfo1.phone}</div>
+                          </td>
                         </tr>
                       );
                     })}

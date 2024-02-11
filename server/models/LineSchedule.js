@@ -21,6 +21,14 @@ const LineScheduleSchema = new Schema({
         type: String,
         required: true,
       },
+      pickup1: {
+        type: String,
+        required: false,
+      },
+      drop1: {
+        type: String,
+        required: false,
+      },
     },
   ],
 });

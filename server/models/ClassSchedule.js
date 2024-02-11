@@ -21,6 +21,10 @@ const ScheduleSchema = new Schema({
         type: String,
         required: true,
       },
+      mentor1: {
+        type: String,
+        required: false,
+      },
     },
   ],
 });

@@ -41,7 +41,7 @@ const Student = () => {
           };
         });
         setMentorsInfo(mentorData);
-        console.log("Mentors Info:", mentorData); // Debugging
+        // console.log("Mentors Info:", mentorData); // Debugging
       })
       .catch((error) => {
         console.error("Error fetching mentors: ", error);
@@ -124,6 +124,7 @@ const Student = () => {
                   <React.Fragment key={index}>
                     {entry.schedule.map((scheduleItem, itemIndex) => {
                       const mentorInfo = getMentorInfo(scheduleItem.mentor);
+                      const mentorInfo1 = getMentorInfo(scheduleItem.mentor1);
                       return (
                         <tr key={`${index}-${itemIndex}`}>
                           {itemIndex === 0 ? (
@@ -138,10 +139,12 @@ const Student = () => {
                             {scheduleItem.subject}
                           </td>
                           <td className="border px-4 py-2">
-                            {mentorInfo.name}
+                            <div>{mentorInfo.name}</div>
+                            <div>{mentorInfo1.name}</div>
                           </td>
                           <td className="border px-4 py-2">
-                            {mentorInfo.phone}
+                            <div>{mentorInfo.phone}</div>
+                            <div>{mentorInfo1.phone}</div>
                           </td>
                         </tr>
                       );
