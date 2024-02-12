@@ -33,6 +33,7 @@ let upload = multer({ storage, fileFilter });
 app.use(express.urlencoded({ extended: true }));
 // Serve uploaded photos
 app.use("/uploads", express.static("uploads"));
+
 router.route("/addStudent").post(upload.single("photo"), async (req, res) => {
   const name = req.body.name;
   const className = req.body.class;
@@ -43,18 +44,9 @@ router.route("/addStudent").post(upload.single("photo"), async (req, res) => {
   const aadhar = req.body.aadhar;
   const address = req.body.address;
   const school = req.body.school;
-  console.log(req.file.filename);
+  const photo = req.file.filename;
+
   try {
-    // Process the uploaded image using sharp
-    const resizedImageBuffer = await sharp(req.file.filename)
-      .resize({
-        width: 150,
-        height: 150,
-        fit: sharp.fit.inside,
-        withoutEnlargement: true,
-      })
-      .toBuffer();
-    console.log(resizedImageBuffer);
     // Check if student with the same Aadhar number already exists
     const existingStudent = await Student.findOne({ aadhar: aadhar });
     if (existingStudent) {
@@ -63,8 +55,7 @@ router.route("/addStudent").post(upload.single("photo"), async (req, res) => {
         .json({ message: "Student with this Aadhar number already exists" });
     }
 
-    // Save the resized and compressed image buffer to the database
-    const newStudent = new Student({
+    const newStudentData = {
       name,
       className,
       phone,
@@ -74,16 +65,15 @@ router.route("/addStudent").post(upload.single("photo"), async (req, res) => {
       aadhar,
       address,
       school,
-      photo: {
-        data: resizedImageBuffer, // Store the image buffer
-        contentType: req.file.mimetype, // Store the image MIME type
-      },
-    });
+      photo,
+    };
+
+    const newStudent = new Student(newStudentData);
 
     await newStudent.save();
     res.json("Student Added");
   } catch (error) {
-    console.error("Vivek:- " + error);
+    console.error(error);
     res.status(400).json("Error: " + error.message);
   }
 });

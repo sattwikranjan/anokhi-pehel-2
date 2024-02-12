@@ -53,7 +53,7 @@ const Student = () => {
     const mentor = mentorsInfo[user_id];
     return mentor
       ? { name: mentor.name, phone: mentor.phone }
-      : { name: "Unknown", phone: "Unknown" };
+      : { name: "", phone: "" };
   };
 
   const filteredSchedule = scheduleData.filter((entry) => {
