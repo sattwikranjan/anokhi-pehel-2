@@ -36,14 +36,14 @@ const AttendanceBoxes = ({ classId }) => {
   return (
     <div className="lg:w-1/4 md:w-1/2 w-full p-4">
       {status === "True" ? (
-        <div className="border h-36 p-4 bg-blue-900 text-white font-medium flex flex-col justify-center items-center">
+        <div className="border rounded-lg h-36 p-4 bg-slate-700 text-white font-medium flex flex-col justify-center items-center">
           <p>Class {classId}</p>
           <p>Total Students: {total}</p>
           <p>Total Present Students: {present}</p>
           {/* <p> {percentage}%</p> */}
         </div>
       ) : (
-        <div className="border h-36 p-4 bg-red-800 text-white font-bold flex flex-col justify-center items-center">
+        <div className="border rounded-lg h-36 p-4 bg-red-900 text-white font-bold flex flex-col justify-center items-center">
           <p>Class {classId}</p>
           <p>Attendance not taken</p>
         </div>

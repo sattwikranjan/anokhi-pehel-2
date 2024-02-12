@@ -35,7 +35,7 @@ const Dashboard = () => {
         )}
       </div>
 
-      <div className="columns-3xs ...  flex flex-col sm:flex-row gap-16 p-10">
+      <div className="columns-3xs ...  flex flex-col sm:flex-row gap-16 p-10 ">
         <div className="flex-1 sm:w-1/2 lg:w-1/4 bg-blue-200 rounded-lg p-4 mt-4 sm:mt-0">
           <div className="flex justify-center">
             <div className="rounded-lg p-4">

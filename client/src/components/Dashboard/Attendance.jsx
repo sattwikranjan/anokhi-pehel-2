@@ -14,9 +14,8 @@ const Attendance = () => {
       setTotal(response.data.totalStudents);
       setPresent(response.data.totalPresentStudents);
       const percentagePresent = ((present / total) * 100).toFixed(2);
-   
+
       setPercentage(percentagePresent);
-    
     } catch (error) {
       setStatus("False");
       //   console.error("Error fetching attendance:", error);
@@ -33,7 +32,7 @@ const Attendance = () => {
   return (
     <div className="lg:w-1/4 md:w-1/2 w-full p-4">
       {status === "True" ? (
-        <div className="border h-36 p-4 bg-cyan-900 text-white font-medium flex flex-col justify-center items-center">
+        <div className="border rounded-lg h-36 p-4 bg-teal-800 text-white font-medium flex flex-col justify-center items-center">
           <p>Today's Attendance</p>
           <p>Total Students: {total}</p>
           <p>Total Present Students: {present}</p>
