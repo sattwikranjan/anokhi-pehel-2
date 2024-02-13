@@ -31,7 +31,7 @@ const fileFilter = (req, file, cb) => {
 
 let upload = multer({ storage, fileFilter });
 app.use(express.urlencoded({ extended: true }));
-// Serve uploaded photos
+
 app.use("/uploads", express.static("uploads"));
 
 router.route("/addStudent").post(upload.single("photo"), async (req, res) => {
