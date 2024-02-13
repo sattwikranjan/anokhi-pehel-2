@@ -48,7 +48,7 @@ const Student = () => {
     const user = userData[user_id];
     return user
       ? { name: user.name, phone: user.phone }
-      : { name: " ", phone: " " };
+      : { name: "Uknown", phone: "Unkown" };
   };
   const filteredSchedule = scheduleData.filter((entry) => {
     // Convert filterDay to lowercase for case-insensitive comparison
