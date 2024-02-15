@@ -163,4 +163,27 @@ router.post("/getStudentByUserId", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+router.delete("/deleteStudents/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Find the student by ID and delete it
+    const deletedStudent = await Student.findOneAndDelete({ _id: id });
+
+    if (deletedStudent) {
+      // If the student was found and deleted, send a success message
+      res
+        .status(200)
+        .json({ message: "Student deleted successfully", deletedStudent });
+    } else {
+      // If no student was found with the provided ID, send a 404 error
+      res.status(404).json({ error: "Student not found" });
+    }
+  } catch (error) {
+    // If an error occurs during the deletion process, send a 500 error
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 module.exports = router;

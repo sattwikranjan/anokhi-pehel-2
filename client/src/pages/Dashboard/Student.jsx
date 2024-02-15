@@ -1,5 +1,6 @@
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import Header from "../../components/Dashboard/Header";
+import { useSelector } from "react-redux";
 import {
   MdDelete,
   MdEdit,
@@ -22,7 +23,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 const Student = () => {
   const navigate = useNavigate();
-
+  const { user } = useSelector((state) => state.user);
   const [isActionsDropdownOpen, setActionsDropdownOpen] = useState(false);
   const [isFilterByClassDropdownOpen, setFilterByClassDropdownOpen] =
     useState(false);
@@ -150,6 +151,37 @@ const Student = () => {
     });
 
     doc.save("students_table.pdf");
+  };
+
+  const handleDelete = async (studentId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this student?"
+    );
+    if (confirmDelete) {
+      try {
+        // Send request to server to delete student
+        const response = await axios.delete(
+          `${BASE_URL}/deleteStudents/${studentId}`
+        );
+        if (response.status === 200) {
+          // Student deleted successfully
+          console.log("Student deleted successfully");
+          // You can perform any additional actions after successful deletion, such as updating the UI
+        } else {
+          // Handle error response from server
+          console.error(
+            "Failed to delete student:",
+            response.status,
+            response.statusText
+          );
+          // You can show an error message to the user or handle the error in any other way
+        }
+      } catch (error) {
+        // Handle network errors or other exceptions
+        console.error("Error deleting student:", error.message);
+        // You can show an error message to the user or handle the error in any other way
+      }
+    }
   };
 
   return (
@@ -392,25 +424,29 @@ const Student = () => {
                                     <span className="ml-1">View</span>
                                   </Link>
                                 </li>
-                                <li>
-                                  <a
-                                    href="#"
-                                    className="flex flex-center py-2 px-4 text-sky-600 hover:bg-sky-200"
-                                  >
-                                    <MdEdit className="mt-1" />{" "}
-                                    <span className="ml-1">Edit</span>
-                                  </a>
-                                </li>
+                                {user?.role === "Admin" && (
+                                  <li>
+                                    <a
+                                      href="#"
+                                      className="flex flex-center py-2 px-4 text-sky-600 hover:bg-sky-200"
+                                    >
+                                      <MdEdit className="mt-1" />{" "}
+                                      <span className="ml-1">Edit</span>
+                                    </a>
+                                  </li>
+                                )}
                               </ul>
-                              <div className="py-1">
-                                <a
-                                  href="#"
-                                  className="flex flex-center py-2 px-4 text-sm text-red-600 hover:bg-red-100"
-                                >
-                                  <MdDelete className="mt-1" />{" "}
-                                  <span className="ml-1">Delete</span>
-                                </a>
-                              </div>
+                              {user?.role === "Admin" && (
+                                <div className="py-1">
+                                  <button
+                                    onClick={() => handleDelete(student._id)}
+                                    className="flex flex-center py-2 px-4 text-sm text-red-600 hover:bg-red-100"
+                                  >
+                                    <MdDelete className="mt-1" />{" "}
+                                    <span className="ml-1">Delete</span>
+                                  </button>
+                                </div>
+                              )}
                             </div>
                           )}
                         </div>
