@@ -426,13 +426,13 @@ const Student = () => {
                                 </li>
                                 {user?.role === "Admin" && (
                                   <li>
-                                    <a
-                                      href="#"
+                                    <Link
+                                      to={`/editStudent?student._id=${student._id}`}
                                       className="flex flex-center py-2 px-4 text-sky-600 hover:bg-sky-200"
                                     >
                                       <MdEdit className="mt-1" />{" "}
                                       <span className="ml-1">Edit</span>
-                                    </a>
+                                    </Link>
                                   </li>
                                 )}
                               </ul>

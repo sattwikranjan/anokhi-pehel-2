@@ -42,6 +42,10 @@ const StudentSchema = new Schema({
   photo: {
     type: String,
   },
+  active: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 module.exports = mongoose.model("student", StudentSchema);
