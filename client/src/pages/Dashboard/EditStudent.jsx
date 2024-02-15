@@ -1,17 +1,21 @@
 // EditStudentPage.js
-
+import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
-
+import { BASE_URL } from "../../../src/Service/helper";
 function EditStudentPage() {
-  const { studentId } = useParams();
-  const [student, setStudent] = useState(null);
-
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const studentId = searchParams.get("student._id");
+  const [student, setStudent] = useState({ name: "" });
+  //   console.log(studentId);
   useEffect(() => {
     const fetchStudent = async () => {
       try {
-        const response = await axios.get(`/students/${studentId}`);
+        const response = await axios.get(
+          `${BASE_URL}/getstudentByUserId?studentid=${studentId}`
+        );
         setStudent(response.data);
       } catch (error) {
         console.error("Error fetching student:", error);
@@ -40,23 +44,22 @@ function EditStudentPage() {
   };
 
   return (
-    <div>
+    <DashboardLayout>
       <h2>Edit Student</h2>
-      {student && (
-        <form onSubmit={handleSubmit}>
-          <label>
-            Name:
-            <input
-              type="text"
-              name="name"
-              value={student.name}
-              onChange={handleChange}
-            />
-          </label>
-          <button type="submit">Save Changes</button>
-        </form>
-      )}
-    </div>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Name:
+          <input
+            type="text"
+            name="name"
+            value={student.name}
+            onChange={handleChange}
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          />
+        </label>
+        <button type="submit">Save Changes</button>
+      </form>
+    </DashboardLayout>
   );
 }
 
