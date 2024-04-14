@@ -2,6 +2,7 @@
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { classes, locations, modes } from "../../constants/Dashboard";
 import { BASE_URL } from "../../../src/Service/helper";
@@ -9,9 +10,10 @@ function EditStudentPage() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const studentId = searchParams.get("student._id");
+  let navigate = useNavigate();
   const [student, setStudent] = useState({
     name: "",
-    class: "",
+    className: "",
     location: "",
     mode: "",
     phone: "",
@@ -41,8 +43,13 @@ function EditStudentPage() {
     e.preventDefault();
     try {
       // Send request to update student data
-      const response = await axios.put(`/students/${studentId}`, student);
-      console.log("Student updated successfully:", response.data);
+      const response = await axios.put(
+        `${BASE_URL}/updateStudent?studentid=${studentId}`,
+        student
+      );
+      alert("Student updated successfully");
+      navigate("/Students");
+      // console.log("Student updated successfully:", response.data);
       // Redirect to student details page or show a success message
     } catch (error) {
       console.error("Error updating student:", error);
@@ -77,7 +84,7 @@ function EditStudentPage() {
             <label>
               Class:
               <select
-                name="class"
+                name="className"
                 value={student.className}
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"

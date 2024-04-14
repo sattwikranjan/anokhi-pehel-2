@@ -50,6 +50,7 @@ router.post("/submitAttendance", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 router.get("/attendance", async (req, res) => {
   const { classId } = req.query;
   const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format

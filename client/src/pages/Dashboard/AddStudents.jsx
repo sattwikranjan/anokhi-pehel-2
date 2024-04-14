@@ -38,7 +38,6 @@ const AddStudent = () => {
 
         if (res.data === "Student Added") {
           alert("Student submitted successfully!");
-
           setCredentials({
             name: "",
             class: "",
@@ -50,9 +49,16 @@ const AddStudent = () => {
             address: "",
             photo: "",
           });
+        } else if (
+          res.data === "Student with this Aadhar number already exists"
+        ) {
+          alert("Student with this Aadhar number already exists");
+        } else {
+          alert("Student Not Added!");
         }
       })
       .catch((err) => {
+        alert("ALL INPUT IS NOT FILLED");
         console.log("error", err);
       });
   };

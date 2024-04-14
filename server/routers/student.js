@@ -50,9 +50,7 @@ router.route("/addStudent").post(upload.single("photo"), async (req, res) => {
     // Check if student with the same Aadhar number already exists
     const existingStudent = await Student.findOne({ aadhar: aadhar });
     if (existingStudent) {
-      return res
-        .status(400)
-        .json({ message: "Student with this Aadhar number already exists" });
+      return res.json("Student with this Aadhar number already exists");
     }
 
     const newStudentData = {
@@ -73,8 +71,8 @@ router.route("/addStudent").post(upload.single("photo"), async (req, res) => {
     await newStudent.save();
     res.json("Student Added");
   } catch (error) {
-    console.error(error);
-    res.status(400).json("Error: " + error.message);
+    // console.error(error);
+    res.json("ALL INPUT IS NOT FILLED");
   }
 });
 
@@ -161,6 +159,25 @@ router.post("/getStudentByUserId", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+// Route to update student details by ID
+router.put("/updateStudent", async (req, res) => {
+  try {
+    const id = req.body._id;
+    console.log(id);
+    console.log(req.body);
+    // const { id } = req.params;
+    const updatedStudent = await Student.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    if (!updatedStudent) {
+      return res.status(404).json({ error: "Student not found" });
+    }
+    res.json(updatedStudent);
+  } catch (error) {
+    console.error("Error updating student:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

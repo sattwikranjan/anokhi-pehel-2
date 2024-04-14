@@ -31,12 +31,12 @@ const Billing = () => {
           Be the change <br className="sm:block hidden" /> you want to see in
           the world!
         </h2>
-        <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
+        <h6 className={`${styles.paragraph} max-w-[470px] mt-5`}>
           This timeless adage, often attributed to Mahatma Gandhi, encapsulates
           the essence of proactive involvement and personal responsibility. It
           urges individuals to step forward, take action, and lead by example to
           create the positive change they desire in society.
-        </p>
+        </h6>
         <Button styles={`mt-10`} text="Connect With Us!" func={connectWithUs} />
         {/* <div className="flex flex-row flex-wrap sm:mt-10 mt-6">
         <img src={apple} alt="google_play" className="w-[128.86px] h-[42.05px] object-contain mr-5 cursor-pointer" />
