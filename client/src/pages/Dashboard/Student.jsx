@@ -1,6 +1,7 @@
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import Header from "../../components/Dashboard/Header";
 import { useSelector } from "react-redux";
+import Loader from "../../components/Dashboard/Loader.jsx";
 import {
   MdDelete,
   MdEdit,
@@ -23,6 +24,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 const Student = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useSelector((state) => state.user);
   const [isActionsDropdownOpen, setActionsDropdownOpen] = useState(false);
   const [isFilterByClassDropdownOpen, setFilterByClassDropdownOpen] =
@@ -70,9 +72,10 @@ const Student = () => {
       try {
         const response = await axios.get(`${BASE_URL}/studentList`);
         setStudents(response.data);
-        // console.log(students);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false); // Set loading state to false once data is fetched
       }
     };
     fetchData();
@@ -186,6 +189,7 @@ const Student = () => {
 
   return (
     <DashboardLayout>
+      {isLoading && <Loader />}
       <div className="mt-5 p-2 md:p-10 bg-white rounded-3xl">
         <Header category="Academics" title="Students" />
         <div className="mx-auto max-w-screen-xl">
