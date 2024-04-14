@@ -4,7 +4,9 @@ import axios from "axios";
 import { classes, locations, modes } from "../../constants/Dashboard";
 import { BASE_URL } from "../../../src/Service/helper";
 import "react-datepicker/dist/react-datepicker.css";
+import Loader from "../../components/Dashboard/Loader";
 const AddStudent = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [credentials, setCredentials] = useState({
     name: "",
     class: "",
@@ -19,6 +21,7 @@ const AddStudent = () => {
   });
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     const formData = new FormData();
     formData.append("name", credentials.name);
     formData.append("class", credentials.class);
@@ -60,6 +63,9 @@ const AddStudent = () => {
       .catch((err) => {
         alert("ALL INPUT IS NOT FILLED");
         console.log("error", err);
+      })
+      .finally(() => {
+        setIsLoading(false); // Set loading state to false when response is received
       });
   };
   const onChange = (e) => {
