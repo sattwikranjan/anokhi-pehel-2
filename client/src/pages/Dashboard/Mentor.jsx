@@ -2,6 +2,7 @@ import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import Header from "../../components/Dashboard/Header";
 import Button from "../../components/Dashboard/Button";
 import { useNavigate, Link } from "react-router-dom";
+import Loader from "../../components/Dashboard/Loader.jsx";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import jsPDF from "jspdf";
@@ -9,6 +10,7 @@ import "jspdf-autotable";
 import { BASE_URL } from "../../Service/helper";
 import { useSelector } from "react-redux";
 const Mentor = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const currentColor = "#03C9D7";
   let navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
@@ -23,13 +25,15 @@ const Mentor = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const response = await axios.get(`${BASE_URL}/mentorList`);
         setMentors(response.data);
         // console.log(users);
       } catch (error) {
+        setIsLoading(false);
         console.log(error);
       } finally {
-        // setLoading(false);
+        setIsLoading(false);
       }
     };
 
@@ -64,6 +68,7 @@ const Mentor = () => {
 
   return (
     <DashboardLayout>
+      {isLoading && <Loader />}
       <div className="m-2 md:m-5 mt-12 p-2 md:p-0 bg-white rounded-3xl flex flex-row justify-between items-center">
         <Header category="Academics" title="Mentors" />
         <div>

@@ -70,6 +70,7 @@ const Student = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const response = await axios.get(`${BASE_URL}/studentList`);
         setStudents(response.data);
       } catch (error) {
