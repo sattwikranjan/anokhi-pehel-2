@@ -3,16 +3,17 @@ import axios from "axios";
 import { BASE_URL } from "../../Service/helper";
 const AttendanceBoxes = ({ classId }) => {
   const [status, setStatus] = useState("True");
+  const [status1, setStatus1] = useState("True");
   const [total, setTotal] = useState(0);
   const [present, setPresent] = useState(0);
   const [percentage, setPercentage] = useState(0);
-  // Function to fetch today's attendance based on class ID
   const fetchAttendance = async () => {
     try {
       const response = await axios.get(
         `${BASE_URL}/attendance?classId=${classId}`
       );
       // Assuming the API returns an array of attendance data
+
       setTotal(response.data.totalStudents);
       setPresent(response.data.totalPresentStudents);
       const percentagePresent = ((present / total) * 100).toFixed(2);
@@ -24,10 +25,28 @@ const AttendanceBoxes = ({ classId }) => {
     }
   };
 
+  // fetch the topic covered today in that class
+  const [topicCovered, setTopicCovered] = useState("NA");
+  const fetchTopicCovered = async () => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/topicCovered?classId=${classId}`
+      );
+      // console.log(response.data);
+      // console.log(response.data.topicsCovered[0].topic);
+      setTopicCovered(response.data.topicsCovered[0].topic);
+      console.log(topicCovered);
+    } catch (error) {
+      setStatus1("False");
+      //   console.error("Error fetching attendance:", error);
+    }
+  };
+
   // Fetch attendance data on component mount or when classId changes
   useEffect(() => {
     if (classId) {
       fetchAttendance();
+      fetchTopicCovered();
     }
   }, [classId]);
 
@@ -40,7 +59,7 @@ const AttendanceBoxes = ({ classId }) => {
           <p>Class {classId}</p>
           <p>Total Students: {total}</p>
           <p>Total Present Students: {present}</p>
-          {/* <p> {percentage}%</p> */}
+          <p>Topic Covered: {topicCovered}</p>
         </div>
       ) : (
         <div className="border rounded-lg h-36 p-4 bg-red-900 text-white font-bold flex flex-col justify-center items-center">
@@ -48,6 +67,15 @@ const AttendanceBoxes = ({ classId }) => {
           <p>Attendance not taken</p>
         </div>
       )}
+      {/* {status1 === "True" ? (
+        <div className="border rounded-lg h-36 p-4 bg-slate-700 text-white font-medium flex flex-col justify-center items-center">
+          <p>Topic Covered: {topicCovered}</p>
+        </div>
+      ) : (
+        <div className="border rounded-lg h-36 p-4 bg-red-900 text-white font-bold flex flex-col justify-center items-center">
+          <p>Today's topic not updated</p>
+        </div>
+      )} */}
     </div>
   );
 };

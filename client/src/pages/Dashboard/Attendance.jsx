@@ -2,7 +2,7 @@ import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { classes, subjects } from "../../constants/Dashboard";
+import { classes } from "../../constants/Dashboard";
 import { BASE_URL } from "../../../src/Service/helper";
 import { useSelector } from "react-redux";
 
@@ -33,7 +33,7 @@ const Attendance = () => {
           date: credentials.date,
         },
       });
-      //   console.log(response.data);
+      console.log(response.data);
       if (response.status === 200 && response.data.students.length > 0) {
         const firstStudent = response.data.students[0];
         console.log(firstStudent.attendance);
@@ -75,7 +75,7 @@ const Attendance = () => {
     axios
       .get(`${BASE_URL}/studentList`)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setStudents(response.data); // Set the students data in state
       })
       .catch((error) => {

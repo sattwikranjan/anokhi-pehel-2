@@ -33,7 +33,7 @@ const FindTopic = () => {
           subject,
         },
       });
-      console.log(response.data);
+      // console.log(response.data);
       const { topics: receivedTopics } = response.data;
 
       if (Array.isArray(receivedTopics)) {
@@ -137,41 +137,31 @@ const FindTopic = () => {
                 {credentials.subject}
               </h3>
               <ul className="mt-4">
-                {topics.map((topic) => (
-                  <li
-                    key={topic._id}
-                    className="bg-white shadow-md rounded-lg p-4 mb-4"
-                  >
-                    {/* Display the details of each topic */}
-                    <table className="min-w-full border border-gray-300">
-                      <thead>
-                        <tr className="bg-gray-800 text-white">
-                          <th className="py-2 px-4">S.No</th>
-                          <th className="py-2 px-4">Date</th>
-                          <th className="py-2 px-4">Topic</th>
-                          <th className="py-2 px-4">Mentor</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {topics.map((topic, index) => (
-                          <tr
-                            key={topic._id}
-                            className={
-                              index % 2 === 0 ? "bg-gray-100" : "bg-white"
-                            }
-                          >
-                            <td className="py-2 px-4">{index + 1}</td>
-                            <td className="py-2 px-4">
-                              {new Date(topic.date).toLocaleDateString()}
-                            </td>
-                            <td className="py-2 px-4">{topic.topic}</td>
-                            <td className="py-2 px-4">{topic.mentorName}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </li>
-                ))}
+                <table className="min-w-full border border-gray-300">
+                  <thead>
+                    <tr className="bg-gray-800 text-white">
+                      <th className="py-2 px-4">S.No</th>
+                      <th className="py-2 px-4">Date</th>
+                      <th className="py-2 px-4">Topic</th>
+                      <th className="py-2 px-4">Mentor</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {topics.map((topic, index) => (
+                      <tr
+                        key={topic._id}
+                        className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
+                      >
+                        <td className="py-2 px-4">{index + 1}</td>
+                        <td className="py-2 px-4">
+                          {new Date(topic.date).toLocaleDateString()}
+                        </td>
+                        <td className="py-2 px-4">{topic.topic}</td>
+                        <td className="py-2 px-4">{topic.mentorName}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </ul>
             </div>
           </div>

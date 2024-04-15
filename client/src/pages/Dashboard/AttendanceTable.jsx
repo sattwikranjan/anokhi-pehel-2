@@ -2,31 +2,48 @@ import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { classes, subjects } from "../../constants/Dashboard";
+import { classes, months } from "../../constants/Dashboard";
 import { BASE_URL } from "../../../src/Service/helper";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 const Attendance = () => {
-  // ...
+  const navigate = useNavigate();
 
-  const [month, setMonth] = useState("");
-  const [monthlyAttendance, setMonthlyAttendance] = useState([]);
+  const { user } = useSelector((state) => state.user);
 
-  // ...
+  const [credentials, setCredentials] = useState({
+    class: "",
+    month: "",
+  });
 
-  const fetchAttendanceData = async (selectedClass, selectedMonth) => {
+  const [status, setStatus] = useState("True");
+  const [students, setStudents] = useState([]);
+  const [studentsAttendance, setStudentsAttendance] = useState([]);
+
+  useEffect(() => {
+    if (credentials.class) {
+      fetchAttendanceData(credentials.class);
+    }
+  }, [credentials.class]);
+  const fetchAttendanceData = async (value) => {
     try {
-      const response = await axios.get(`${BASE_URL}/totalAttendance1`, {
+      const response = await axios.get(`${BASE_URL}/monthTotalAttendance`, {
         params: {
           classId: credentials.class,
-          month: selectedMonth,
+          month: credentials.month,
         },
       });
-
-      // Assuming response contains data for the entire month for each student
-      if (response.status === 200 && response.data.length > 0) {
-        setMonthlyAttendance(response.data); // Set monthly attendance data in state
-        setStatus("True");
+      console.log(response.data);
+      if (response.status === 200 && response.data.students.length > 0) {
+        if (firstStudent && Array.isArray(firstStudent)) {
+          setStudentsAttendance(firstStudent);
+          fetchStudents(value);
+          setStatus("True");
+        } else {
+          setStatus("False");
+          console.error("Attendance data structure invalid");
+        }
       } else {
         setStatus("False");
         console.error("No attendance data or invalid response");
@@ -37,43 +54,31 @@ const Attendance = () => {
     }
   };
 
-  // ... (rest of the code remains the same)
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const getAttendanceForStudent = (studentId) => {
-    const studentAttendance = monthlyAttendance.find(
-      (attendance) => attendance.studentId === studentId
-    );
-    return studentAttendance ? studentAttendance.attendance : [];
+    fetchAttendanceData();
   };
-  const daysInMonth = (year, month) => {
-    // month is 0-based, so we need to subtract 1 from the selected month
-    return new Date(year, month, 0).getDate();
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setCredentials({ ...credentials, [name]: value });
+    if (name === "class") {
+      //   fetchStudents(value);
+      fetchAttendanceData(value);
+    }
   };
-  // Dynamically generate the attendance table
-  const renderAttendanceTable = () => {
-    const totalDays = daysInMonth(selectedYear, selectedMonth + 1);
-    const attendanceTable = students.map((student) => {
-      const studentAttendance = getAttendanceForStudent(student._id);
-      const attendanceCells = [];
-      for (let i = 1; i <= daysInMonth; i++) {
-        const attendanceForDay = studentAttendance.find(
-          (attendance) => attendance.date === i
-        );
-        const status = attendanceForDay ? attendanceForDay.status : "";
-        attendanceCells.push(
-          <td key={`${student._id}-${i}`} className="py-2 px-4">
-            {status === "A" ? "Absent" : status === "P" ? "Present" : ""}
-          </td>
-        );
-      }
-      return (
-        <tr key={student._id} className="text-center">
-          <td className="py-2 px-4">{student.name}</td>
-          {attendanceCells}
-        </tr>
-      );
-    });
-    return attendanceTable;
+
+  const fetchStudents = (selectedClass) => {
+    axios
+      .get(`${BASE_URL}/studentList`)
+      .then((response) => {
+        // console.log(response.data);
+        setStudents(response.data); // Set the students data in state
+      })
+      .catch((error) => {
+        console.error("Error fetching students:", error);
+      });
   };
 
   return (
@@ -89,21 +94,29 @@ const Attendance = () => {
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-2 sm:col-start-1">
                   <label
-                    htmlFor="class"
+                    htmlFor="month"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Date
+                    Month
                   </label>
                   <div className="mt-2">
-                    <input
-                      type="date"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                      name="date"
-                      value={credentials.date}
+                    <select
+                      name="month"
+                      id="month"
+                      value={credentials.month}
                       onChange={onChange}
-                    />
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    >
+                      <option value="">Select a month</option>
+                      {months.map((month, index) => (
+                        <option key={index} value={month.value}>
+                          {month.label}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
+
                 <div className="sm:col-span-2">
                   <label
                     htmlFor="region"
@@ -132,26 +145,54 @@ const Attendance = () => {
               </div>
             </div>
           </div>
+
           {status === "True" && (
             <div className="overflow-x-auto">
               <h2 className="text-lg font-semibold mb-4">
-                Attendance for Class {credentials.class} in {months[month]}
+                Attendance for Class {credentials.class} in{" "}
+                {months.find((m) => m.value === credentials.month)?.label}
               </h2>
               <table className="min-w-full bg-gray-100">
                 <thead className="bg-gray-800 text-white">
                   <tr>
                     <th className="py-3 px-4">Student Name</th>
-                    {/* Dynamically generate headers for days in the month */}
-                    {Array.from({ length: daysInMonth }, (_, i) => i + 1).map(
-                      (day) => (
-                        <th key={`day-${day}`} className="py-3 px-4">
-                          {day}
-                        </th>
-                      )
-                    )}
+                    {/* Generate table headers for each day of the month */}
+                    {Array.from({
+                      length: moment(credentials.month, "MM").daysInMonth(),
+                    }).map((_, index) => (
+                      <th key={index} className="py-3 px-4">
+                        {index + 1} {/* Day number */}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
-                <tbody>{renderAttendanceTable()}</tbody>
+                <tbody>
+                  {studentsAttendance.map((student) => (
+                    <tr key={student.studentId} className="text-center">
+                      <td className="py-2 px-4">
+                        {(
+                          students &&
+                          students.find((s) => s._id === student.studentId)
+                        )?.name || "Unknown"}
+                      </td>
+                      {/* Generate attendance status for each day of the month */}
+                      {Array.from({
+                        length: moment(credentials.month, "MM").daysInMonth(),
+                      }).map((_, dayIndex) => {
+                        const attendanceForDay = student.attendance.find(
+                          (attendance) =>
+                            moment(attendance.date).date() === dayIndex + 1
+                        );
+                        return (
+                          <td key={dayIndex} className="py-2 px-4">
+                            {attendanceForDay ? attendanceForDay.status : ""}{" "}
+                            {/* Display attendance status if available */}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
               </table>
             </div>
           )}
