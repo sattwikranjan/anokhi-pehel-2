@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Attendance = require("../models/Attendance");
+const moment = require("moment");
 
 router.post("/submitAttendance", async (req, res) => {
   try {
@@ -143,14 +144,19 @@ router.get("/totalAttendance", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-router.get("/totalAttendance1", async (req, res) => {
-  const { classId, months } = req.query;
+router.get("/monthTotalAttendance", async (req, res) => {
+  const { classId, month } = req.query;
+  // console.log("month", month);
 
   try {
-    // Fetch attendance data based on classId and date
+    // Calculate start and end dates for the selected month
+    const startOfMonth = moment(month, "MM").startOf("month").toDate();
+    const endOfMonth = moment(month, "MM").endOf("month").toDate();
+    
+    // Fetch attendance data based on classId and date range
     const attendanceData = await Attendance.find({
       classId,
-      date: { $gte: new Date(date), $lt: new Date(date + "T23:59:59.999Z") },
+      date: { $gte: startOfMonth, $lte: endOfMonth },
     });
 
     res.status(200).json({ students: attendanceData });
