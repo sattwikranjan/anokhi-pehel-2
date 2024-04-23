@@ -1,5 +1,5 @@
 const express = require("express");
-const colors = require("colors");
+require("colors");
 const dotenv = require("dotenv");
 const app = express();
 const cors = require("cors");
@@ -7,8 +7,7 @@ const path = require("path");
 dotenv.config();
 const PORT = process.env.PORT;
 const mongoDB = require("./config/db");
-const authMiddleware = require("./middlewares/authMiddleware");
-const { authController } = require("./controller/userCOntroller");
+const router = require("./routers");
 mongoDB();
 
 app.use(cors());
@@ -34,15 +33,9 @@ app.use((req, res, next) => {
 });
 app.use(express.json());
 app.use("/images", express.static("images"));
-app.use("/api/v1/user", require("./routers/login"));
-app.use("/api/v1/user", require("./routers/student"));
-app.use("/api/v1/user", require("./routers/AddUser"));
-app.use("/api/v1/user", require("./routers/AddScore"));
-app.use("/api/v1/user", require("./routers/LineSchedule"));
-app.use("/api/v1/user", require("./routers/ClassSchedule"));
-app.use("/api/v1/user", require("./routers/Attendance"));
-app.use("/api/v1/user", require("./routers/Topic"));
-app.post("/api/v1/user/getUserData", authMiddleware, authController);
+
+// Routes
+app.use("/api/v1/user", router);
 
 // Serve your static files from the Vite build
 app.use(express.static(path.join(__dirname, "../client/dist")));

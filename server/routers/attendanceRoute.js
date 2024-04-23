@@ -146,7 +146,6 @@ router.get("/totalAttendance", async (req, res) => {
 });
 router.get("/monthTotalAttendance", async (req, res) => {
   const { classId, month } = req.query;
-  // console.log("month", month);
 
   try {
     // Calculate start and end dates for the selected month
