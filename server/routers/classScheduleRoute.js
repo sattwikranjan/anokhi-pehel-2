@@ -1,5 +1,4 @@
 const express = require("express");
-
 const ClassSchedule = require("../models/ClassSchedule");
 const router = express.Router();
 

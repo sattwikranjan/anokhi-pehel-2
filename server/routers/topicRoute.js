@@ -1,15 +1,12 @@
 const express = require("express");
-
 const Topic = require("../models/Topic");
 const router = express.Router();
 
-const app = express();
 
 // Endpoint to add a topic covered
 router.post("/topicCovered", async (req, res) => {
   try {
     const { classId, date, mentorId, topic, subject } = req.body;
-    console.log(req.body);
     // Validate input data (you may want to add more robust validation)
     if (!classId || !date || !mentorId || !topic || !subject) {
       return res.status(400).json({ error: "Missing required data" });
@@ -17,7 +14,6 @@ router.post("/topicCovered", async (req, res) => {
 
     // Check if a topic with the same date and class already exists
     const existingTopic = await Topic.findOne({ classId, date });
-    console.log(existingTopic);
     if (existingTopic) {
       // If it exists, update the topic details
       existingTopic.subject = subject;

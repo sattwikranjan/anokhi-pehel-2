@@ -7,7 +7,6 @@ const Test = require("../models/TestScore"); // Import your Mongoose model
 router.post("/submitScore", async (req, res) => {
   try {
     const { classId, subject, date, scores, mentorId } = req.body;
-    console.log(scores);
     // Validate that classId is provided
     if (!classId) {
       return res.status(400).json({ error: "classId is required" });
@@ -37,7 +36,6 @@ router.post("/submitScore", async (req, res) => {
       date: incomingDate, // Compare based on date only
     });
 
-    // console.log(existingTest);
     if (existingTest) {
       // If a record exists, you can choose to update it or return an error
       // For example, you can update the existing record with new scores
@@ -81,7 +79,6 @@ router.get("/tests", async (req, res) => {
       subject: subject,
       classId: selectedClass,
     });
-    console.log(filteredTests);
     res.json(filteredTests);
   } catch (error) {
     console.error("Error fetching tests:", error);
@@ -91,11 +88,9 @@ router.get("/tests", async (req, res) => {
 
 router.get("/testsScore", async (req, res) => {
   const testId = req.query.testId;
-  console.log(testId + "vivek");
   try {
     const testDetails = await Test.findById(testId); // Fetch test details based on testId
     res.json(testDetails);
-    console.log(testDetails);
   } catch (error) {
     console.error("Error fetching test details:", error);
     res.status(500).json({ message: "Failed to fetch test details" });
@@ -105,14 +100,11 @@ router.get("/testsScore", async (req, res) => {
 router.get("/getMarksByUserId", async (req, res) => {
   try {
     const studentId = req.query.studentid;
-    // console.log(studentId);
     const marks = await Test.find({ "score.studentId": studentId });
-    // console.log(marks);
 
     if (marks && marks.length > 0) {
       res.json(marks);
     } else {
-      console.log("Data not found");
       res.json({ message: "Data not found" });
     }
   } catch (error) {

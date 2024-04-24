@@ -1,14 +1,11 @@
 const express = require("express");
 const User = require("../models/User");
-
 const router = express.Router();
 const cors = require("cors");
 const path = require("path");
 const bcrypt = require("bcryptjs");
-var jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
 const multer = require("multer");
-const jwtSecret = "HaHa";
 const app = express();
 
 app.use(cors());
@@ -112,7 +109,6 @@ router.patch("/update-mentor", upload.single("photo"), async (req, res) => {
   try {
     const { field, newValue } = req.body;
     const mentorId = req.body.userId;
-    // console.log(mentorId);
 
     // Find mentor by ID
     const mentor = await User.findById(mentorId);
@@ -174,8 +170,6 @@ router.delete("/deleteUser/:userId", async (req, res) => {
 
 router.post("/updateUserRole", async (req, res) => {
   const { id } = req.query; // Get user ID from query parameters
-  // const { role } = req.body.role; // Get new role from request body
-  // console.log(req.body.role);
   try {
     // Find the user by ID
     const user = await User.findById(id);

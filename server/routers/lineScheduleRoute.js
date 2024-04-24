@@ -1,9 +1,7 @@
 const express = require("express");
 const Schedule = require("../models/ClassSchedule");
 const LineSchedule = require("../models/LineSchedule");
-const User = require("../models/User");
 const router = express.Router();
-const cors = require("cors");
 
 router.post("/addLineSchedule", async (req, res) => {
   try {
@@ -62,7 +60,6 @@ router.get("/getClassScheduleByMentorId", async (req, res) => {
     if (classSchedule && classSchedule.length > 0) {
       res.json(classSchedule);
     } else {
-      console.log("Data not found");
       res.json({ message: "Data not found" });
     }
   } catch (error) {
@@ -94,7 +91,6 @@ router.get("/getLineScheduleByMentorId", async (req, res) => {
     if (lineSchedule && lineSchedule.length > 0) {
       res.json(lineSchedule);
     } else {
-      console.log("Data not found");
       res.json({ message: "Data not found" });
     }
   } catch (error) {
@@ -124,7 +120,6 @@ router.get("/getLineSchedule1ByMentorId", async (req, res) => {
     if (lineSchedule && lineSchedule.length > 0) {
       res.json(lineSchedule);
     } else {
-      console.log("Data not found");
       res.json({ message: "Data not found" });
     }
   } catch (error) {

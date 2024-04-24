@@ -4,7 +4,6 @@ const Test = require("../models/TestScore");
 const router = express.Router();
 const cors = require("cors");
 const path = require("path");
-const sharp = require("sharp");
 const { v4: uuidv4 } = require("uuid");
 const multer = require("multer");
 const app = express();
@@ -79,7 +78,6 @@ router.route("/addStudent").post(upload.single("photo"), async (req, res) => {
 router.get("/studentList", async (req, res) => {
   try {
     const students = await Student.find();
-    // console.log(students);
     res.json(students);
   } catch (error) {
     console.error(error);
@@ -94,7 +92,6 @@ router.get("/getstudentByUserId", async (req, res) => {
   try {
     // Query the database to retrieve the user based on the ID
     const student = await Student.findById(student_id);
-    // console.log(student);
     // Check if the user exists
     if (!student) {
       return res.status(404).json({ error: "User not found" });
@@ -110,14 +107,11 @@ router.get("/getstudentByUserId", async (req, res) => {
 router.get("/getMarksByUserId", async (req, res) => {
   try {
     const studentId = req.query.studentid;
-    // console.log(studentId);
     const marks = await Test.find({ "score.studentId": studentId });
-    // console.log(marks);
 
     if (marks && marks.length > 0) {
       res.json(marks);
     } else {
-      console.log("Data not found");
       res.json({ message: "Data not found" });
     }
   } catch (error) {
@@ -165,9 +159,6 @@ router.post("/getStudentByUserId", async (req, res) => {
 router.put("/updateStudent", async (req, res) => {
   try {
     const id = req.body._id;
-    console.log(id);
-    console.log(req.body);
-    // const { id } = req.params;
     const updatedStudent = await Student.findByIdAndUpdate(id, req.body, {
       new: true,
     });
