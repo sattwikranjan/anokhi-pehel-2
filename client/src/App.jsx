@@ -35,6 +35,7 @@ import ChangePassword from "./components/Dashboard/ChangePassword";
 import EditProfile from "./components/Dashboard/EditProfile";
 import ChangeRole from "./pages/Dashboard/ChangeRole";
 import EditStudent from "./pages/Dashboard/EditStudent";
+import ForgotPassword from "./pages/Home/ForgotPassword";
 const App = () => {
   const { loading } = useSelector((state) => state.alerts);
 
@@ -248,6 +249,14 @@ const App = () => {
                 </PublicRoute>
               }
             />
+            <Route
+                path="/forgotPassword"
+                element={
+                  <PublicRoute>
+                    <ForgotPassword />
+                  </PublicRoute>
+                }
+              />
             <Route
               path="/blog"
               element={
