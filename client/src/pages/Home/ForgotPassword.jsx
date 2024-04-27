@@ -17,8 +17,10 @@ const ForgotPassword = () => {
         try {
             
             // Send forgot password request to backend
-            await axios.post(`${BASE_URL}/forgot-password`, { email });
-            setMessage("Password reset instructions sent to your email.");
+            const response = await axios.post(`${BASE_URL}/forgot-password`, { email });
+            console.log(response)
+            setMessage(response.data.message);
+            //setMessage("Password reset instructions sent to your email.");
             
         } catch (error) {
             console.error("Error:", error.response.data);
@@ -85,19 +87,6 @@ const ForgotPassword = () => {
         </div>
       </div>
     </section>
-        // <div>
-        //     <h2>Forgot Password</h2>
-        //     <form onSubmit={handleSubmit}>
-        //         <div>
-        //             <label>Email</label>
-        //             <input type="email" value={email} onChange={handleChange} required />
-        //         </div>
-        //         <button type="submit" disabled={loading}>
-        //             Reset Password
-        //         </button>
-        //     </form>
-        //     {message && <p>{message}</p>}
-        // </div>
     );
 };
 

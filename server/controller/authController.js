@@ -74,8 +74,8 @@ var transporter = nodemailer.createTransport({
   port: 587,
   secure: false, // Use `true` for port 465, `false` for all other ports
   auth: {
-    user: `${process.env.email}`,
-    pass: `${process.env.password}`,
+    user: process.env.email,
+    pass: process.env.password,
   },
 });
 
@@ -98,7 +98,7 @@ const forgotPassword = async (req, res) => {
     var mailOptions = {
       from: `Anokhi Pehel <${process.env.email}>`,
       to: `${email}`,
-      subject: "Change your login password",
+      subject: "Reset your login password",
       text: `Dear User,
 
       You have requested to reset your password. Please follow the link below to reset your password:
@@ -114,14 +114,23 @@ const forgotPassword = async (req, res) => {
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
-        console.log(error);
+        return res.status(500).send({
+          message: "Something went wrong",
+          success: false,
+        });
       } else {
         //console.log(link);
-        return res.status(200).send(link);
+        return res.status(200).send({
+          message: "Password reset instructions sent to your email.",
+          success: true,
+        });
       }
     });
   } catch (error) {
-    console.log(error);
+    return res.status(500).send({
+      message: "Something went wrong",
+      success: false,
+    });
   }
 };
 
@@ -172,7 +181,10 @@ const resetPassword = async (req, res) => {
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
-        console.log(error);
+        return res.status(500).send({
+          message: "Something went wrong",
+          success: false,
+        });
       } else {
         console.log(password);
         return res
