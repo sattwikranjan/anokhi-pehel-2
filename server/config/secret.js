@@ -6,7 +6,12 @@ const generateToken = (userId) => {
 };
 
 const verifyToken = (token) => {
-    return jwt.verify(token, JWT_KEY);
-}
+  return jwt.verify(token, JWT_KEY);
+};
 
-module.exports = {generateToken, verifyToken};
+//function to generate a temporary token valid for only 30 minutes
+const generateTempToken = (userId) => {
+  return jwt.sign({ user: { id: userId } }, JWT_KEY, { expiresIn: "30m" });
+};
+
+module.exports = { generateToken, verifyToken, generateTempToken };

@@ -37,6 +37,9 @@ export default function Login() {
     }
   };
 
+  const handleForgotPassword = () => {
+    navigate("/forgotPassword");
+  };
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
@@ -97,6 +100,13 @@ export default function Login() {
                 text="Sign in"
                 styles="w-full bg-primary-600"
                 func={handleSubmit}
+              />
+              <Button
+                color="white"
+                text="Forgot Password"
+                borderRadius="10px"
+                width="full"
+                func={handleForgotPassword}
               />
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}

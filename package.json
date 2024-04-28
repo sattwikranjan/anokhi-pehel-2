@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install":"cd client && npm install && cd ../server && npm install",
+    "install": "cd client && npm install && cd ../server && npm install",
     "build": "cd client && npm run build",
     "start": "cd server && node index.js"
   },
@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/hey-aayush/anokhi-pehel/issues"
   },
-  "homepage": "https://github.com/hey-aayush/anokhi-pehel#readme"
+  "homepage": "https://github.com/hey-aayush/anokhi-pehel#readme",
+  "dependencies": {
+    "sharp": "^0.33.3"
+  }
 }
