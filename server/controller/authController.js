@@ -1,11 +1,13 @@
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
-const jwtSecret = "HaHa";
 const generator = require("generate-password");
-const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-const { generateToken, verifyToken } = require("../config/secret");
+const {
+  generateToken,
+  verifyToken,
+  generateTempToken,
+} = require("../config/secret");
 
 const login = async (req, res) => {
   let success = false;
@@ -68,6 +70,7 @@ const getUserData = async (req, res) => {
   }
 };
 
+//Authenticate the email id and password from which mail will be sent
 var transporter = nodemailer.createTransport({
   //service: 'gmail',
   host: "smtp.gmail.com",
@@ -79,9 +82,11 @@ var transporter = nodemailer.createTransport({
   },
 });
 
+//Generate link with temporary token to reset the password
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
   try {
+    //check if an account is accossiated with entered email id
     const oldUser = await User.findOne({ email });
     if (!oldUser) {
       return res.status(200).send({
@@ -89,12 +94,13 @@ const forgotPassword = async (req, res) => {
         success: false,
       });
     }
-    const secret = jwtSecret + oldUser.password;
-    const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, {
-      expiresIn: "30m",
-    });
-    const link = `https://anokhi-pehel.azurewebsites.net/api/v1/user/reset-password/${oldUser._id}/${token}`;
 
+    //Generate token if correct email id and create a link which calls API to reset password
+    const token = generateTempToken(oldUser.id);
+    const link = `https://anokhi-pehel.azurewebsites.net/api/v1/user/reset-password/${oldUser._id}/${token}`;
+    //const link = `http://localhost:8080/api/v1/user/reset-password/${oldUser._id}/${token}`;
+
+    //The mail content to be sent to user
     var mailOptions = {
       from: `Anokhi Pehel <${process.env.email}>`,
       to: `${email}`,
@@ -112,6 +118,7 @@ const forgotPassword = async (req, res) => {
       Anokhi Pehel`,
     };
 
+    //Function to send mail
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         return res.status(500).send({
@@ -134,6 +141,7 @@ const forgotPassword = async (req, res) => {
   }
 };
 
+//TO reset password
 const resetPassword = async (req, res) => {
   const { id, token } = req.params;
   const oldUser = await User.findOne({ _id: id });
@@ -143,14 +151,18 @@ const resetPassword = async (req, res) => {
       success: false,
     });
   }
-  const secret = jwtSecret + oldUser.password;
+  // const secret = jwtSecret + oldUser.password;
+
+  //Generation of a random password
   const password = generator.generate({
     length: 10,
     numbers: true,
   });
   //console.log(password);
   try {
-    const verify = jwt.verify(token, secret);
+    //verify the token received as param
+    const verify = verifyToken(token);
+    //Hashing and updation of password in database
     const hashedPassword = await bcrypt.hash(password, 10);
     await User.updateOne(
       {
@@ -162,6 +174,8 @@ const resetPassword = async (req, res) => {
         },
       }
     );
+
+    //content to be mailed
     var mailOptions = {
       from: `Anokhi Pehel <${process.env.email}>`,
       to: `${oldUser.email}`,
@@ -172,13 +186,14 @@ const resetPassword = async (req, res) => {
         
         ${password}
         
-        Use it to login to Anokhi Pehel webiste and change this password after successful login.
+        Use it to login to Anokhi Pehel website and change this password after successful login.
         
         Regards,
         Web Team,
         Anokhi Pehel`,
     };
 
+    //Function to send mail
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         return res.status(500).send({
@@ -186,7 +201,7 @@ const resetPassword = async (req, res) => {
           success: false,
         });
       } else {
-        console.log(password);
+        //console.log(password);
         return res
           .status(200)
           .send(
