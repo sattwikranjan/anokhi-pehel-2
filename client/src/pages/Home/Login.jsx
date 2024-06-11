@@ -105,7 +105,8 @@ export default function Login() {
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Forgot Password?{" "}
                 <a
-                  href="/forgotPassword"
+                  href="#"
+                  onClick={handleForgotPassword} // Call the function when clicked
                   className="font-medium hover:underline text-cyan-800"
                 >
                   Click here to reset
