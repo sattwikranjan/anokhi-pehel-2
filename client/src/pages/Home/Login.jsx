@@ -101,14 +101,17 @@ export default function Login() {
                 styles="w-full bg-primary-600"
                 func={handleSubmit}
               />
-              <Button
-                color="white"
-                text="Forgot Password"
-                borderRadius="10px"
-                width="full"
-                func={handleForgotPassword}
-              />
+              
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                Forgot Password?{" "}
+                <a
+                  href="/forgotPassword"
+                  className="font-medium hover:underline text-cyan-800"
+                >
+                  Click here to change
+                </a>
+              </p>
+              {/* <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}
                 <a
                   href="#"
@@ -116,7 +119,7 @@ export default function Login() {
                 >
                   Contact Admin
                 </a>
-              </p>
+              </p> */}
             </form>
           </div>
         </div>
