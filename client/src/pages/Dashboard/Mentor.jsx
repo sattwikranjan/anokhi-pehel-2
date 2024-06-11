@@ -9,6 +9,8 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { BASE_URL } from "../../Service/helper";
 import { useSelector } from "react-redux";
+import { MdManageSearch } from "react-icons/md";
+import Spinner from "../../components/Spinner.jsx"
 const Mentor = () => {
   const [isLoading, setIsLoading] = useState(false);
   const currentColor = "#03C9D7";
@@ -68,7 +70,7 @@ const Mentor = () => {
 
   return (
     <DashboardLayout>
-      {isLoading && <Loader />}
+      {isLoading && <Spinner />}
       <div className="m-2 md:m-5 mt-12 p-2 md:p-0 bg-white rounded-3xl flex flex-row justify-between items-center">
         <Header category="Academics" title="Mentors" />
         <div>
@@ -92,32 +94,48 @@ const Mentor = () => {
         </h2>
         <div className="container mt-5">
           <div className="flex flex-col space-y-0 mb-3 md:flex-row md:space-x-3 md:space-y-0">
-            <div className="flex-1 flex flex-col">
-              <label className="text-lg text-gray-400">Filter by Name:</label>
-              <input
+            <div className="flex-1 flex flex-col p-2">
+            <form className="flex items-center">
+              <label htmlFor="simple-search" className="sr-only">Filter by Name:</label>
+              <div className="relative w-full">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <MdManageSearch />
+                    </div>
+                    <input
                 type="text"
-                className="form-control"
+                className="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full pl-10 p-2"
                 placeholder="Search Mentor by Name"
                 value={filterName}
                 onChange={(e) => setFilterName(e.target.value)}
               />
+              </div>
+              </form>
             </div>
-            <div className="flex-1 flex flex-col">
-              <label className="text-lg text-gray-400">
+            <div className="flex-1 flex flex-col p-2">
+            <form className="flex items-center">
+              <label htmlFor="simple-search" className="sr-only">
                 Filter by Regnumber:
               </label>
+              <div className="relative w-full">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <MdManageSearch />
+                    </div>
               <input
                 type="text"
-                className="form-control"
+                id="simple-search"
+                className="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full pl-10 p-2"
                 placeholder="Enter Registration Number"
                 value={filterRegnumber}
                 onChange={(e) => setFilterRegnumber(e.target.value)}
               />
-            </div>
+              </div>
+              </form>
+            </div>  
           </div>
+
           <div className="overflow-x-auto">
-            <table className="w-full table-auto border-collapse border border-gray-500">
-              <thead className="bg-gray-800 text-white">
+            <table className="w-full text-sm text-left text-gray-500 ">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 border-x border-t">
                 <tr>
                   <th className="px-4 py-2">Name</th>
                   <th className="px-4 py-2">Reg Number</th>
@@ -126,11 +144,11 @@ const Mentor = () => {
                   <th className="px-4 py-2">Profile</th>
                 </tr>
               </thead>
-              <tbody className="text-center">
+              <tbody className="border-b">
                 {filteredUsers
                   .sort((a, b) => a.name.localeCompare(b.name))
                   .map((user) => (
-                    <tr key={user._id}>
+                    <tr key={user._id} className="border-x">
                       <td className="border px-4 py-2">{user.name}</td>
                       <td className="border px-4 py-2">{user.regnumber}</td>
                       <td className="border px-4 py-2">{user.phone}</td>
