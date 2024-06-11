@@ -10,6 +10,7 @@ import "jspdf-autotable";
 import { BASE_URL } from "../../Service/helper";
 import { useSelector } from "react-redux";
 import { MdManageSearch } from "react-icons/md";
+import Spinner from "../../components/Spinner.jsx"
 const Mentor = () => {
   const [isLoading, setIsLoading] = useState(false);
   const currentColor = "#03C9D7";
@@ -69,7 +70,7 @@ const Mentor = () => {
 
   return (
     <DashboardLayout>
-      {isLoading && <Loader />}
+      {isLoading && <Spinner />}
       <div className="m-2 md:m-5 mt-12 p-2 md:p-0 bg-white rounded-3xl flex flex-row justify-between items-center">
         <Header category="Academics" title="Mentors" />
         <div>
