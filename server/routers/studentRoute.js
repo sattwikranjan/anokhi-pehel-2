@@ -7,6 +7,9 @@ const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 const multer = require("multer");
 const app = express();
+const {
+  getStudentsFromLastAttendance,
+} = require("../controller/studentController");
 
 app.use(cors());
 
@@ -193,5 +196,7 @@ router.delete("/deleteStudents/:id", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+router.post("/studentTable", getStudentsFromLastAttendance); //Route to get students details of any class for a particular month
 
 module.exports = router;

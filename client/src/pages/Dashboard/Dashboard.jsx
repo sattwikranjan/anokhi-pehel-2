@@ -15,8 +15,8 @@ const Dashboard = () => {
   const takeAttendance = () => {
     navigate("/takeAttendance");
   };
-  const checkAttendance = () => {
-    navigate("/checkAttendance");
+  const totalAttendance = () => {
+    navigate("/totalAttendance");
   };
   const addTopic = () => {
     navigate("/addTopic");
@@ -57,7 +57,7 @@ const Dashboard = () => {
                 borderRadius="8px"
                 width="5px"
                 height="10px"
-                custumFunc={checkAttendance}
+                custumFunc={totalAttendance}
               />
             </div>
           </div>
