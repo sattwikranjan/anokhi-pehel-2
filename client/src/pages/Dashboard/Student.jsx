@@ -139,6 +139,13 @@ const Student = () => {
   }
   // console.log(filteredStudents);
 
+  filteredStudents = filteredStudents.filter((user) => {
+    const userName = user.name ? user.name.toLowerCase() : "";
+    return (
+      userName.includes(filterName.toLowerCase()) 
+    );
+  });
+
   const handleDownloadTable = () => {
     const doc = new jsPDF();
 
@@ -211,6 +218,8 @@ const Student = () => {
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full pl-10 p-2"
                       placeholder="Search"
                       required=""
+                      value={filterName}
+                      onChange={(e) => setFilterName(e.target.value)}
                     />
                   </div>
                 </form>
