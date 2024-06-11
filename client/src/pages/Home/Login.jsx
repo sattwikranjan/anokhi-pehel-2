@@ -108,7 +108,7 @@ export default function Login() {
                   href="/forgotPassword"
                   className="font-medium hover:underline text-cyan-800"
                 >
-                  Click here to change
+                  Click here to reset
                 </a>
               </p>
               {/* <p className="text-sm font-light text-gray-500 dark:text-gray-400">
