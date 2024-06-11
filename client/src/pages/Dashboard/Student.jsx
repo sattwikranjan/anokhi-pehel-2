@@ -21,7 +21,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { BASE_URL } from "../../../src/Service/helper";
 import { useNavigate, Link } from "react-router-dom";
-
+import Spinner from "../../components/Spinner.jsx"
 const Student = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -197,7 +197,7 @@ const Student = () => {
 
   return (
     <DashboardLayout>
-      {isLoading && <Loader />}
+      {isLoading && <Spinner />}
       <div className="mt-5 p-2 md:p-10 bg-white rounded-3xl">
         <Header category="Academics" title="Students" />
         <div className="mx-auto max-w-screen-xl">
