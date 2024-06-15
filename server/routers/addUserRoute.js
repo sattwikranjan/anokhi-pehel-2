@@ -162,7 +162,8 @@ router.get("/mentorList", async (req, res) => {
 router.get("/teamList", async (req, res) => {
   try {
     const users = await User.find({ role: { $ne: "Coordinator" } }); // Exclude users with role "Coordinator"
-
+    // Sort users by name in alphabetical order
+    users.sort((a, b) => a.name.localeCompare(b.name));
     res.json(users);
   } catch (error) {
     console.error(error);
