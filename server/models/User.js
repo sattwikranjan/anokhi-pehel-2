@@ -31,6 +31,14 @@ const UserSchema = new Schema({
   photo: {
     type: String,
   },
+  socialMedia: {
+    linkedin: {
+      type: String,
+    },
+    instagram: {
+      type: String,
+    },
+  },
   date: {
     type: Date,
     default: Date.now,

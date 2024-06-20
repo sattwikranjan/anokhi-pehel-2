@@ -121,6 +121,10 @@ router.patch("/update-mentor", upload.single("photo"), async (req, res) => {
       mentor.name = newValue;
     } else if (field === "phone") {
       mentor.phone = newValue;
+    } else if (field === "instagram") {
+      mentor.socialMedia.instagram = newValue;
+    } else if (field === "linkedin") {
+      mentor.socialMedia.linkedin = newValue;
     } else if (field === "photo") {
       if (req.file) {
         // Check if file was uploaded
@@ -147,6 +151,19 @@ router.get("/mentorList", async (req, res) => {
   try {
     const users = await User.find({ role: { $ne: "Alumni" } }); // Exclude users with role "Alumni"
 
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+//Route to get the Final Year and Alumni list
+router.get("/teamList", async (req, res) => {
+  try {
+    const users = await User.find({ role: { $ne: "Coordinator" } }); // Exclude users with role "Coordinator"
+    // Sort users by name in alphabetical order
+    users.sort((a, b) => a.name.localeCompare(b.name));
     res.json(users);
   } catch (error) {
     console.error(error);
