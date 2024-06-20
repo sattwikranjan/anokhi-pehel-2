@@ -227,7 +227,7 @@ const Student = () => {
                 </p>
                 <p className="flex items-center">
                   <span className="font-semibold">Instagram Id:</span>{" "}
-                  {editingField === "insta" ? (
+                  {editingField === "instagram" ? (
                     <>
                       <input
                         type="text"
@@ -240,7 +240,7 @@ const Student = () => {
 
                       <button
                         className="bg-blue-600 text-white px-3 py-1 rounded-md ml-2"
-                        onClick={() => handleSave("insta")} // Call handleSave with the field name
+                        onClick={() => handleSave("instagram")} // Call handleSave with the field name
                       >
                         Save
                       </button>
@@ -251,7 +251,7 @@ const Student = () => {
                       <span className="ml-1">
                         <FiEdit
                           className="text-blue-600 cursor-pointer"
-                          onClick={() => handleEdit("insta")}
+                          onClick={() => handleEdit("instagram")}
                         />
                       </span>
                     </>
@@ -273,7 +273,7 @@ const Student = () => {
 
                       <button
                         className="bg-blue-600 text-white px-3 py-1 rounded-md ml-2"
-                        onClick={() => handleSave("insta")} // Call handleSave with the field name
+                        onClick={() => handleSave("instagram")} // Call handleSave with the field name
                       >
                         Save
                       </button>

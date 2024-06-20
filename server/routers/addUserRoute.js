@@ -121,7 +121,7 @@ router.patch("/update-mentor", upload.single("photo"), async (req, res) => {
       mentor.name = newValue;
     } else if (field === "phone") {
       mentor.phone = newValue;
-    } else if (field === "insta") {
+    } else if (field === "instagram") {
       mentor.socialMedia.instagram = newValue;
     } else if (field === "linkedin") {
       mentor.socialMedia.linkedin = newValue;
