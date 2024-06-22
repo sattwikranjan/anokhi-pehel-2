@@ -123,7 +123,7 @@ const Student = () => {
             <p>No Mentor data available.</p>
           )}
           <div className=" justify-center items-center">
-            {user?.role === "Admin" || user?.email === "kumarvivek@gmail.com"  && (
+            {(user?.role === "Admin" || user?.email === "kumarvivek@gmail.com")  && (
               <Button
                 color="white"
                 bgColor={currentColor}
@@ -136,7 +136,7 @@ const Student = () => {
             )}
           </div>
           <div className=" justify-center items-center">
-            {user?.role === "Admin" || user?.email === "kumarvivek@gmail.com" && (
+            {(user?.role === "Admin" || user?.email === "kumarvivek@gmail.com") && (
               <Button
                 color="white"
                 bgColor={currentColor1}
