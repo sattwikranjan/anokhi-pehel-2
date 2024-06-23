@@ -119,12 +119,12 @@ export const modes = [
   { id: "Line Shivkuti", mode: "Line Shivkuti" },
 ];
 
-export const role = [
-  { id: "Admin", role: "Admin" },
-  { id: "Final Year Coordinator", role: "Final Year Coordinator" },
-  { id: "Coordinator", role: "Coordinator" },
-  { id: "Alumni", role: "Alumni" },
-];
+export const ROLES = {
+  FINAL_YEAR_COORDINATOR: 'Final Year Coordinator',
+  ADMIN: 'Admin',
+  COORDINATOR: 'Coordinator',
+  ALUMNI: 'Alumni'
+};
 
 export const day = [
   { id: "Sunday", day: "Sunday" },

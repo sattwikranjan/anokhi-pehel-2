@@ -27,7 +27,7 @@ const Student = () => {
     <DashboardLayout>
       <div className="m-2 md:m-5 mt-12 p-2 md:p-0 bg-white rounded-3xl flex flex-col md:flex-row md:justify-between md:items-center">
         <Header category="Academics" title="Schedule" />
-        {user?.role === "Admin" && (
+        {user?.isAdmin === true && (
           <div className="flex flex-col md:flex-row md:space-x-4">
             <div className="mb-2 md:mb-0">
               <Button
