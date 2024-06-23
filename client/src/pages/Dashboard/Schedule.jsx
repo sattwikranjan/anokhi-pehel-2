@@ -4,6 +4,7 @@ import Button from "../../components/Dashboard/Button";
 import "jspdf-autotable";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { ROLES } from "../../constants/Dashboard";
 
 const Student = () => {
   const currentColor = "#03C9D7";
@@ -27,7 +28,7 @@ const Student = () => {
     <DashboardLayout>
       <div className="m-2 md:m-5 mt-12 p-2 md:p-0 bg-white rounded-3xl flex flex-col md:flex-row md:justify-between md:items-center">
         <Header category="Academics" title="Schedule" />
-        {user?.role === "Admin" && (
+        {user?.role === ROLES.ADMIN && (
           <div className="flex flex-col md:flex-row md:space-x-4">
             <div className="mb-2 md:mb-0">
               <Button

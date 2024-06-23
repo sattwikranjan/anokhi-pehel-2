@@ -5,7 +5,7 @@ import { BASE_URL, SERVER_URL } from '../../Service/helper';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import {  branch24, branch25 } from '../../constants/Dashboard';
+import {  ROLES, branch24, branch25 } from '../../constants/Dashboard';
 import { instagram, linkedin } from '../../assets/Home';
 import { GoArrowLeft } from "react-icons/go";
 import { GoArrowRight } from "react-icons/go";
@@ -20,11 +20,11 @@ const Team = () => {
       try {
         const response =  await axios.get(`${BASE_URL}/teamList`) 
         const filteredUsers = response.data.filter(user => 
-          user.role === 'Final Year Coordinator' || user.role === 'Admin'
+          user.role === ROLES.FINAL_YEAR_COORDINATOR || user.role === ROLES.ADMIN
         );
         setUsers(filteredUsers);
         const filteredAlum = response.data.filter(user => 
-          user.role === 'Alumni');
+          user.role === ROLES.ALUMNI);
         setAlum(filteredAlum)
       } catch (error) {
         console.error('Error fetching users:', error);
@@ -101,7 +101,7 @@ const Team = () => {
           </div>
           <div className="grid gap-8 lg:gap-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {currentUsers.map((user)=>
-            ((user.role=="Final Year Coordinator" || user.role=="Admin") &&
+            ((user.role==ROLES.FINAL_YEAR_COORDINATOR || user.role==ROLES.ADMIN) &&
               <div key={user._id} className="text-center text-gray-500 transition ease-in-out delay-150 cursor-pointer hover:-translate-y-2 hover:scale-110 duration-500 ">
               <img
                 className="mx-auto mb-4 w-36 h-36 rounded-full object-cover"

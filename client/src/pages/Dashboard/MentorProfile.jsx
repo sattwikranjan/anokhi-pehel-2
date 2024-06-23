@@ -6,6 +6,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Button from "../../components/Dashboard/Button";
 import { BASE_URL, SERVER_URL } from "../../../src/Service/helper";
+import { ROLES } from "../../constants/Dashboard";
 
 const Student = () => {
   const location = useLocation();
@@ -123,7 +124,7 @@ const Student = () => {
             <p>No Mentor data available.</p>
           )}
           <div className=" justify-center items-center">
-            {(user?.role === "Admin" || user?.email === "kumarvivek@gmail.com")  && (
+            {(user?.role === ROLES.ADMIN || user?.email === "kumarvivek@gmail.com")  && (
               <Button
                 color="white"
                 bgColor={currentColor}
@@ -136,7 +137,7 @@ const Student = () => {
             )}
           </div>
           <div className=" justify-center items-center">
-            {(user?.role === "Admin" || user?.email === "kumarvivek@gmail.com") && (
+            {(user?.role === ROLES.ADMIN || user?.email === "kumarvivek@gmail.com") && (
               <Button
                 color="white"
                 bgColor={currentColor1}

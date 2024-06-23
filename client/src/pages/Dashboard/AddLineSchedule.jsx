@@ -1,7 +1,7 @@
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { locations, day } from "../../constants/Dashboard";
+import { locations, day, ROLES } from "../../constants/Dashboard";
 import { BASE_URL } from "../../../src/Service/helper";
 import "react-datepicker/dist/react-datepicker.css";
 import { useSelector } from "react-redux";
@@ -87,7 +87,7 @@ const AddLineSchedule = () => {
 
   return (
     <>
-      {user?.role === "Admin" ? (
+      {user?.role === ROLES.ADMIN ? (
         <DashboardLayout>
           <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
             <form onSubmit={handleSubmit} encType="multipart/form-data">
