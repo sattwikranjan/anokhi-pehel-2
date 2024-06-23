@@ -43,6 +43,13 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  branch: {
+    type: String,
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model("user", UserSchema);
