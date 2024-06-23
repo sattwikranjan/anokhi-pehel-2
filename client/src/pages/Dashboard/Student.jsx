@@ -1,7 +1,6 @@
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import Header from "../../components/Dashboard/Header";
 import { useSelector } from "react-redux";
-import Loader from "../../components/Dashboard/Loader.jsx";
 import {
   MdDelete,
   MdEdit,
@@ -14,14 +13,14 @@ import { FaPlus } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { classes, locations } from "../../constants/Dashboard";
+import { ROLES, classes, locations } from "../../constants/Dashboard";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { BASE_URL } from "../../../src/Service/helper";
 import { useNavigate, Link } from "react-router-dom";
-import Spinner from "../../components/Spinner.jsx"
+import Spinner from "../../components/Spinner.jsx";
 const Student = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -59,8 +58,6 @@ const Student = () => {
 
   const [students, setStudents] = useState([]);
   const [filterName, setFilterName] = useState("");
-  const [filterClass, setFilterClass] = useState("");
-  const [filterLocation, setFilterLocation] = useState("");
 
   const [openDropdownId, setOpenDropdownId] = useState(null);
   const toggleDropdown = (studentId) => {
@@ -141,9 +138,7 @@ const Student = () => {
 
   filteredStudents = filteredStudents.filter((user) => {
     const userName = user.name ? user.name.toLowerCase() : "";
-    return (
-      userName.includes(filterName.toLowerCase()) 
-    );
+    return userName.includes(filterName.toLowerCase());
   });
 
   const handleDownloadTable = () => {
@@ -438,7 +433,7 @@ const Student = () => {
                                     <span className="ml-1">View</span>
                                   </Link>
                                 </li>
-                                {user?.role === "Admin" && (
+                                {user?.role === ROLES.ADMIN && (
                                   <li>
                                     <Link
                                       to={`/editStudent?student._id=${student._id}`}
@@ -450,7 +445,7 @@ const Student = () => {
                                   </li>
                                 )}
                               </ul>
-                              {user?.role === "Admin" && (
+                              {user?.role === ROLES.ADMIN && (
                                 <div className="py-1">
                                   <button
                                     onClick={() => handleDelete(student._id)}

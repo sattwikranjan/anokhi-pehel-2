@@ -1,11 +1,10 @@
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import React, { useState } from "react";
 import axios from "axios";
-import { role } from "../../constants/Dashboard";
+import { ROLES} from "../../constants/Dashboard";
 import "react-datepicker/dist/react-datepicker.css";
 import { BASE_URL } from "../../Service/helper";
-import { useSelector } from "react-redux";
-import PageNotFound from "../Error404";
+
 const AddMentor = () => {
   // const { user } = useSelector((state) => state.user);
   const [credentials, setCredentials] = useState({
@@ -60,7 +59,7 @@ const AddMentor = () => {
 
   return (
     <>
-      {/* {user?.role === "Admin" ? ( */}
+      {/* {user?.role === ROLES.ADMIN ? ( */}
       <DashboardLayout>
         <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
           <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -188,11 +187,11 @@ const AddMentor = () => {
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                       >
                         <option value="">Select Role</option>
-                        {role.map((item, index) => (
-                          <option key={index} value={item.id}>
-                            {item.role}
-                          </option>
-                        ))}
+                        {Object.values(ROLES).map((role, index) => (
+                        <option key={index} value={role}>
+                          {role}
+                        </option>
+                      ))}
                       </select>
                     </div>
                   </div>

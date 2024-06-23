@@ -4,9 +4,10 @@ import axios from "axios";
 import { classes, locations, modes } from "../../constants/Dashboard";
 import { BASE_URL } from "../../../src/Service/helper";
 import "react-datepicker/dist/react-datepicker.css";
-import Loader from "../../components/Dashboard/Loader";
+import { showLoading, hideLoading } from "../../redux/features/alertSlice";
+import { useDispatch } from "react-redux";
 const AddStudent = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
   const [credentials, setCredentials] = useState({
     name: "",
     class: "",
@@ -21,7 +22,7 @@ const AddStudent = () => {
   });
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    dispatch(showLoading());
     const formData = new FormData();
     formData.append("name", credentials.name);
     formData.append("class", credentials.class);
@@ -63,9 +64,10 @@ const AddStudent = () => {
       .catch((err) => {
         alert("ALL INPUT IS NOT FILLED");
         console.log("error", err);
+        dispatch(hideLoading())
       })
       .finally(() => {
-        setIsLoading(false); // Set loading state to false when response is received
+        dispatch(hideLoading());
       });
   };
   const onChange = (e) => {
@@ -77,7 +79,6 @@ const AddStudent = () => {
 
   return (
     <DashboardLayout>
-      {isLoading && <Loader />}
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="space-y-8">

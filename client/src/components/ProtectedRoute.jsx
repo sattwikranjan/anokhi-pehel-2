@@ -24,10 +24,8 @@ export default function ProtectedRoute({ children }) {
       // console.log(res.data);
       if (res.data.success) {
         dispatch(setUser(res.data.data));
-        console.log(res.data.data);
       } else {
         localStorage.clear();
-        console.log("fail");
         return <Navigate to="/login" />;
       }
     } catch (error) {
