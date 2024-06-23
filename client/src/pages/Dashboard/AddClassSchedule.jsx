@@ -1,7 +1,7 @@
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { ROLES, classes, subjects } from "../../constants/Dashboard";
+import { classes, subjects } from "../../constants/Dashboard";
 import { BASE_URL } from "../../../src/Service/helper";
 import "react-datepicker/dist/react-datepicker.css";
 import { useSelector } from "react-redux";
@@ -82,7 +82,7 @@ const AddClassSchedule = () => {
   };
   return (
     <>
-      {user?.role === ROLES.ADMIN ? (
+      {user?.isAdmin === true ? (
         <DashboardLayout>
           <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
             <form onSubmit={handleSubmit} encType="multipart/form-data">

@@ -13,7 +13,7 @@ import { FaPlus } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { ROLES, classes, locations } from "../../constants/Dashboard";
+import { classes, locations } from "../../constants/Dashboard";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import jsPDF from "jspdf";
@@ -21,6 +21,7 @@ import "jspdf-autotable";
 import { BASE_URL } from "../../../src/Service/helper";
 import { useNavigate, Link } from "react-router-dom";
 import Spinner from "../../components/Spinner.jsx";
+
 const Student = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -433,7 +434,7 @@ const Student = () => {
                                     <span className="ml-1">View</span>
                                   </Link>
                                 </li>
-                                {user?.role === ROLES.ADMIN && (
+                                {user?.isAdmin === true && (
                                   <li>
                                     <Link
                                       to={`/editStudent?student._id=${student._id}`}
@@ -445,7 +446,7 @@ const Student = () => {
                                   </li>
                                 )}
                               </ul>
-                              {user?.role === ROLES.ADMIN && (
+                              {user?.isAdmin === true && (
                                 <div className="py-1">
                                   <button
                                     onClick={() => handleDelete(student._id)}

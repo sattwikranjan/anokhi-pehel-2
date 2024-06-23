@@ -20,7 +20,7 @@ const Team = () => {
       try {
         const response =  await axios.get(`${BASE_URL}/teamList`) 
         const filteredUsers = response.data.filter(user => 
-          user.role === ROLES.FINAL_YEAR_COORDINATOR || user.role === ROLES.ADMIN
+          user.role === ROLES.FINAL_YEAR_COORDINATOR
         );
         setUsers(filteredUsers);
         const filteredAlum = response.data.filter(user => 
@@ -101,7 +101,7 @@ const Team = () => {
           </div>
           <div className="grid gap-8 lg:gap-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {currentUsers.map((user)=>
-            ((user.role==ROLES.FINAL_YEAR_COORDINATOR || user.role==ROLES.ADMIN) &&
+            (user.role === ROLES.FINAL_YEAR_COORDINATOR &&
               <div key={user._id} className="text-center text-gray-500 transition ease-in-out delay-150 cursor-pointer hover:-translate-y-2 hover:scale-110 duration-500 ">
               <img
                 className="mx-auto mb-4 w-36 h-36 rounded-full object-cover"

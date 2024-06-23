@@ -1,7 +1,7 @@
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import React, { useState } from "react";
 import axios from "axios";
-import { ROLES} from "../../constants/Dashboard";
+import { ROLES } from "../../constants/Dashboard";
 import "react-datepicker/dist/react-datepicker.css";
 import { BASE_URL } from "../../Service/helper";
 
@@ -59,7 +59,7 @@ const AddMentor = () => {
 
   return (
     <>
-      {/* {user?.role === ROLES.ADMIN ? ( */}
+      {/* {user?.isAdmin === true ? ( */}
       <DashboardLayout>
         <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
           <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -188,10 +188,10 @@ const AddMentor = () => {
                       >
                         <option value="">Select Role</option>
                         {Object.values(ROLES).map((role, index) => (
-                        <option key={index} value={role}>
-                          {role}
-                        </option>
-                      ))}
+                          <option key={index} value={role}>
+                            {role}
+                          </option>
+                        ))}
                       </select>
                     </div>
                   </div>

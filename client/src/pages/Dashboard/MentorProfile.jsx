@@ -6,7 +6,6 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Button from "../../components/Dashboard/Button";
 import { BASE_URL, SERVER_URL } from "../../../src/Service/helper";
-import { ROLES } from "../../constants/Dashboard";
 
 const Student = () => {
   const location = useLocation();
@@ -124,7 +123,7 @@ const Student = () => {
             <p>No Mentor data available.</p>
           )}
           <div className=" justify-center items-center">
-            {(user?.role === ROLES.ADMIN || user?.email === "kumarvivek@gmail.com")  && (
+            {user?.isAdmin === true && (
               <Button
                 color="white"
                 bgColor={currentColor}
@@ -137,7 +136,7 @@ const Student = () => {
             )}
           </div>
           <div className=" justify-center items-center">
-            {(user?.role === ROLES.ADMIN || user?.email === "kumarvivek@gmail.com") && (
+            {user?.isAdmin === true && (
               <Button
                 color="white"
                 bgColor={currentColor1}
@@ -223,7 +222,10 @@ const Student = () => {
                   <tbody className="text-center">
                     {lineSchedule && lineSchedule.length > 0 ? (
                       lineSchedule[0].schedule.map((scheduleItem, index) => {
-                        if (scheduleItem.pickup === userId ||scheduleItem.pickup1 === userId) {
+                        if (
+                          scheduleItem.pickup === userId ||
+                          scheduleItem.pickup1 === userId
+                        ) {
                           return (
                             <tr key={index}>
                               {/* <td className="border px-4 py-2">
@@ -267,7 +269,10 @@ const Student = () => {
                   <tbody className="text-center">
                     {lineSchedule1 && lineSchedule1.length > 0 ? (
                       lineSchedule1[0].schedule.map((scheduleItem, index) => {
-                        if (scheduleItem.drop === userId||scheduleItem.drop1 === userId) {
+                        if (
+                          scheduleItem.drop === userId ||
+                          scheduleItem.drop1 === userId
+                        ) {
                           return (
                             <tr key={index}>
                               {/* <td className="border px-4 py-2">
