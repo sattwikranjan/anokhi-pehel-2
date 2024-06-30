@@ -161,7 +161,7 @@ router.get("/mentorList", async (req, res) => {
 //Route to get the Final Year and Alumni list
 router.get("/teamList", async (req, res) => {
   try {
-    const users = await User.find({ role: { $ne: "Coordinator" } }); // Exclude users with role "Coordinator"
+    const users = await User.find();
     // Sort users by name in alphabetical order
     users.sort((a, b) => a.name.localeCompare(b.name));
     res.json(users);
