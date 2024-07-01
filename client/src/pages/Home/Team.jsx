@@ -5,7 +5,7 @@ import { BASE_URL, SERVER_URL } from "../../Service/helper";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ROLES, branch24, branch25 } from "../../constants/Dashboard";
+import { ROLES } from "../../constants/Dashboard";
 import { instagram, linkedin } from "../../assets/Home";
 import Pagination from "../../components/Dashboard/Pagination";
 
@@ -117,13 +117,7 @@ const Team = () => {
                 <h3 className="mb-1 text-2xl font-bold tracking-tight text-gray-900">
                   <a href="#">{user.name}</a>
                 </h3>
-                <p>
-                  {user.regnumber &&
-                  user.regnumber.length >= 5 &&
-                  branch25[user.regnumber[4]]
-                    ? branch25[user.regnumber[4]].branch
-                    : "Branch not found"}
-                </p>
+                <p>{user.branch ? user.branch : ""}</p>
                 <ul className="flex justify-center mt-4 space-x-4">
                   <li>
                     <a
@@ -183,7 +177,7 @@ const Team = () => {
               <h3 className="mb-1 text-2xl font-bold tracking-tight text-gray-900">
                 <a href="#">{alum.name}</a>
               </h3>
-              <p>{branch24[alum.regnumber[4]].branch}</p>
+              <p>{alum.branch ? alum.branch : ""}</p>
             </div>
           ))}
         </Slider>
