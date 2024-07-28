@@ -19,6 +19,10 @@ export const links = [
         icon: <GiTeacher />,
       },
       {
+        name: "Alumni",
+        icon: <GiTeacher />,
+      },
+      {
         name: "Schedule",
         icon: <FaBook />,
       },

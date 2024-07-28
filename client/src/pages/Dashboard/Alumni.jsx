@@ -1,19 +1,19 @@
-import DashboardLayout from "../../components/Dashboard/DashboardLayout";
-import Header from "../../components/Dashboard/Header";
-import Button from "../../components/Dashboard/Button";
+import DashboardLayout from "../../components/Dashboard/DashboardLayout.jsx";
+import Header from "../../components/Dashboard/Header.jsx";
+import Button from "../../components/Dashboard/Button.jsx";
 import { useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import { BASE_URL } from "../../Service/helper";
+import { BASE_URL } from "../../Service/helper.js";
 import { useSelector } from "react-redux";
 import { MdManageSearch } from "react-icons/md";
 import Spinner from "../../components/Spinner.jsx";
 import Pagination from "../../components/Dashboard/Pagination.jsx";
 import { ROLES } from "../../constants/Dashboard/index.jsx";
 
-const Mentor = () => {
+const Alumni = () => {
   const [isLoading, setIsLoading] = useState(false);
   const currentColor = "#03C9D7";
   let navigate = useNavigate();
@@ -24,12 +24,12 @@ const Mentor = () => {
   };
   const initialUsers = 15; //initial number of users per page
 
-  //Mentors
-  const [users, setMentors] = useState([]);
-  const [filterName, setFilterName] = useState("");
-  const [filterRegnumber, setFilterRegnumber] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [usersPerPage, setUsersPerPage] = useState(initialUsers);
+  //Alumni
+  const [alumni, setAlumni] = useState([]);
+  const [filterAlumni, setFilterAlumni] = useState("");
+  const [filterAlumniRegNumber, setFilterAlumniRegNumber] = useState("");
+  const [currentAlumniPage, setCurrentAlumniPage] = useState(1);
+  const [alumniPerPage, setAlumniPerPage] = useState(initialUsers);
 
   //Fetch mentor and Alumni data
   useEffect(() => {
@@ -37,10 +37,10 @@ const Mentor = () => {
       try {
         setIsLoading(true);
         const response = await axios.get(`${BASE_URL}/teamList`);
-        const mentors = response.data.filter(
-          (mentor) => mentor.role != ROLES.ALUMNI
+        const alumniMentors = response.data.filter(
+          (mentor) => mentor.role === ROLES.ALUMNI
         );
-        setMentors(mentors);
+        setAlumni(alumniMentors);
         // console.log(users);
       } catch (error) {
         setIsLoading(false);
@@ -53,62 +53,63 @@ const Mentor = () => {
     fetchData();
   }, []);
 
-  //Filter Mentors
-  const filteredUsers = users.filter((user) => {
+  //Filter Alumni
+  const filteredAlum = alumni.filter((user) => {
     const userName = user.name ? user.name.toLowerCase() : "";
     const userRegnumber = user.regnumber ? user.regnumber.toLowerCase() : "";
 
     return (
-      userName.includes(filterName.toLowerCase()) &&
-      userRegnumber.includes(filterRegnumber.toLowerCase())
+      userName.includes(filterAlumni.toLowerCase()) &&
+      userRegnumber.includes(filterAlumniRegNumber.toLowerCase())
     );
   });
 
-  //Pagination for Mentor
+  //Alumni Pagination
   // Calculate the indices for the current page
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+  const indexOfLastAlumni = currentAlumniPage * alumniPerPage;
+  const indexOfFirstAlumni = indexOfLastAlumni - alumniPerPage;
+  const currentAlum = filteredAlum.slice(indexOfFirstAlumni, indexOfLastAlumni);
 
   // Function to handle page change
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
+  const handleAlumniPageChange = (pageNumber) => {
+    setCurrentAlumniPage(pageNumber);
   };
 
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+  const handleAlumniPreviousPage = () => {
+    if (currentAlumniPage > 1) {
+      setCurrentAlumniPage(currentAlumniPage - 1);
     }
   };
 
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+  const handleAlumniNextPage = () => {
+    if (currentAlumniPage < totalAlumniPages) {
+      setCurrentAlumniPage(currentAlumniPage + 1);
     }
   };
   // Calculate total pages
-  const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+  const totalAlumniPages = Math.ceil(filteredAlum.length / alumniPerPage);
 
-  const handleUsersPerPageChange = (e) => {
-    setUsersPerPage(Number(e.target.value));
-    setCurrentPage(1);
+  //Function to handle per page user
+  const handleAlumPerPageChange = (e) => {
+    setAlumniPerPage(Number(e.target.value));
+    setCurrentAlumniPage(1);
   };
 
   //Download Mentor and Alumni list as PDF
   const handleDownloadTable = () => {
     // Create a new jsPDF instance
     const doc = new jsPDF();
+    doc.text("Alumni", 14, 10); // Optionally add a title for the alumni table
 
-    doc.text("Mentors", 14, 10);
-    // Mentor table
+    // Alumni table
     doc.autoTable({
       startY: 15,
       head: [["Name", "Reg Number", "Phone", "Email"]],
-      body: users.map((user) => [
-        user.name,
-        user.regnumber,
-        user.phone,
-        user.email,
+      body: alumni.map((alum) => [
+        alum.name,
+        alum.regnumber,
+        alum.phone,
+        alum.email,
       ]),
     });
     doc.save("mentors_table.pdf");
@@ -118,7 +119,7 @@ const Mentor = () => {
     <DashboardLayout>
       {isLoading && <Spinner />}
       <div className="m-2 md:m-5 mt-12 p-2 md:p-0 bg-white rounded-3xl flex flex-row justify-between items-center">
-        <Header category="Academics" title="Mentors" />
+        <Header category="Academics" title="Alumni" />
         <div>
           {user?.isAdmin === true && (
             <Button
@@ -136,7 +137,7 @@ const Mentor = () => {
 
       <div className="m-2 md:m-0 mt-0 p-2 md:p-7 bg-white rounded-3xl">
         <h2 className="text-center text-xl font-bold tracking-tight text-slate-900">
-          Mentor List
+          Alumni List
         </h2>
         <div className="container mt-5">
           <div className="flex flex-col space-y-0 mb-3 md:flex-row md:space-x-3 md:space-y-0">
@@ -153,8 +154,8 @@ const Mentor = () => {
                     type="text"
                     className="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full pl-10 p-2"
                     placeholder="Search Mentor by Name"
-                    value={filterName}
-                    onChange={(e) => setFilterName(e.target.value)}
+                    value={filterAlumni}
+                    onChange={(e) => setFilterAlumni(e.target.value)}
                   />
                 </div>
               </form>
@@ -173,8 +174,8 @@ const Mentor = () => {
                     id="simple-search"
                     className="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full pl-10 p-2"
                     placeholder="Enter Registration Number"
-                    value={filterRegnumber}
-                    onChange={(e) => setFilterRegnumber(e.target.value)}
+                    value={filterAlumniRegNumber}
+                    onChange={(e) => setFilterAlumniRegNumber(e.target.value)}
                   />
                 </div>
               </form>
@@ -193,7 +194,7 @@ const Mentor = () => {
                 </tr>
               </thead>
               <tbody className="border-b">
-                {currentUsers
+                {currentAlum
                   .sort((a, b) => a.name.localeCompare(b.name))
                   .map((user) => (
                     <tr key={user._id} className="border-x">
@@ -214,15 +215,15 @@ const Mentor = () => {
             </table>
           </div>
           <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-            onPreviousPage={handlePreviousPage}
-            onNextPage={handleNextPage}
+            currentPage={currentAlumniPage}
+            totalPages={totalAlumniPages}
+            onPageChange={handleAlumniPageChange}
+            onPreviousPage={handleAlumniPreviousPage}
+            onNextPage={handleAlumniNextPage}
             initialUsers={initialUsers}
-            usersPerPage={usersPerPage}
-            handleUsersPerPageChange={handleUsersPerPageChange}
-            totalUsers={filteredUsers.length}
+            usersPerPage={alumniPerPage}
+            handleUsersPerPageChange={handleAlumPerPageChange}
+            totalUsers={filteredAlum.length}
           />
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
@@ -236,4 +237,4 @@ const Mentor = () => {
   );
 };
 
-export default Mentor;
+export default Alumni;

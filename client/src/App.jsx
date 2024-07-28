@@ -36,6 +36,7 @@ import EditProfile from "./components/Dashboard/EditProfile";
 import ChangeRole from "./pages/Dashboard/ChangeRole";
 import EditStudent from "./pages/Dashboard/EditStudent";
 import ForgotPassword from "./pages/Home/ForgotPassword";
+import Alumni from "./pages/Dashboard/Alumni";
 const App = () => {
   const { loading } = useSelector((state) => state.alerts);
 
@@ -226,6 +227,14 @@ const App = () => {
               }
             />
             <Route
+              path="/Alumni"
+              element={
+                <ProtectedRoute>
+                  <Alumni />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/AddStudents"
               element={
                 <ProtectedRoute>
@@ -250,13 +259,13 @@ const App = () => {
               }
             />
             <Route
-                path="/forgotPassword"
-                element={
-                  <PublicRoute>
-                    <ForgotPassword />
-                  </PublicRoute>
-                }
-              />
+              path="/forgotPassword"
+              element={
+                <PublicRoute>
+                  <ForgotPassword />
+                </PublicRoute>
+              }
+            />
             <Route
               path="/blog"
               element={
