@@ -6,7 +6,7 @@ const App = () => (
   <HomePageLayout>
     <div className={`bg-primary ${styles.flexStart}`}>
       <div className={`${styles.boxWidth}`}>
-        <div className="text-black text-center font-bold text-2xl md:text-3xl lg:text-4xl relative">
+        {/* <div className="text-black text-center font-bold text-2xl md:text-3xl lg:text-4xl relative">
           <img
             src={connectWithUs}
             alt="Connect with Us"
@@ -15,12 +15,12 @@ const App = () => (
           <h2 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             Connect with Us
           </h2>
-        </div>
+        </div> */}
 
-        <p className="leading-relaxed p-4 md:p-8 lg:p-12 font-base md:font-medium text-center hover:text-blue-900 sm:text-xl text-base">
+        {/* <p className="leading-relaxed p-4 md:p-8 lg:p-12 font-base md:font-medium text-center hover:text-blue-900 sm:text-xl text-base">
           Connect with us to help the society and make this world a better
           place. Fill the membership form and get a Membership ID.
-        </p>
+        </p> */}
         <div className="container m-auto md:my-12 p-2 lg:px-40">
           <div className="justify-center items-center text-center md:p-4 p-2 lg:text-4xl font-medium text-3xl">
             Our Promise
@@ -102,7 +102,7 @@ const App = () => (
                 </h1>
                 <p className="leading-relaxed p-4 md:p-8 lg:p-6 font-base md:font-medium text-center hover:text-stone-100 sm:text-xl text-base">
                   "Empower women with the essential tools for education and
-                  success. Provide stationery pads, enabling them to pursue
+                  success. Provide sanitary pads, enabling them to pursue
                   learning, work, and personal growth, fostering empowerment and
                   equality."
                 </p>

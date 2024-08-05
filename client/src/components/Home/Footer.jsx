@@ -12,8 +12,7 @@ const Footer = () => (
           className="w-[266px] h-[72.14px] object-contain"
         />
         <p className={`${styles.paragraph} mt-4 max-w-[312px]`}>
-          Ensuring equal access to education for all children, regardless of
-          their socio-economic background.
+          Quality education and equal opportunities for all children!!
         </p>
       </div>
 
