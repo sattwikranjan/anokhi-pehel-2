@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { ROLES } from "../../constants/Dashboard";
 import { instagram, linkedin } from "../../assets/Home";
 import Pagination from "../../components/Dashboard/Pagination";
+import { feedback } from "../../constants/Home";
 
 const Team = () => {
   const initialUsers = 8;
@@ -95,73 +96,94 @@ const Team = () => {
     <HomePageLayout>
       <section className="bg-white">
         <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-6">
-          <div className="mx-auto mb-8 max-w-screen-sm lg:mb-16">
-            <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900">
-              Our Team
-            </h2>
-            <h3 className="mb-4 text-2xl tracking-tight text-gray-900">
+          <h2 className="mb-6 text-4xl tracking-tight font-extrabold text-gray-900">
+            Our Team
+          </h2>
+          <div className="mx-auto mb-9 max-w-screen-sm lg:mb-16">
+            <div className="grid gap-8 lg:gap-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+              {feedback.map((person) => (
+                <div
+                  key={person._id}
+                  className="text-center text-gray-500 transition ease-in-out delay-150 cursor-pointer hover:-translate-y-2 hover:scale-110 duration-500"
+                >
+                  <img
+                    className="mx-auto mb-4 w-36 h-36 rounded-full object-cover"
+                    src={person.img}
+                    alt="Profile Avatar"
+                  />
+                  <h3 className="mb-1 text-2xl font-bold tracking-tight text-gray-900">
+                    <a href="#">{person.name}</a>
+                  </h3>
+                  <p>{person.title}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h3 className="mb-6 text-2xl tracking-tight text-gray-900">
               Final year Coordinators
             </h3>
+            <div className="grid gap-8 lg:gap-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {currentUsers.map((user) => (
+                <div
+                  key={user._id}
+                  className="text-center text-gray-500 transition ease-in-out delay-150 cursor-pointer hover:-translate-y-2 hover:scale-110 duration-500 "
+                >
+                  <img
+                    className="mx-auto mb-4 w-36 h-36 rounded-full object-cover"
+                    src={`${SERVER_URL}/images/${user?.photo}`}
+                    alt="Coordinator Avatar"
+                  />
+                  <h3 className="mb-1 text-2xl font-bold tracking-tight text-gray-900">
+                    <a href="#">{user.name}</a>
+                  </h3>
+                  <p>{user.branch ? user.branch : ""}</p>
+                  <ul className="flex justify-center mt-4 space-x-4">
+                    <li>
+                      <a
+                        href={
+                          user.socialMedia?.linkedin
+                            ? `https://www.linkedin.com/in/${user.socialMedia.linkedin}`
+                            : "#"
+                        }
+                        className="text-[#0077b5] hover:text-gray-900"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img src={linkedin} />
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href={
+                          user.socialMedia?.instagram
+                            ? `https://www.instagram.com/${user.socialMedia.instagram}`
+                            : "#"
+                        }
+                        className="text-[#39569c] hover:text-gray-900"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img src={instagram} />
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+              onPreviousPage={handlePreviousPage}
+              onNextPage={handleNextPage}
+              initialUsers={initialUsers}
+              usersPerPage={usersPerPage}
+              handleUsersPerPageChange={handleUsersPerPageChange}
+              totalUsers={users.length}
+            />
           </div>
-          <div className="grid gap-8 lg:gap-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {currentUsers.map((user) => (
-              <div
-                key={user._id}
-                className="text-center text-gray-500 transition ease-in-out delay-150 cursor-pointer hover:-translate-y-2 hover:scale-110 duration-500 "
-              >
-                <img
-                  className="mx-auto mb-4 w-36 h-36 rounded-full object-cover"
-                  src={`${SERVER_URL}/images/${user?.photo}`}
-                  alt="Coordinator Avatar"
-                />
-                <h3 className="mb-1 text-2xl font-bold tracking-tight text-gray-900">
-                  <a href="#">{user.name}</a>
-                </h3>
-                <p>{user.branch ? user.branch : ""}</p>
-                <ul className="flex justify-center mt-4 space-x-4">
-                  <li>
-                    <a
-                      href={
-                        user.socialMedia?.linkedin
-                          ? `https://www.linkedin.com/in/${user.socialMedia.linkedin}`
-                          : "#"
-                      }
-                      className="text-[#0077b5] hover:text-gray-900"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img src={linkedin} />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href={
-                        user.socialMedia?.instagram
-                          ? `https://www.instagram.com/${user.socialMedia.instagram}`
-                          : "#"
-                      }
-                      className="text-[#39569c] hover:text-gray-900"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img src={instagram} />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            ))}
-          </div>
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-            onPreviousPage={handlePreviousPage}
-            onNextPage={handleNextPage}
-            initialUsers={initialUsers}
-            usersPerPage={usersPerPage}
-            handleUsersPerPageChange={handleUsersPerPageChange}
-            totalUsers={users.length}
-          />
         </div>
       </section>
       <section className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-6">

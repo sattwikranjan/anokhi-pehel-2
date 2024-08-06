@@ -7,6 +7,7 @@ import {
   send,
   shield,
   DirectorImg,
+  DirImg,
   BasantSir,
   RajivSir,
 } from "../../assets/Home";
@@ -20,14 +21,14 @@ export const navLinks = [
     id: "gallery",
     title: "Gallery",
   },
-  {
-    id: "class",
-    title: "Class",
-  },
-  {
-    id: "event",
-    title: "Events",
-  },
+  // {
+  //   id: "class",
+  //   title: "Class",
+  // },
+  // {
+  //   id: "event",
+  //   title: "Events",
+  // },
   {
     id: "team",
     title: "Teams",
@@ -60,7 +61,7 @@ export const features = [
   {
     id: "feature-1",
     icon: star,
-    title: "Acadmics",
+    title: "Academics",
     content:
       "Our academic support programs provide invaluable opportunities for students to excel and achieve their educational goals.",
   },
@@ -85,9 +86,9 @@ export const feedback = [
     id: "feedback-1",
     content:
       "As the director, I commend the students of MNNIT for their impactful initiative, Anokhi Pehel, dedicated to providing quality education to children from economically weaker backgrounds. ",
-    name: "Professor Rama Shanker Verma",
+    name: "Prof. Rama Shanker Verma",
     title: "Director MNNIT Allahabad",
-    img: DirectorImg,
+    img: DirImg,
   },
   {
     id: "feedback-3",
@@ -101,7 +102,7 @@ export const feedback = [
     id: "feedback-2",
     content:
       "I deeply appreciate the altruistic efforts of the students behind Anokhi Pehel at MNNIT. Their dedication to uplifting the underprivileged through education exemplifies the values of compassion and social responsibility that we aim to instill in our students.",
-    name: "Dr. Basant Kumar",
+    name: "Prof. Basant Kumar",
     title: "Faculty In-charge, Anokhi Pehel",
     img: BasantSir,
   },

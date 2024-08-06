@@ -32,10 +32,9 @@ const Billing = () => {
           the world!
         </h2>
         <h6 className={`${styles.paragraph} max-w-[470px] mt-5`}>
-          This timeless adage, often attributed to Mahatma Gandhi, encapsulates
-          the essence of proactive involvement and personal responsibility. It
-          urges individuals to step forward, take action, and lead by example to
-          create the positive change they desire in society.
+          The 21st century demands responsible and proactive community
+          engagement. We all have a role to play in driving the change we wish
+          to see in our communities.
         </h6>
         <Button styles={`mt-10`} text="Connect With Us!" func={connectWithUs} />
         {/* <div className="flex flex-row flex-wrap sm:mt-10 mt-6">
