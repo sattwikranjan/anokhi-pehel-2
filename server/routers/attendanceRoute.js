@@ -11,39 +11,60 @@ router.post("/submitAttendance", async (req, res) => {
     // Convert the input date to a string in the format "yyyy-MM-dd"
     const dateString = new Date(date).toISOString().split("T")[0];
 
+    // Find existing attendance records for the class and date
     const existingAttendance = await Attendance.findOne({
       classId,
       date: {
         $gte: new Date(dateString), // Greater than or equal to the input date
-        $lt: new Date(dateString).setDate(new Date(dateString).getDate() + 1), // Less than the next day
+        $lt: new Date(
+          new Date(dateString).setDate(new Date(dateString).getDate() + 1)
+        ), // Less than the next day
       },
     });
 
-    // If there are existing records, deny entry
     if (existingAttendance) {
-      // Attendance for this date and class already exists; update it
-      existingAttendance.attendanceRecords = attendanceRecords;
+      // Update attendance records
+      const updatedRecords = attendanceRecords.map((newRecord) => {
+        const existingRecord = existingAttendance.attendance.find(
+          (record) => record.studentId === newRecord.studentId
+        );
+
+        if (existingRecord) {
+          // Update existing record's status
+          existingRecord.status = newRecord.status;
+          return existingRecord;
+        } else {
+          // Add new record if not found
+          return {
+            studentId: newRecord.studentId,
+            status: newRecord.status,
+          };
+        }
+      });
+
+      // Remove records for students no longer in attendanceRecords
+      existingAttendance.attendance = updatedRecords.filter((record) =>
+        attendanceRecords.some(
+          (newRecord) => newRecord.studentId === record.studentId
+        )
+      );
 
       await existingAttendance.save();
 
       return res.json("Attendance updated successfully");
     }
 
-    // Create an array to store the updated records
-    const updatedRecords = attendanceRecords.map((record) => ({
-      studentId: record.studentId,
-      status: record.status,
-    }));
-
-    // Create a new attendance record
+    // If no existing attendance is found, create a new record
     const newAttendance = new Attendance({
       classId,
-      date: new Date(dateString), // Use the converted date
+      date: new Date(dateString),
       mentorId,
-      attendance: updatedRecords,
+      attendance: attendanceRecords.map((record) => ({
+        studentId: record.studentId,
+        status: record.status,
+      })),
     });
 
-    // Save the new attendance record to the database
     await newAttendance.save();
 
     res.json("Attendance submitted successfully");

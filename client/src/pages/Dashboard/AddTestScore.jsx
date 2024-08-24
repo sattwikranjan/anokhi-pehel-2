@@ -96,9 +96,12 @@ const AddStudent = () => {
     axios
       .get(`${BASE_URL}/students?class=${selectedClass}`)
       .then((response) => {
-        setStudents(response.data); // Set the students data in state
+        const activeStudents = response.data.filter(
+          (student) => student.active
+        );
+        setStudents(activeStudents); // Set the students data in state
         const initialData = {};
-        response.data.forEach((student) => {
+        activeStudents.forEach((student) => {
           initialData[student._id] = 0; // Default value is -1
         });
         setScoreData(initialData);

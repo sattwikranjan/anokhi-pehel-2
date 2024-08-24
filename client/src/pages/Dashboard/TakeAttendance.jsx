@@ -28,9 +28,12 @@ const Attendance = () => {
     axios
       .get(`${BASE_URL}/students?class=${selectedClass}`)
       .then((response) => {
-        setStudents(response.data);
+        const activeStudents = response.data.filter(
+          (student) => student.active
+        );
+        setStudents(activeStudents);
         const initialData = {};
-        response.data.forEach((student) => {
+        activeStudents.forEach((student) => {
           initialData[student._id] = ""; // Initialize with an empty string or another initial value if needed
         });
         setAttendanceData(initialData); // Set the initial attendance data
