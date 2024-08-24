@@ -143,16 +143,29 @@ export const footerLinks = [
       },
     ],
   },
+  // {
+  //   title: "Partner",
+  //   links: [
+  //     {
+  //       name: "Our Partner",
+  //       link: "https://anokhi-pehel.azurewebsites.net/",
+  //     },
+  //     {
+  //       name: "Become a Partner",
+  //       link: "https://anokhi-pehel.azurewebsites.net/",
+  //     },
+  //   ],
+  // },
   {
-    title: "Partner",
+    title: "Contact Us",
     links: [
       {
-        name: "Our Partner",
-        link: "https://anokhi-pehel.azurewebsites.net/",
+        name: "Email Id: anokhipehel@mnnit.ac.in",
+        //link: "https://anokhi-pehel.azurewebsites.net/",
       },
       {
-        name: "Become a Partner",
-        link: "https://anokhi-pehel.azurewebsites.net/",
+        name: "Phone: +91 9580259378",
+        //link: "https://anokhi-pehel.azurewebsites.net/",
       },
     ],
   },
