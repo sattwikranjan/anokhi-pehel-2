@@ -13,7 +13,6 @@ const AttendanceBoxes = ({ classId }) => {
         `${BASE_URL}/attendance?classId=${classId}`
       );
       // Assuming the API returns an array of attendance data
-
       setTotal(response.data.totalStudents);
       setPresent(response.data.totalPresentStudents);
       const percentagePresent = ((present / total) * 100).toFixed(2);
@@ -32,8 +31,6 @@ const AttendanceBoxes = ({ classId }) => {
       const response = await axios.get(
         `${BASE_URL}/topicCovered?classId=${classId}`
       );
-      // console.log(response.data);
-      // console.log(response.data.topicsCovered[0].topic);
       setTopicCovered(response.data.topicsCovered[0].topic);
       console.log(topicCovered);
     } catch (error) {

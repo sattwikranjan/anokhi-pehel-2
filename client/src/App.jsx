@@ -37,6 +37,7 @@ import ChangeRole from "./pages/Dashboard/ChangeRole";
 import EditStudent from "./pages/Dashboard/EditStudent";
 import ForgotPassword from "./pages/Home/ForgotPassword";
 import Alumni from "./pages/Dashboard/Alumni";
+import Notice from "./pages/Dashboard/Notice"
 const App = () => {
   const { loading } = useSelector((state) => state.alerts);
 
@@ -153,6 +154,7 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+            
             <Route
               path="/mentorProfile"
               element={
@@ -239,6 +241,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <AddStudents />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/Notice"
+              element={
+                <ProtectedRoute>
+                  <Notice />
                 </ProtectedRoute>
               }
             />

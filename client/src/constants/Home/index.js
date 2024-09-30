@@ -43,17 +43,17 @@ export const stats = [
   {
     id: "stats-1",
     title: "Mentors",
-    value: "150+",
+    value: 100,
   },
   {
     id: "stats-2",
     title: "Students",
-    value: "400+",
+    value: 400,
   },
   {
     id: "stats-3",
     title: "Students admitted to school",
-    value: "100+",
+    value: 100,
   },
 ];
 

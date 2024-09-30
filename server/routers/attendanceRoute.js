@@ -56,7 +56,7 @@ router.post("/submitAttendance", async (req, res) => {
 router.get("/attendance", async (req, res) => {
   const { classId } = req.query;
   const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
-
+  // console.log("vivek");
   try {
     // Find attendance records for the given classId and today's date
     const attendanceRecords = await Attendance.find({
@@ -75,7 +75,7 @@ router.get("/attendance", async (req, res) => {
           (item) => item.status === "present"
         ).length; // Count present students
       });
-
+     
       res.status(200).json({
         totalStudents,
         totalPresentStudents,

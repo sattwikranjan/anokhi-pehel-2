@@ -8,7 +8,7 @@ const Navbar = () => {
   const [toggle, setToggle] = useState(false);
 
   return (
-    <nav className="w-full flex py-6 justify-between items-center navbar">
+    <nav className="w-full flex py-4 -mb-2 -mt-2 justify-between items-center navbar">
       <Link to="/">
         <img src={logo} alt="Anokhi पहल" className="w-[50px] h-[50px]" />
       </Link>
@@ -21,7 +21,7 @@ const Navbar = () => {
           <li
             key={nav.id}
             className={`font-poppins font-medium cursor-pointer text-[16px] ${
-              active === nav.title ? "text-black font-bold" : "text-gray-600"
+              active === nav.title ? "text-black font-bold" : "text-slate-900"
             } ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}`}
             onClick={() => setActive(nav.title)}
           >

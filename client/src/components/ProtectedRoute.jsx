@@ -11,7 +11,6 @@ export default function ProtectedRoute({ children }) {
   const { user } = useSelector((state) => state.user);
 
   const token = localStorage.getItem("token"); // Retrieve the stored token from localStorage
-
   const getUser = async () => {
     try {
       dispatch(showLoading());
