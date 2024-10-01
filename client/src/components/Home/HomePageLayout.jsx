@@ -31,7 +31,7 @@ const HomePageLayout = ({ children }) => {
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        // style={{ backgroundImage: `url(${BackgroundImage})`, opacity: 0.3 }}
+         style={{ backgroundImage: `url(${BackgroundImage})`, opacity: 0.3 }}
       ></div>
 
       {/* Navbar with dynamic background */}

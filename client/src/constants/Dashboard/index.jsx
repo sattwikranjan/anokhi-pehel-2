@@ -3,7 +3,7 @@ import { BiHelpCircle, BiSolidSpreadsheet } from "react-icons/bi";
 import { PiStudentFill } from "react-icons/pi";
 import { SiBytedance } from "react-icons/si";
 import { MdSimCardAlert } from "react-icons/md";
-import { GiGamepadCross, GiTeacher, GiChart, GiPencil } from "react-icons/gi";
+import { GiGamepadCross, GiTeacher, GiChart, GiPencil, GiInspiration } from "react-icons/gi";
 import { FaBook } from "react-icons/fa";
 
 export const links = [
@@ -33,6 +33,10 @@ export const links = [
       {
         name: "Performance",
         icon: <GiChart />,
+      },
+      {
+        name: "Admission",
+        icon: <GiInspiration />,
       },
       {
         name: "StudyPlan",
