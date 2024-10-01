@@ -40,6 +40,8 @@ import Alumni from "./pages/Dashboard/Alumni";
 import Notice from "./pages/Dashboard/Notice"
 import BackToSchool from "./pages/Home/BackToSchool"
 import Admission from "./pages/Dashboard/Admission"
+import AdmittedStudents from "./pages/Dashboard/AdmittedStudents"
+import AdmittedStudentProfile from "./pages/Dashboard/AdmittedStudentProfile";
 const App = () => {
   const { loading } = useSelector((state) => state.alerts);
 
@@ -95,6 +97,14 @@ const App = () => {
               path="/Admission"
               element={
                 <ProtectedRoute>
+                  <AdmittedStudents />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/AddAdmission"
+              element={
+                <ProtectedRoute>
                   <Admission />
                 </ProtectedRoute>
               }
@@ -144,6 +154,15 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <TakeAttendance />
+                </ProtectedRoute>
+              }
+            />
+            
+            <Route
+              path="/admittedStudentProfile"
+              element={
+                <ProtectedRoute>
+                  <AdmittedStudentProfile />
                 </ProtectedRoute>
               }
             />
