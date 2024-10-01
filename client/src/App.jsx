@@ -38,6 +38,8 @@ import EditStudent from "./pages/Dashboard/EditStudent";
 import ForgotPassword from "./pages/Home/ForgotPassword";
 import Alumni from "./pages/Dashboard/Alumni";
 import Notice from "./pages/Dashboard/Notice"
+import BackToSchool from "./pages/Home/BackToSchool"
+import Admission from "./pages/Dashboard/Admission"
 const App = () => {
   const { loading } = useSelector((state) => state.alerts);
 
@@ -89,7 +91,14 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-
+<Route
+              path="/Admission"
+              element={
+                <ProtectedRoute>
+                  <Admission />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/checkAttendance"
               element={
@@ -313,6 +322,14 @@ const App = () => {
               element={
                 <PublicRoute>
                   <ConnectWithUs />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/backToSchool"
+              element={
+                <PublicRoute>
+                  <BackToSchool />
                 </PublicRoute>
               }
             />

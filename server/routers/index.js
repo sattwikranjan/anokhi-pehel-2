@@ -9,5 +9,5 @@ router.use(require("./lineScheduleRoute"));
 router.use(require("./classScheduleRoute"));
 router.use(require("./attendanceRoute"));
 router.use(require("./topicRoute"));
-
+router.use(require("./AdmissionRoute"));
 module.exports = router;

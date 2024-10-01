@@ -20,6 +20,7 @@ import DirImg from "./DirImg.webp";
 import DirectorImg from "./directorImg.jpeg";
 import BasantSir from "./BasantSir.jpg";
 import RajivSir from "./RajivSir.jpg";
+import BackToSchool from "./BackToSchool.jpg";
 export {
   logo,
   close,
@@ -43,4 +44,5 @@ export {
   BasantSir,
   RajivSir,
   DirImg,
+  BackToSchool,
 };
