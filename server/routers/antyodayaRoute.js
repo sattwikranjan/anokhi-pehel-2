@@ -238,7 +238,7 @@ router.get("/getEventByEventId", async (req, res) => {
   router.post("/addParticipants", upload.single("photo"), async (req, res) => {
     try {
       const { name, class: studentClass, phone, school, aadhar, address, poc, events } = req.body;
-  
+      console.log(req.body);
       // If events is not provided, default to an empty array
       const eventList = events ? events.split(',') : [];
   
@@ -256,7 +256,8 @@ router.get("/getEventByEventId", async (req, res) => {
         school,
         aadhar,
         address,
-        photo: req.file.path,
+         photo: req.file.filename,
+        // photo:req.file.filename,
         poc,
         events: eventList, // Use the parsed eventList
       });
