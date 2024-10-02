@@ -1,7 +1,11 @@
 const express = require("express");
-const Event = require("../models/Event"); // Assuming the Event schema is located in models/Event.js
+const Event = require("../models/Event");
+const Participant = require("../models/AntyodayaParticipant"); // Assuming the Event schema is located in models/Event.js
 const router = express.Router();
 const cors = require("cors");
+const path = require("path");
+const { v4: uuidv4 } = require("uuid");
+const multer = require("multer");
 const POC = require("../models/PointOfContact");
 // Middleware setup
 const app = express();
@@ -186,6 +190,75 @@ router.get("/getEventByEventId", async (req, res) => {
     }
   });
 
+
+  const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, "images");
+    },
+    filename: function (req, file, cb) {
+      cb(null, uuidv4() + "-" + Date.now() + path.extname(file.originalname));
+    },
+  });
+  
+  const fileFilter = (req, file, cb) => {
+    const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png"];
+    if (allowedFileTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+    }
+  };
+  
+  let upload = multer({ storage, fileFilter });
+  app.use(express.urlencoded({ extended: true }));
+  
+  app.use("/uploads", express.static("uploads"));
+
+  router.post("/addParticipants", upload.single("photo"), async (req, res) => {
+    try {
+      const { name, class: studentClass, phone, school, aadhar, address, poc, events } = req.body;
+  
+      // If events is not provided, default to an empty array
+      const eventList = events ? events.split(',') : [];
+  
+      // Check for existing participant by Aadhar number
+      const existingParticipant = await Participant.findOne({ aadhar });
+      if (existingParticipant) {
+        return res.status(400).send("Participant with this Aadhar number already exists");
+      }
+  
+      // Create a new participant
+      const newParticipant = new Participant({
+        name,
+        class: studentClass,
+        phone,
+        school,
+        aadhar,
+        address,
+        photo: req.file.path,
+        poc,
+        events: eventList, // Use the parsed eventList
+      });
+  
+      // Save participant to the database
+      await newParticipant.save();
+      return res.status(201).send("Participant Added");
+    } catch (error) {
+      console.error("Error adding participant:", error);
+      return res.status(500).send("Internal Server Error");
+    }
+  });
+  
+  
+  router.get("/participantList", async (req, res) => {
+    try {
+      const participants = await Participant.find();
+      res.json(participants);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
 
 
 module.exports = router;

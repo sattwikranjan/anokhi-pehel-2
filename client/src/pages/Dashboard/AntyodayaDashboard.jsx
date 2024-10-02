@@ -19,10 +19,10 @@ const Dashboard = () => {
     navigate("/checkEvents");
   };
   const addParticipants = () => {
-    navigate("/addTopic");
+    navigate("/addParticipant");
   };
   const findParticipants = () => {
-    navigate("/findTopic");
+    navigate("/viewParticipants");
   };
 
   const addPoc = () => {
