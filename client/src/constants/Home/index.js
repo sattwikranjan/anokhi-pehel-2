@@ -34,6 +34,10 @@ export const navLinks = [
     title: "Teams",
   },
   {
+    id: "Antyodaya",
+    title: "Antyodaya",
+  },
+  {
     id: "connectWithUs",
     title: "Contact Us",
   },

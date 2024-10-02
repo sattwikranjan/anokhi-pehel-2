@@ -21,6 +21,8 @@ import DirectorImg from "./directorImg.jpeg";
 import BasantSir from "./BasantSir.jpg";
 import RajivSir from "./RajivSir.jpg";
 import BackToSchool from "./BackToSchool.jpg";
+import antyodaya from "./antyodaya.png";
+import Antyodaya2k23 from "./Antyodaya2k23.png";
 export {
   logo,
   close,
@@ -45,4 +47,6 @@ export {
   RajivSir,
   DirImg,
   BackToSchool,
+  antyodaya,
+  Antyodaya2k23,
 };

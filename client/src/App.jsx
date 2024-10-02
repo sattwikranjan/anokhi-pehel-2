@@ -42,6 +42,12 @@ import BackToSchool from "./pages/Home/BackToSchool"
 import Admission from "./pages/Dashboard/Admission"
 import AdmittedStudents from "./pages/Dashboard/AdmittedStudents"
 import AdmittedStudentProfile from "./pages/Dashboard/AdmittedStudentProfile";
+import Antyodaya from "./pages/Home/Antyodaya";
+import AtyodayaDashboard from "./pages/Dashboard/AntyodayaDashboard";
+import AddEvent from "./pages/Dashboard/AddEvent";
+import EventList from "./pages/Dashboard/EventList";
+import EventDetails from "./pages/Dashboard/EventDetails";
+import EditEvent from "./pages/Dashboard/EditEvent";
 const App = () => {
   const { loading } = useSelector((state) => state.alerts);
 
@@ -85,6 +91,15 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+            checkEvents
+            <Route
+              path="/checkEvents"
+              element={
+                <ProtectedRoute>
+                  <EventList />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/editProfile"
               element={
@@ -103,9 +118,19 @@ const App = () => {
             />
             <Route
               path="/AddAdmission"
+
               element={
                 <ProtectedRoute>
                   <Admission />
+                </ProtectedRoute>
+              }
+            />
+            
+            <Route
+              path="/editEvent"
+              element={
+                <ProtectedRoute>
+                  <EditEvent />
                 </ProtectedRoute>
               }
             />
@@ -126,10 +151,26 @@ const App = () => {
               }
             />
             <Route
+              path="/Antyodaya-Dashboard"
+              element={
+                <ProtectedRoute>
+                  <AtyodayaDashboard/>
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/totalAttendance"
               element={
                 <ProtectedRoute>
                   <AttendanceTable />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/addEvent"
+              element={
+                <ProtectedRoute>
+                  <AddEvent />
                 </ProtectedRoute>
               }
             />
@@ -188,6 +229,15 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <MentorProfile />
+                </ProtectedRoute>
+              }
+            />
+            
+            <Route
+              path="/eventManagement"
+              element={
+                <ProtectedRoute>
+                  <EventDetails />
                 </ProtectedRoute>
               }
             />
@@ -349,6 +399,14 @@ const App = () => {
               element={
                 <PublicRoute>
                   <BackToSchool />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/Antyodaya"
+              element={
+                <PublicRoute>
+                  <Antyodaya />s
                 </PublicRoute>
               }
             />

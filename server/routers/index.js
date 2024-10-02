@@ -10,4 +10,5 @@ router.use(require("./classScheduleRoute"));
 router.use(require("./attendanceRoute"));
 router.use(require("./topicRoute"));
 router.use(require("./AdmissionRoute"));
+router.use(require("./antyodayaRoute"));
 module.exports = router;

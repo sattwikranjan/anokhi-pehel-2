@@ -13,7 +13,7 @@ const Admission = () => {
     >
       {/* Text Section */}
       <div className="flex-1 flex flex-col">
-        <h2 className={styles.heading2}>Back To School</h2>
+        <h2 className={`${styles.heading2} text-center `}>Back To School</h2>
         <p className={`${styles.paragraph} max-w-[470px] mt-5 mb-10`}>
           Helping the needy get back to school by assisting them with admissions.
           These children are school dropouts due to various reasons such as financial,

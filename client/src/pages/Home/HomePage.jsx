@@ -4,6 +4,7 @@ import HomePageLayout from "../../components/Home/HomePageLayout";
 import Testimonials from "../../components/Home/Testimonials";
 import Billing from "../../components/Home/Billing";
 import Admission from "../../components/Home/Admission"
+import Antyodaya from "../../components/Home/Antyodaya"
 const App = () => (
   <HomePageLayout>
     <div className={`bg-primary ${styles.flexStart}`}>
@@ -18,6 +19,7 @@ const App = () => (
         <Impact />
         <Billing />
         <Admission />
+        <Antyodaya/>
         <CardDeal />
         <Testimonials />
       </div>
