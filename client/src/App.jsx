@@ -52,6 +52,7 @@ import AddPoc from "./pages/Dashboard/AddPoc";
 import ViewPoc from "./pages/Dashboard/ViewPoc";
 import AddAtyodayaParticipant from "./pages/Dashboard/AddAntyodayaParticipant"
 import ViewParticipants from "./pages/Dashboard/ViewParticipant";
+import ParticipantProfile from "./pages/Dashboard/ParticipantProfile";
 const App = () => {
   const { loading } = useSelector((state) => state.alerts);
 
@@ -112,7 +113,15 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-           
+            
+            <Route
+              path="/ParticipantProfile"
+              element={
+                <ProtectedRoute>
+                  <ParticipantProfile />
+                </ProtectedRoute>
+              }
+            />
            <Route
               path="/viewParticipants"
               element={

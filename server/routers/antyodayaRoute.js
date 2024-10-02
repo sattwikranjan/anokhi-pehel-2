@@ -190,6 +190,27 @@ router.get("/getEventByEventId", async (req, res) => {
     }
   });
 
+  router.get('/getPocById', async (req, res) => {
+    const { pocId } = req.query;
+//     const event = await Event.findById(eventId);
+    // console.log(pocId);
+    try {
+      // Find the POC by ID
+      const poc = await POC.findById(pocId);
+  
+      if (!poc) {
+        return res.status(404).json({ message: 'POC not found' });
+      }
+  
+      // Send back the POC details
+      res.json(poc);
+    //   console.log(poc);
+    } catch (err) {
+      console.error('Error fetching POC:', err);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+
 
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -252,13 +273,35 @@ router.get("/getEventByEventId", async (req, res) => {
   
   router.get("/participantList", async (req, res) => {
     try {
-      const participants = await Participant.find();
-      res.json(participants);
+      const students = await Participant.find();
+    //   console.log(students);
+      res.json(students);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Server error" });
     }
   });
+
+
+  
+router.get("/getParticipantByUserId", async (req, res) => {
+  // Extract the user ID from the request query parameters
+  const student_id = req.query.studentid;
+
+  try {
+    // Query the database to retrieve the user based on the ID
+    const student = await Participant.findById(student_id);
+    // Check if the user exists
+    if (!student) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json(student);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 
 module.exports = router;

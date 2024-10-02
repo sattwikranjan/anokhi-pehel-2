@@ -74,7 +74,7 @@ const Participants = () => {
         setIsLoading(true);
         const response = await axios.get(`${BASE_URL}/participantList`);
         setStudents(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.log(error);
       } finally {
@@ -126,26 +126,29 @@ const Participants = () => {
     // console.log("Selected locations updated:", selectedLocations);
   }, [selectedLocations, selectedClasses]); // Adding selectedLocations as a dependency
 
-  let filteredStudents = students;
+  // Ensure students is an array, even if it's initially undefined or null
+let filteredStudents = Array.isArray(students) ? students : [];
 
-  if (selectedLocations.length > 0) {
-    filteredStudents = filteredStudents.filter((student) =>
-      selectedLocations.includes(student.location)
-    );
-  }
+if (selectedLocations.length > 0) {
+  filteredStudents = filteredStudents.filter((student) =>
+    selectedLocations.includes(student.location)
+  );
+}
 
-  if (selectedClasses.length > 0) {
-    filteredStudents = filteredStudents.filter((student) =>
-      selectedClasses.includes(student.className)
-    );
-  }
-  // console.log(filteredStudents);
+if (selectedClasses.length > 0) {
+  filteredStudents = filteredStudents.filter((student) =>
+    selectedClasses.includes(student.className)
+  );
+}
 
-  filteredStudents = filteredStudents.filter((user) => {
-    const userName = user.name ? user.name.toLowerCase() : "";
-    return userName.includes(filterName.toLowerCase());
-  });
- 
+filteredStudents = filteredStudents.filter((user) => {
+  const userName = user.name ? user.name.toLowerCase() : "";
+  return userName.includes(filterName.toLowerCase());
+});
+
+// console.log(filteredStudents);
+
+
   //Pagination
   // Calculate the indices for the current page
   const indexOfLastUser = currentPage * usersPerPage;
@@ -230,7 +233,7 @@ const Participants = () => {
     <DashboardLayout>
       {isLoading && <Spinner />}
       <div className="mt-5 p-2 md:p-10 bg-white rounded-3xl">
-        <Header category="Academics" title="Students" />
+        <Header category="Antyodaya2k23" title="Participants" />
         <div className="mx-auto max-w-screen-xl">
           <div className="bg-white  relative shadow-md sm:rounded-lg">
             <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
@@ -375,9 +378,7 @@ const Participants = () => {
                     <th scope="col" className="px-4 py-3">
                       Phone
                     </th>
-                    <th scope="col" className="px-4 py-3">
-                      Poc
-                    </th>
+                   
                     <th scope="col" className="px-4 py-3">
                       School
                     </th>
@@ -399,7 +400,7 @@ const Participants = () => {
                       <td className="px-4 py-3">{student.class}</td>
                       <td className="px-4 py-3">{student.phone}</td>
                      
-                      <td className="px-4 py-3">{student.poc}</td>
+                     
                       <td className="px-4 py-3">{student.school}</td>
 
                       <td className="px-4 py-3 flex items-center">
