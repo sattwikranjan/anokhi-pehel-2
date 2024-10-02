@@ -26,10 +26,10 @@ const Dashboard = () => {
   };
 
   const addPoc = () => {
-    navigate("/findTopic");
+    navigate("/addPoc");
   };
   const viewPoc = () => {
-    navigate("/findTopic");
+    navigate("/viewPoc");
   };
   return (
     <DashboardLayout>

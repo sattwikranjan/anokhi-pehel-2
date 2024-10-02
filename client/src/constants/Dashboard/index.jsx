@@ -171,6 +171,13 @@ export const times = [
   "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM", "8:00 PM", "8:30 PM",
   "9:00 PM", "9:30 PM", "10:00 PM", "10:30 PM", "11:00 PM"
 ];
+export const poc=[
+  {id:"Dummy School 1", poc:"abc sir", contact:"7282827749"},
+  {id:"Dummy School 2", poc:"xyz sir", contact:"87878787844"},
+  {id:"Dummy School 3", poc:"abxy maam", contact:"8407841776"},
+]
+
+
 
 export const BRANCH = {
   CSE: "Computer Science and Engineering",

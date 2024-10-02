@@ -2,7 +2,7 @@ const express = require("express");
 const Event = require("../models/Event"); // Assuming the Event schema is located in models/Event.js
 const router = express.Router();
 const cors = require("cors");
-
+const POC = require("../models/PointOfContact");
 // Middleware setup
 const app = express();
 app.use(cors());
@@ -132,6 +132,57 @@ router.get("/getEventByEventId", async (req, res) => {
     } catch (error) {
       console.error("Error updating event:", error);
       res.status(500).json({ message: "Server error" });
+    }
+  });
+
+
+
+  router.post("/addPoc", async (req, res) => {
+    try {
+      const { nameOfPoc, contact, school } = req.body;
+  
+      // Validate input
+      if (!nameOfPoc || !contact || !school) {
+        return res.status(400).json({ message: "All fields are required." });
+      }
+  
+      // Create new POC
+      const newPoc = new POC({
+        nameOfPoc,
+        contact,
+        school,
+      });
+  
+      // Save to the database
+      await newPoc.save();
+  
+      return res.status(201).json({ message: "Added", newPoc });
+    } catch (error) {
+      console.error("Error adding POC:", error);
+      return res.status(500).json({ message: "Server error. Please try again." });
+    }
+  });
+
+
+  router.get("/pocList", async (req, res) => {
+    try {
+      const pocList = await POC.find(); // Fetch all POCs from the database
+      res.status(200).json(pocList);
+    } catch (error) {
+      console.error("Error fetching POC list:", error);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
+
+  router.delete("/pocList/:id", async (req, res) => {
+    try {
+      const deletedPoc = await POC.findByIdAndDelete(req.params.id);
+      if (!deletedPoc) {
+        return res.status(404).send("POC not found");
+      }
+      res.status(200).send("POC deleted successfully");
+    } catch (error) {
+      res.status(500).send("Server error");
     }
   });
 

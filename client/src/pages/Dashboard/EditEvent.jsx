@@ -11,7 +11,7 @@ const EditEvent = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const { user } = useSelector((state) => state.user);
-  const eventId = searchParams.get("eventId");  // Adjust the query parameter key if needed
+  const eventId = searchParams.get("eventId"); // Adjust the query parameter key if needed
 
   const [credentials, setCredentials] = useState({
     eventName: "",
@@ -27,16 +27,18 @@ const EditEvent = () => {
     secondPlace: "",
     thirdPlace: "",
     fourthPlace: "",
-    eventId:eventId,
+    eventId: eventId,
   });
 
   // Fetch event data using eventId when component mounts
   useEffect(() => {
     const fetchEventData = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/getEventByEventId?eventId=${eventId}`);
+        const response = await axios.get(
+          `${BASE_URL}/getEventByEventId?eventId=${eventId}`
+        );
         const eventData = response.data;
-        
+
         setCredentials({
           eventName: eventData.eventName,
           eventDepartment: eventData.eventDepartment,
@@ -51,9 +53,8 @@ const EditEvent = () => {
           secondPlace: eventData.secondPlace,
           thirdPlace: eventData.thirdPlace,
           fourthPlace: eventData.fourthPlace,
-          eventId:eventData._id,
+          eventId: eventData._id,
         });
-       
       } catch (error) {
         console.error("Error fetching event:", error);
         alert("Could not fetch event details. Please try again later.");
@@ -84,7 +85,6 @@ const EditEvent = () => {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  
   return (
     <DashboardLayout>
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
@@ -211,11 +211,10 @@ const EditEvent = () => {
                     </select>
                   </div>
                 </div>
-                
               </div>
 
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-2">
+                <div className="sm:col-span-2">
                   <label
                     htmlFor="topic"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -239,7 +238,7 @@ const EditEvent = () => {
                     htmlFor="topic"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Contact of Coordinator 
+                    Contact of Coordinator
                   </label>
                   <div className="mt-2">
                     <input
@@ -272,86 +271,93 @@ const EditEvent = () => {
                   </div>
                 </div>
               </div>
-              
+
+              <div className="mt-10">
+  <h3 className="text-lg font-semibold leading-6 text-gray-900">
+    Winners
+  </h3>
+  <p className="mt-2 text-sm text-gray-600">
+    Add all the details like - Name, School, Class of the student
+  </p>
 
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-  <div className="sm:col-span-2">
-    <label
-      htmlFor="firstPlace"
-      className="block text-sm font-medium leading-6 text-gray-900"
-    >
-      First Place
-    </label>
-    <div className="mt-2">
-      <input
-        type="text"
-        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-        name="firstPlace"
-        placeholder="First Place"
-        value={credentials.firstPlace}
-        onChange={onChange}
-      />
-    </div>
-  </div>
+                <div className="sm:col-span-2">
+                  <label
+                    htmlFor="firstPlace"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    First Place
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                      name="firstPlace"
+                      placeholder="First Place"
+                      value={credentials.firstPlace}
+                      onChange={onChange}
+                    />
+                  </div>
+                </div>
 
-  <div className="sm:col-span-2">
-    <label
-      htmlFor="secondPlace"
-      className="block text-sm font-medium leading-6 text-gray-900"
-    >
-      Second Place
-    </label>
-    <div className="mt-2">
-      <input
-        type="text"
-        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-        name="secondPlace"
-        placeholder="Second Place"
-        value={credentials.secondPlace}
-        onChange={onChange}
-      />
-    </div>
-  </div>
+                <div className="sm:col-span-2">
+                  <label
+                    htmlFor="secondPlace"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Second Place
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                      name="secondPlace"
+                      placeholder="Second Place"
+                      value={credentials.secondPlace}
+                      onChange={onChange}
+                    />
+                  </div>
+                </div>
 
-  <div className="sm:col-span-2">
-    <label
-      htmlFor="thirdPlace"
-      className="block text-sm font-medium leading-6 text-gray-900"
-    >
-      Third Place
-    </label>
-    <div className="mt-2">
-      <input
-        type="text"
-        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-        name="thirdPlace"
-        placeholder="Third Place"
-        value={credentials.thirdPlace}
-        onChange={onChange}
-      />
-    </div>
-  </div>
+                <div className="sm:col-span-2">
+                  <label
+                    htmlFor="thirdPlace"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Third Place
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                      name="thirdPlace"
+                      placeholder="Third Place"
+                      value={credentials.thirdPlace}
+                      onChange={onChange}
+                    />
+                  </div>
+                </div>
 
-  <div className="sm:col-span-2">
-    <label
-      htmlFor="fourthPlace"
-      className="block text-sm font-medium leading-6 text-gray-900"
-    >
-      Fourth Place
-    </label>
-    <div className="mt-2">
-      <input
-        type="text"
-        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-        name="fourthPlace"
-        placeholder="Fourth Place"
-        value={credentials.fourthPlace}
-        onChange={onChange}
-      />
-    </div>
-  </div>
-</div>
-
+                <div className="sm:col-span-2">
+                  <label
+                    htmlFor="fourthPlace"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Fourth Place
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                      name="fourthPlace"
+                      placeholder="Fourth Place"
+                      value={credentials.fourthPlace}
+                      onChange={onChange}
+                    />
+                  </div>
+                </div>
+              </div>
+              </div>
             </div>
           </div>
 

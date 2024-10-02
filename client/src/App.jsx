@@ -48,6 +48,8 @@ import AddEvent from "./pages/Dashboard/AddEvent";
 import EventList from "./pages/Dashboard/EventList";
 import EventDetails from "./pages/Dashboard/EventDetails";
 import EditEvent from "./pages/Dashboard/EditEvent";
+import AddPoc from "./pages/Dashboard/AddPoc";
+import ViewPoc from "./pages/Dashboard/ViewPoc";
 const App = () => {
   const { loading } = useSelector((state) => state.alerts);
 
@@ -105,6 +107,22 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <EditProfile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/addPoc"
+              element={
+                <ProtectedRoute>
+                  <AddPoc />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/viewPoc"
+              element={
+                <ProtectedRoute>
+                  <ViewPoc />
                 </ProtectedRoute>
               }
             />
