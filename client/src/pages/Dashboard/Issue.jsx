@@ -77,7 +77,7 @@ const fetchIssues = async () => {
         )}
         <p className="text-center mt-2">
           We're glad to have you here! If you encounter any issues or have
-          suggestions for improving the Anoki Pehel web portal, please feel free
+          suggestions for improving the Anokhi Pehel web portal, please feel free
           to raise them here. Your feedback will help our web team gain valuable
           insights to make the portal more efficient and user-friendly. Thank
           you for your support!
