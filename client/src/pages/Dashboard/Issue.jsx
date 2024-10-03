@@ -65,6 +65,18 @@ const fetchIssues = async () => {
     }
   };
 
+  const handleStatusChange = async (issueId, newStatus) => {
+    try {
+      await axios.put(`${BASE_URL}/solveIssues/${issueId}`, { status: newStatus });
+      // Fetch the updated issues after changing the status
+      fetchIssues(); 
+    } catch (error) {
+      console.error("Error updating the status:", error);
+      alert("Failed to update the status. Please try again.");
+    }
+  };
+  
+
   return (
     <DashboardLayout>
      <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
@@ -165,7 +177,23 @@ const fetchIssues = async () => {
         <td className="py-3 px-6 text-left">{issue.userName}</td>
         <td className="py-3 px-6 text-left">{issue.userRegNumber}</td>
         <td className="py-3 px-6 text-left">{new Date(issue.createdAt).toLocaleDateString()}</td>
-        <td className="py-3 px-6 text-left">{issue.status}</td>
+        
+        <td className={`py-3 px-6 text-left ${issue.status === 'unsolved' ? 'text-red-500' : issue.status === 'progress' ? 'text-yellow-500' : 'text-green-500'}`}>
+  {user?.isAdmin ? (
+    <select
+      value={issue.status}
+      onChange={(e) => handleStatusChange(issue._id, e.target.value)}
+      className="border rounded-md p-1 pl-3 pr-8" // Add padding on the right
+    >
+      <option value="unsolved">Unsolved</option>
+      <option value="progress">In Progress</option>
+      <option value="solved">Solved</option>
+    </select>
+  ) : (
+    issue.status // Just display the status if the user is not an admin
+  )}
+</td>
+
       </tr>
     ))
   ) : (

@@ -42,5 +42,25 @@ router.get("/fetchIssues", async (req, res) => {
         });
     }
 });
+router.put('/solveIssues/:id', async (req, res) => {
+    const { status } = req.body;
+    try {
+      const updatedIssue = await Issue.findByIdAndUpdate(
+        req.params.id,
+        { status },
+        { new: true }
+      );
+      res.status(200).json({
+        message: 'Issue status updated successfully!',
+        issue: updatedIssue,
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: 'Error updating issue status',
+        error: error.message,
+      });
+    }
+  });
+  
 
 module.exports = router;
