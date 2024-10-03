@@ -76,6 +76,20 @@ const fetchIssues = async () => {
     }
   };
   
+  const handleDelete = async (issueId) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this issue?");
+    if (!confirmDelete) return;
+  
+    try {
+      await axios.delete(`${BASE_URL}/deleteIssues/${issueId}`);
+      alert("Issue deleted successfully!");
+      fetchIssues(); // Refresh the list after deletion
+    } catch (error) {
+      alert("Error deleting the issue. Please try again later.");
+      console.error("Delete issue error:", error);
+    }
+  };
+  
 
   return (
     <DashboardLayout>
@@ -143,70 +157,79 @@ const fetchIssues = async () => {
       )}
 
       {/* Table to display issues */}
-      <div className="overflow-x-auto">
-        <h2 className="text-xl font-bold mb-4">Submitted Issues</h2>
-        <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
-          <thead>
-            <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-              <th className="py-3 px-6 text-left">Issue</th>
-              <th className="py-3 px-6 text-left">Raised By</th>
-              <th className="py-3 px-6 text-left">Reg Number</th>
-              <th className="py-3 px-6 text-left">Date Raised</th>
-              <th className="py-3 px-6 text-left">Status</th>
-            </tr>
-          </thead>
-          <tbody className="text-gray-600 text-sm font-light">
-  {Array.isArray(issues) && issues.length > 0 ? (
-    issues.map((issue) => (
-      <tr key={issue._id} className="border-b border-gray-200 hover:bg-gray-100">
-        <td className="py-3 px-6 text-left">
-          {issue.issue.length > 10 ? (
-            <>
-              {issue.issue.substring(0, 10)}...{" "}
-              <button
-                className="text-blue-500 underline"
-                onClick={() => alert(issue.issue)} // Change this to your read more function or link
-              >
-                Read more
-              </button>
-            </>
-          ) : (
-            issue.issue
-          )}
-        </td>
-        <td className="py-3 px-6 text-left">{issue.userName}</td>
-        <td className="py-3 px-6 text-left">{issue.userRegNumber}</td>
-        <td className="py-3 px-6 text-left">{new Date(issue.createdAt).toLocaleDateString()}</td>
-        
-        <td className={`py-3 px-6 text-left ${issue.status === 'unsolved' ? 'text-red-500' : issue.status === 'progress' ? 'text-yellow-500' : 'text-green-500'}`}>
-  {user?.isAdmin ? (
-    <select
-      value={issue.status}
-      onChange={(e) => handleStatusChange(issue._id, e.target.value)}
-      className="border rounded-md p-1 pl-3 pr-8" // Add padding on the right
-    >
-      <option value="unsolved">Unsolved</option>
-      <option value="progress">In Progress</option>
-      <option value="solved">Solved</option>
-    </select>
-  ) : (
-    issue.status // Just display the status if the user is not an admin
-  )}
-</td>
-
+<div className="overflow-x-auto">
+  <h2 className="text-xl font-bold mb-4">Submitted Issues</h2>
+  <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+    <thead>
+      <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+        <th className="py-3 px-6 text-left">Issue</th>
+        <th className="py-3 px-6 text-left">Raised By</th>
+        <th className="py-3 px-6 text-left">Reg Number</th>
+        <th className="py-3 px-6 text-left">Date Raised</th>
+        <th className="py-3 px-6 text-left">Status</th>
+        {user?.isAdmin && <th className="py-3 px-6 text-left">Actions</th>} {/* Show Actions column only for admins */}
       </tr>
-    ))
-  ) : (
-    <tr>
-      <td colSpan="5" className="py-3 px-6 text-center text-gray-500">
-        No issues have been raised yet.
-      </td>
-    </tr>
-  )}
-</tbody>
+    </thead>
+    <tbody className="text-gray-600 text-sm font-light">
+      {Array.isArray(issues) && issues.length > 0 ? (
+        issues.map((issue) => (
+          <tr key={issue._id} className="border-b border-gray-200 hover:bg-gray-100">
+            <td className="py-3 px-6 text-left">
+              {issue.issue.length > 10 ? (
+                <>
+                  {issue.issue.substring(0, 10)}...{" "}
+                  <button
+                    className="text-blue-500 underline"
+                    onClick={() => alert(issue.issue)} // Change this to your read more function or link
+                  >
+                    Read more
+                  </button>
+                </>
+              ) : (
+                issue.issue
+              )}
+            </td>
+            <td className="py-3 px-6 text-left">{issue.userName}</td>
+            <td className="py-3 px-6 text-left">{issue.userRegNumber}</td>
+            <td className="py-3 px-6 text-left">{new Date(issue.createdAt).toLocaleDateString()}</td>
+            <td className={`py-3 px-6 text-left ${issue.status === 'unsolved' ? 'text-red-500' : issue.status === 'progress' ? 'text-yellow-500' : 'text-green-500'}`}>
+              {user?.isAdmin ? (
+                <select
+                  value={issue.status}
+                  onChange={(e) => handleStatusChange(issue._id, e.target.value)}
+                  className="border rounded-md p-1 pl-3 pr-8" // Add padding on the right
+                >
+                  <option value="unsolved">Unsolved</option>
+                  <option value="progress">In Progress</option>
+                  <option value="solved">Solved</option>
+                </select>
+              ) : (
+                issue.status // Just display the status if the user is not an admin
+              )}
+            </td>
+            {user?.isAdmin && (
+              <td className="py-3 px-6 text-left">
+                <button
+                  onClick={() => handleDelete(issue._id)} // Handle delete action
+                  className="text-red-500 hover:text-red-700"
+                >
+                  Delete
+                </button>
+              </td>
+            )}
+          </tr>
+        ))
+      ) : (
+        <tr>
+          <td colSpan="6" className="py-3 px-6 text-center text-gray-500">
+            No issues have been raised yet.
+          </td>
+        </tr>
+      )}
+    </tbody>
+  </table>
+</div>
 
-        </table>
-      </div>
     </DashboardLayout>
   );
 };
