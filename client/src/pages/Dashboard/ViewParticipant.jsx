@@ -206,13 +206,16 @@ filteredStudents = filteredStudents.filter((user) => {
       try {
         // Send request to server to delete student
         const response = await axios.delete(
-          `${BASE_URL}/deleteStudents/${studentId}`
+          `${BASE_URL}/deleteParticipants/${studentId}`
         );
         if (response.status === 200) {
           // Student deleted successfully
-          console.log("Student deleted successfully");
+          alert("Participants deleted successfully");
+          navigate("/viewParticipants");
+        //   console.log("Student deleted successfully");
           // You can perform any additional actions after successful deletion, such as updating the UI
         } else {
+            alert("Participants not deleted successfully");
           // Handle error response from server
           console.error(
             "Failed to delete student:",
@@ -223,6 +226,7 @@ filteredStudents = filteredStudents.filter((user) => {
         }
       } catch (error) {
         // Handle network errors or other exceptions
+        alert("Participants not deleted successfully");
         console.error("Error deleting student:", error.message);
         // You can show an error message to the user or handle the error in any other way
       }
