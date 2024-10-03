@@ -283,6 +283,25 @@ router.get("/getEventByEventId", async (req, res) => {
     }
   });
 
+  router.delete("/deleteParticipants/:studentId", async (req, res) => {
+    const { studentId } = req.params;
+  
+    try {
+      // Find and delete the participant by ID
+      const deletedParticipant = await Participant.findByIdAndDelete(studentId);
+  
+      if (!deletedParticipant) {
+        return res.status(404).json({ message: "Participant not found" });
+      }
+  
+      // Successfully deleted participant
+      res.status(200).json({ message: "Participant deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting participant:", error);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
+
 
   
 router.get("/getParticipantByUserId", async (req, res) => {
