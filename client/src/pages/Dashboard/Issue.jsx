@@ -67,7 +67,7 @@ const fetchIssues = async () => {
 
   return (
     <DashboardLayout>
-      <div className="m-2 ml-10 mr-10 mt-10  p-2 md:p-10 bg-white rounded-3xl">
+     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
         {user ? (
           <h1 className="font-bold text-center">
             Welcome On Issue Portal, {user.name}!
@@ -75,7 +75,7 @@ const fetchIssues = async () => {
         ) : (
           <p>No user data available.</p>
         )}
-        <p className="text-center mt-2">
+        <p className="text-center ">
           We're glad to have you here! If you encounter any issues or have
           suggestions for improving the Anokhi Pehel web portal, please feel free
           to raise them here. Your feedback will help our web team gain valuable
@@ -131,7 +131,7 @@ const fetchIssues = async () => {
       )}
 
       {/* Table to display issues */}
-      <div className="mt-10 mx-10">
+      <div className="overflow-x-auto">
         <h2 className="text-xl font-bold mb-4">Submitted Issues</h2>
         <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
           <thead>
