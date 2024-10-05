@@ -434,7 +434,9 @@ const Student = () => {
                     <tr key={student._id} className="border-x">
                       <th
                         scope="row"
-                        className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap "
+                        className={`px-4 py-3 font-medium ${
+                          student.active ? "text-gray-900" : "text-red-500"
+                        } whitespace-nowrap `}
                       >
                         {student.name}
                       </th>
