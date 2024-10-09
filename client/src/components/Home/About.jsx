@@ -1,7 +1,7 @@
 import React from "react";
 
 const AboutUs = () => (
-  <section className="py-8 bg-gray-100 min-h-screen relative ${styles.flexStart} overflow-hidden rounded-lg mb-20" style={{
+  <section className="py-2 bg-gray-100 min-h-screen border-2 border-teal-200 relative ${styles.flexStart} overflow-hidden rounded-lg mb-20" style={{
     borderRadius: "40px", // Smooth curves
   }}>
     <div className="max-w-6xl mx-auto  shadow-lg text-center rounded-lg p-4 mb-10 overflow-hidden rounded-lg mb-16" style={{

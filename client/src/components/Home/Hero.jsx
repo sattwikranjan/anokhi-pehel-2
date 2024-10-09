@@ -4,7 +4,7 @@ import { study, class1, ANOKHIPEHEL } from "../../assets/Home";
 const Hero = () => {
   return (
     <div
-      className={`relative ${styles.flexStart} overflow-hidden rounded-lg mb-20`} // Apply rounded corners and hidden overflow
+      className={`relative ${styles.flexStart} overflow-hidden rounded-lg mb-10`} // Apply rounded corners and hidden overflow
       style={{
         borderRadius: "40px", // Smooth curves
       }}
