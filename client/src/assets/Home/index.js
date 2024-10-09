@@ -25,6 +25,8 @@ import antyodaya from "./antyodaya.png";
 import Antyodaya2k23 from "./Antyodaya2k23.png";
 import Antyodayavid from "./Antyodayavid.mp4";
 import AboutAntyodaya from "./AboutAntyodaya.jpg"
+import AboutAntyodayaFrame from "./AboutAntyodayaFrame.png"
+import ANOKHIPEHEL from "./ANOKHIPEHEL.mp4";
 export {
   logo,
   close,
@@ -53,4 +55,6 @@ export {
   Antyodaya2k23,
   Antyodayavid,
   AboutAntyodaya,
+  AboutAntyodayaFrame,
+  ANOKHIPEHEL,
 };

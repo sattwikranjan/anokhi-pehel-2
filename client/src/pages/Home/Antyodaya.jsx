@@ -2,7 +2,7 @@ import styles from "../../style";
 import  "../../style.css";
 import React, { useState, useEffect } from "react";
 import HomePageLayout from "../../components/Home/HomePageLayout";
-import { Antyodayavid, AboutAntyodaya } from "../../assets/Home"; // Ensure this path is correct
+import { Antyodayavid, AboutAntyodaya, AboutAntyodayaFrame } from "../../assets/Home"; // Ensure this path is correct
 import { event,event1,event2,event3,event4} from "../../assets/Home/AntyodayaSponser/AtyodayaEvent";
 import Slider from "react-slick";
 import {demo} from "../../assets/Home/AntyodayaSponser";
@@ -114,7 +114,15 @@ const Antodaya = () => {
     <div className="relative z-10 flex justify-center ">
       <div className="container m-auto md:my-12 p-2 lg:px-40">
         <div className="justify-center items-center text-center md:p-4 p-2 lg:text-4xl font-medium text-3xl">
-          About Antyodaya
+        <h2
+        className="text-[2rem] sm:text-[3rem] tracking-wider text-gray-900 font-bold flex justify-center  "
+        style={{
+          fontWeight: "bolder",
+          textAlign: "center",
+          textShadow: "0 0 10px white", // Add white shadow with 10px blur
+        }}
+      >  About Antyodaya</h2>
+         
         </div>
         <div className="flex mb-8 md:mb-12 px-3 justify-center">
           <div className="w-16 h-1 rounded-full bg-teal-500 inline-flex"></div>
@@ -139,6 +147,8 @@ const Antodaya = () => {
         </div>
       </div>
     </div>
+
+    
     <div>
       <h2
         className="text-[2rem] sm:text-[3rem] tracking-wider text-gray-900 font-bold flex justify-center  "
@@ -151,7 +161,7 @@ const Antodaya = () => {
         Our  Sponsors
       </h2>
       <div
-        className="scroller mt-[10%] "
+        className="scroller mt-[5%] mb-12"
         data-direction="left"
         data-speed="slow"
       >
@@ -181,7 +191,7 @@ const Antodaya = () => {
       >Events in Antyodaya</h2>
       <Slider {...settings}>
         {eventImages.map((img, index) => (
-          <div key={index} className="flex justify-center">
+          <div key={index} className="flex justify-center mt-10">
             <img
               className="mx-auto w-full h-auto object-cover lg:max-w-[80%] md:max-w-[85%] sm:max-w-[90%]"
               src={img}
