@@ -41,7 +41,6 @@ const Data = [
   },
 ]
 const eventImages = [event, event1, event2, event3, event4];
-const events = [event, event1, event2, event3, event4];
 const settings = {
   dots: true,
   infinite: true,
@@ -77,24 +76,15 @@ const Antodaya = () => {
 
   useEffect(() => {
     const scrollers = document.querySelectorAll(".scroller");
-  
-    // If a user hasn't opted in for reduced motion, then we add the animation
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       addAnimation();
     }
   
     function addAnimation() {
       scrollers.forEach((scroller) => {
-        // add data-animated="true" to every .scroller on the page
         scroller.setAttribute("data-animated", true);
-  
-        // Make an array from the elements within .scroller-inner
         const scrollerInner = scroller.querySelector(".scroller__inner");
         const scrollerContent = Array.from(scrollerInner.children);
-  
-        // For each item in the array, clone it
-        // add aria-hidden to it
-        // add it into the .scroller-inner
         scrollerContent.forEach((item) => {
           const duplicatedItem = item.cloneNode(true);
           duplicatedItem.setAttribute("aria-hidden", true);
@@ -193,9 +183,6 @@ const Antodaya = () => {
         {eventImages.map((img, index) => (
           <div key={index} className="flex justify-center">
             <img
-            
-              // className="w-full h-auto object-cover"
-              // className="w-full h-auto object-cover lg:max-w-[70%] md:max-w-[85%] sm:max-w-[90%]" 
               className="mx-auto w-full h-auto object-cover lg:max-w-[80%] md:max-w-[85%] sm:max-w-[90%]"
               src={img}
               alt={`Event ${index + 1}`}
