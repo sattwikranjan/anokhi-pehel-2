@@ -176,6 +176,13 @@ export const poc=[
   {id:"Dummy School 2", poc:"xyz sir", contact:"87878787844"},
   {id:"Dummy School 3", poc:"abxy maam", contact:"8407841776"},
 ]
+export const eventGroup={
+  G1:"Group1",
+  G2:"Group2",
+  G3:"Group3",
+  G4:"Group4",
+  G5:"Group5",
+}
 
 
 

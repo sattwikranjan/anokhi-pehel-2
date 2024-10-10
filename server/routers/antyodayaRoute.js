@@ -63,14 +63,14 @@ router.get("/getEventByEventId", async (req, res) => {
       res.status(500).json({ message: "Server error" });
     }
   });
-
-  router.delete("/deleteEvent/:eventId", async (req, res) => {
-    const { eventId } = req.params; // Get eventId from request parameters
   
+  router.delete("/deleteEvent", async (req, res) => {
+    const { eventId } = req.query; // Get eventId from request parameters
+//    console.log(eventId);
     try {
       // Check if the event exists
       const event = await Event.findById(eventId);
-  
+    //   console.log(event);
       if (!event) {
         return res.status(404).json({ message: "Event not found" });
       }
@@ -91,7 +91,8 @@ router.get("/getEventByEventId", async (req, res) => {
     const {
       eventId,
       eventName,
-      eventDepartment,
+      eventGroup,
+    //   eventDepartment,
       location,
       startTime,
       endTime,
@@ -112,7 +113,8 @@ router.get("/getEventByEventId", async (req, res) => {
         eventId,
         {
           eventName,
-          eventDepartment,
+          eventGroup,
+        //   eventDepartment,
           location,
           startTime,
           endTime,
@@ -214,7 +216,7 @@ router.get("/getEventByEventId", async (req, res) => {
 
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, "images");
+      cb(null, "antyodayaImages");
     },
     filename: function (req, file, cb) {
       cb(null, uuidv4() + "-" + Date.now() + path.extname(file.originalname));
@@ -238,10 +240,10 @@ router.get("/getEventByEventId", async (req, res) => {
   router.post("/addParticipants", upload.single("photo"), async (req, res) => {
     try {
       const { name, class: studentClass, phone, school, aadhar, address, poc, events } = req.body;
-      console.log(req.body);
+    //   console.log(req.body);
       // If events is not provided, default to an empty array
       const eventList = events ? events.split(',') : [];
-  
+    //   console.log(req.file.filename);
       // Check for existing participant by Aadhar number
       const existingParticipant = await Participant.findOne({ aadhar });
       if (existingParticipant) {

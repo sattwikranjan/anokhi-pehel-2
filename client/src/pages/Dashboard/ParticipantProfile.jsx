@@ -11,6 +11,7 @@ const Student = () => {
 
   const [student, setStudent] = useState(null);
   const [pocName, setPocName] = useState(""); // Store POC name
+  const [pocSchool, setPocSchool] = useState(""); // Store POC school
   const [pocContact, setPocContact] = useState("");
   const [eventNames, setEventNames] = useState([]); // Store event names
 
@@ -29,6 +30,7 @@ const Student = () => {
               .then((pocRes) => {
                 setPocName(pocRes.data.nameOfPoc); // Set POC name
                 setPocContact(pocRes.data.contact); // Set POC contact
+                setPocSchool(pocRes.data.school); // Set POC school
               })
               .catch((err) => console.error("Error fetching POC:", err));
           }
@@ -63,7 +65,7 @@ const Student = () => {
               <div className="flex flex-col md:flex-row md:space-x-8 justify-center items-center">
                 <div className="flex-shrink-0">
                   <img
-                    src={`${SERVER_URL}/images/${student.photo}`}
+                    src={`${SERVER_URL}/antyodayaImages/${student.photo}`}
                     className="mentor-photo h-40 w-40 rounded-full"
                     alt="Student"
                   />
@@ -87,7 +89,7 @@ const Student = () => {
                   {/* School */}
                   <p>
                     <span className="font-semibold">School:</span>{" "}
-                    <span className="text-blue-600">{student.school}</span>
+                    <span className="text-blue-600">{pocSchool}</span>
                   </p>
 
                   {/* Class */}

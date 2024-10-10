@@ -15,7 +15,8 @@ const EditEvent = () => {
 
   const [credentials, setCredentials] = useState({
     eventName: "",
-    eventDepartment: "",
+    // eventDepartment: "",
+    eventGroup:"",
     location: "",
     startTime: "",
     endTime: "",
@@ -38,10 +39,10 @@ const EditEvent = () => {
           `${BASE_URL}/getEventByEventId?eventId=${eventId}`
         );
         const eventData = response.data;
-
+        console.log(response.data);
         setCredentials({
           eventName: eventData.eventName,
-          eventDepartment: eventData.eventDepartment,
+          eventGroup: eventData.eventGroup,
           location: eventData.location,
           startTime: eventData.startTime,
           endTime: eventData.endTime,
@@ -96,6 +97,33 @@ const EditEvent = () => {
               </h2>
 
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+              <div className="sm:col-span-2">
+                  <label
+                    htmlFor="region"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Group of Event
+                  </label>
+                  <div className="mt-2">
+                    <select
+                      name="eventGroup"
+                      id="eventGroup"
+                      value={credentials.eventGroup}
+                      onChange={onChange}
+                    //   placeholder="Event Group"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    >
+                      <option value="">Select Event Group</option>
+                        <option value="Group1">Group1</option>
+                        <option value="Group2">Group2</option>
+                        <option value="Group3">Group3</option>
+                        <option value="Group4">Group4</option>
+                        <option value="Group5">Group5</option>
+                    
+                    </select>
+                  </div>
+                </div>
                 <div className="sm:col-span-2">
                   <label
                     htmlFor="topic"
@@ -115,31 +143,7 @@ const EditEvent = () => {
                   </div>
                 </div>
 
-                <div className="sm:col-span-2">
-                  <label
-                    htmlFor="region"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Department of Event
-                  </label>
-                  <div className="mt-2">
-                    <select
-                      name="eventDepartment"
-                      id="eventDepartment"
-                      value={credentials.eventDepartment}
-                      onChange={onChange}
-                      placeholder="Class"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                    >
-                      <option value="">Select Event Department</option>
-                      {event.map((item, index) => (
-                        <option key={index} value={item.id}>
-                          {item.event}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
+                
 
                 <div className="sm:col-span-2">
                   <label

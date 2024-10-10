@@ -31,18 +31,31 @@ const Student = () => {
     }
   };
   const onClick1 = async () => {
-    try {
-      const response = await axios.delete(`${BASE_URL}/deleteEvent/${eventId}`);
-      if (response.status === 200) {
-        // User deleted successfully
-        console.log("Event deleted successfully");
-      } else {
-        console.error("Failed to delete event");
+    // Confirmation alert before proceeding with deletion
+    const confirmDelete = window.confirm("Are you sure you want to delete this event?");
+  
+    if (confirmDelete) {
+      try {
+        const response = await axios.delete(`${BASE_URL}/deleteEvent?eventId=${eventId}`);
+        if (response.status === 200) {
+          // Event deleted successfully
+          console.log("Event deleted successfully");
+          window.alert("Event deleted successfully"); // Alert for successful deletion
+        } else {
+          console.error("Failed to delete event");
+          window.alert("Failed to delete event"); // Alert for failure
+        }
+      } catch (error) {
+        console.error("Error deleting event:", error);
+        window.alert("Error deleting event: " + error.message); // Alert for error
       }
-    } catch (error) {
-      console.error("Error deleting event:", error);
+    } else {
+      // User canceled the deletion
+      console.log("Deletion canceled");
+      window.alert("Event deletion canceled"); // Alert for cancellation
     }
   };
+  
   useEffect(() => {
     if (eventId) {
       axios

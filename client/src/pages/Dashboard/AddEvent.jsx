@@ -1,7 +1,7 @@
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import React, { useState } from "react";
 import axios from "axios";
-import { times } from "../../constants/Dashboard";
+import { times, eventGroup } from "../../constants/Dashboard";
 import { useNavigate } from "react-router-dom";
 import { event } from "../../constants/Dashboard";
 import { BASE_URL } from "../../../src/Service/helper";
@@ -11,14 +11,15 @@ const AddEvent = () => {
   const { user } = useSelector((state) => state.user);
   const [credentials, setCredentials] = useState({
     eventName: "",
-    eventDepartment: "",
+    eventGroup: "",
+    // eventDepartment: "",
     location: "",
     startTime: "",
     endTime: "",
     coordinator: "",
-    phone:"",
-    regNumber:"",
-    festName:"Antyodaya",
+    phone: "",
+    regNumber: "",
+    festName: "Antyodaya2k24",
   });
 
   const handleSubmit = (e) => {
@@ -26,57 +27,60 @@ const AddEvent = () => {
 
     // Send the topic data to the server using Axios
     axios
-  .post(`${BASE_URL}/addEvent`, credentials)
-  .then((response) => {
-    console.log(response);
+      .post(`${BASE_URL}/addEvent`, credentials)
+      .then((response) => {
+        console.log(response);
 
-    // Check if the event was added successfully based on status code
-    if (response.status === 201) {
-      alert("Event submitted successfully");
-      navigate("/Dashboard");
-      // Reset the form credentials
-      setCredentials({
-        eventName: "",
-        eventDepartment: "",
-        location: "",
-        time: "",
-        coordinator: "",
-        phone: "",
-        regNumber: "",
-        festName: "",
+        // Check if the event was added successfully based on status code
+        if (response.status === 201) {
+          alert("Event submitted successfully");
+          navigate("/Antyodaya-Dashboard");
+          // Reset the form credentials
+          setCredentials({
+            eventName: "",
+            eventGroup: "",
+            // eventDepartment: "",
+            location: "",
+            time: "",
+            coordinator: "",
+            phone: "",
+            regNumber: "",
+            festName: "",
+          });
+        } else {
+          // Handle any other response that isn't a 201
+          alert("Event updated");
+          navigate("/Antyodaya-Dashboard");
+          setCredentials({
+            eventName: "",
+            eventGroup: "",
+            // eventDepartment: "",
+            location: "",
+            time: "",
+            coordinator: "",
+            phone: "",
+            regNumber: "",
+            festName: "",
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error occurred:", error);
+
+        // Check for server errors
+        if (error.response) {
+          // If the server responded with a status other than 2xx
+          alert(
+            `Error: ${error.response.data.message || "Something went wrong"}`
+          );
+        } else if (error.request) {
+          // If no response was received from the server
+          alert("Error: No response from server. Please try again later.");
+        } else {
+          // Catch any other errors in the request setup
+          alert("Error: Failed to send request.");
+        }
       });
-    } else {
-      // Handle any other response that isn't a 201
-      alert("Event updated");
-      navigate("/Dashboard");
-      setCredentials({
-        eventName: "",
-        eventDepartment: "",
-        location: "",
-        time: "",
-        coordinator: "",
-        phone: "",
-        regNumber: "",
-        festName: "",
-      });
-    }
-  })
-  .catch((error) => {
-    console.error("Error occurred:", error);
-
-    // Check for server errors
-    if (error.response) {
-      // If the server responded with a status other than 2xx
-      alert(`Error: ${error.response.data.message || "Something went wrong"}`);
-    } else if (error.request) {
-      // If no response was received from the server
-      alert("Error: No response from server. Please try again later.");
-    } else {
-      // Catch any other errors in the request setup
-      alert("Error: Failed to send request.");
-    }
-  });
-
   };
 
   const onChange = (e) => {
@@ -100,6 +104,31 @@ const AddEvent = () => {
                     htmlFor="topic"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
+                    Event Group
+                  </label>
+                  <div className="mt-2">
+                    <select
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                      name="eventGroup"
+                      value={credentials.eventGroup}
+                      onChange={onChange}
+                    >
+                      <option value="" disabled>
+                        Select Group of Event
+                      </option>
+                      <option value="Group1">Group1</option>
+                      <option value="Group2">Group2</option>
+                      <option value="Group3">Group3</option>
+                      <option value="Group4">Group4</option>
+                      <option value="Group5">Group5</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="sm:col-span-2">
+                  <label
+                    htmlFor="topic"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
                     Event Name
                   </label>
                   <div className="mt-2">
@@ -114,7 +143,7 @@ const AddEvent = () => {
                   </div>
                 </div>
 
-                <div className="sm:col-span-2">
+                {/* <div className="sm:col-span-2">
                   <label
                     htmlFor="region"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -138,8 +167,10 @@ const AddEvent = () => {
                       ))}
                     </select>
                   </div>
-                </div>
+                </div> */}
+              </div>
 
+              <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-2">
                   <label
                     htmlFor="topic"
@@ -158,9 +189,6 @@ const AddEvent = () => {
                     />
                   </div>
                 </div>
-              </div>
-
-              <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-2">
                   <label
                     htmlFor="startTime"
@@ -210,11 +238,10 @@ const AddEvent = () => {
                     </select>
                   </div>
                 </div>
-                
               </div>
 
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-2">
+                <div className="sm:col-span-2">
                   <label
                     htmlFor="topic"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -238,7 +265,7 @@ const AddEvent = () => {
                     htmlFor="topic"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Contact of Coordinator 
+                    Contact of Coordinator
                   </label>
                   <div className="mt-2">
                     <input

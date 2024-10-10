@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 });
 app.use(express.json());
 app.use("/images", express.static("images"));
-
+app.use("/antyodayaImages",express.static("antyodayaImages"));
 // Routes
 app.use("/api/v1/user", router);
 

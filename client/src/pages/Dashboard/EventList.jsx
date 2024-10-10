@@ -36,8 +36,6 @@ const EventPage = () => {
 
     fetchEvents();
   }, []);
-
-  // Filter the events based on event name and coordinator name
   useEffect(() => {
     const filtered = events.filter((event) =>
       event.eventName.toLowerCase().includes(searchEventName.toLowerCase()) &&
@@ -104,7 +102,9 @@ const EventPage = () => {
 <table className="w-full text-sm text-left text-gray-500 ">
 <thead className="text-xs text-gray-700 uppercase bg-gray-50 border-x border-t">
             <tr>
+            <th className="px-6 py-4 font-bold">Event Group</th>
               <th className="px-6 py-4 font-bold">Event Name</th>
+              
               <th className="px-6 py-4 font-bold">Location</th>
               <th className="px-6 py-4 font-bold">Start Time</th>
               <th className="px-6 py-4 font-bold">End Time</th>
@@ -117,6 +117,7 @@ const EventPage = () => {
             {filteredEvents.length > 0 ? (
               filteredEvents.map((event, index) => (
                 <tr key={index} className="border-b transition hover:bg-gray-50">
+                     <td className="border px-6 py-4">{event.eventGroup}</td>
                   <td className="border px-6 py-4">{event.eventName}</td>
                   <td className="border px-6 py-4">{event.location}</td>
                   <td className="border px-6 py-4">{event.startTime}</td>

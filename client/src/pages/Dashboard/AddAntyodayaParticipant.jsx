@@ -22,11 +22,11 @@ const AddAntyodayaParticipant = () => {
   });
   const [pocList, setPocList] = useState([]);
   const [eventList, setEventList] = useState([]);
-  
+
   useEffect(() => {
     // Fetch POC and Event data on component mount
     const fetchPocAndEventData = async () => {
-    //   dispatch(showLoading());
+      //   dispatch(showLoading());
       try {
         // const response = await axios.get(`${BASE_URL}/getEvents`);
         const pocResponse = await axios.get(`${BASE_URL}/pocList`);
@@ -56,7 +56,7 @@ const AddAntyodayaParticipant = () => {
     formData.append("address", credentials.address);
     formData.append("photo", credentials.photo);
     formData.append("poc", credentials.poc);
-  formData.append("events", credentials.events.join(','));
+    formData.append("events", credentials.events.join(","));
 
     axios
       .post(`${BASE_URL}/addParticipants`, formData)
@@ -74,7 +74,9 @@ const AddAntyodayaParticipant = () => {
             poc: "",
             events: [],
           });
-        } else if (res.data === "Participant with this Aadhar number already exists") {
+        } else if (
+          res.data === "Participant with this Aadhar number already exists"
+        ) {
           alert("Participant with this Aadhar number already exists");
         } else {
           alert("Participant Not Added!");
@@ -123,7 +125,7 @@ const AddAntyodayaParticipant = () => {
               </h2>
 
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-4">
+                <div className="sm:col-span-4">
                   <label
                     htmlFor="name"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -167,13 +169,10 @@ const AddAntyodayaParticipant = () => {
                           {item.name}
                         </option>
                       ))}
-                     
                     </select>
                   </div>
                 </div>
 
-                
-                
                 {/* <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"> */}
                 <div className="sm:col-span-3">
                   <label
@@ -231,7 +230,6 @@ const AddAntyodayaParticipant = () => {
                     />
                   </div>
                 </div>
-                
 
                 <div className="col-span-full">
                   <label
@@ -270,7 +268,7 @@ const AddAntyodayaParticipant = () => {
                     onChange={onPhotoChange}
                   />
                 </div>
-                
+
                 <div className="sm:col-span-4">
                   <label
                     htmlFor="poc"
@@ -279,54 +277,88 @@ const AddAntyodayaParticipant = () => {
                     Point of Contact
                   </label>
                   <select
-  name="poc"
-  id="poc"
-  value={credentials.poc}
-  onChange={onChange}
-  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
->
-  <option value="">Select POC</option>
-  {pocList
-    .sort((a, b) => a.nameOfPoc.localeCompare(b.nameOfPoc)) // Sort alphabetically by nameOfPoc
-    .map((poc) => (
-      <option key={poc._id} value={poc._id}>
-        {poc.nameOfPoc} - {poc.school}
-      </option>
-    ))}
-</select>
-
+                    name="poc"
+                    id="poc"
+                    value={credentials.poc}
+                    onChange={onChange}
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  >
+                    <option value="">Select POC</option>
+                    {pocList
+                      .sort((a, b) => a.nameOfPoc.localeCompare(b.nameOfPoc)) // Sort alphabetically by nameOfPoc
+                      .map((poc) => (
+                        <option key={poc._id} value={poc._id}>
+                          {poc.nameOfPoc} - {poc.school}
+                        </option>
+                      ))}
+                  </select>
                 </div>
+
+
+
 
                 <div className="sm:col-span-4">
   <label
     htmlFor="events"
     className="block text-sm font-medium leading-6 text-gray-900"
   >
-    Select Events (max 3)
+    
+  
+                      Select up to 3 events, but only one event per group.
+                    
   </label>
+
   <div className="mt-2 flex flex-col gap-2">
-    {eventList
-      .sort((a, b) => a.eventName.localeCompare(b.eventName)) // Sort alphabetically by eventName
-      .map((event) => (
-        <div key={event._id} className="flex items-center">
-          <input
-            type="checkbox"
-            value={event._id}
-            onChange={handleEventChange}
-            checked={credentials.events.includes(event._id)}
-            className="mr-2"
-            disabled={credentials.events.length >= 3 && !credentials.events.includes(event._id)} // Disable if already at limit
-          />
-          <label className="text-sm text-gray-900">
-            {event.eventName}
-          </label>
+    {Object.entries(
+      eventList.reduce((acc, event) => {
+        // Group events by eventGroup
+        if (!acc[event.eventGroup]) {
+          acc[event.eventGroup] = [];
+        }
+        acc[event.eventGroup].push(event);
+        return acc;
+      }, {})
+    ).map(([group, events]) => (
+      <div key={group} className="mb-4">
+        <h3 className="text-lg font-bold text-gray-900">Event-{group}</h3>
+        <div className="flex flex-col gap-2 mt-2">
+          {events.sort((a, b) => a.eventName.localeCompare(b.eventName)).map((event) => {
+            const isEventInSameGroup = credentials.events.some(
+              (selectedEventId) => {
+                const selectedEvent = eventList.find(
+                  (e) => e._id === selectedEventId
+                );
+                return selectedEvent && selectedEvent.eventGroup === event.eventGroup;
+              }
+            );
+
+            return (
+              <div key={event._id} className="flex items-center">
+                <input
+                  type="checkbox"
+                  value={event._id}
+                  onChange={handleEventChange}
+                  checked={credentials.events.includes(event._id)}
+                  className="mr-2"
+                  disabled={
+                    (credentials.events.length >= 3 &&
+                      !credentials.events.includes(event._id)) ||
+                    isEventInSameGroup // Disable if an event from the same group is already selected
+                  }
+                />
+                <label className="text-sm text-gray-900">{event.eventName}</label>
+              </div>
+            );
+          })}
         </div>
-      ))}
-    <p className="text-sm text-gray-600">
-      Select up to 3 events to participate in.
-    </p>
+      </div>
+    ))}
+    <p className="text-sm text-gray-600">Select up to 3 events, but only one event per group.</p>
   </div>
 </div>
+
+
+
 
 
                 {/* Existing fields continue here... */}
