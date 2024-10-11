@@ -22,16 +22,15 @@ const AddAntyodayaParticipant = () => {
   });
   const [pocList, setPocList] = useState([]);
   const [eventList, setEventList] = useState([]);
+  const [imageSize, setImageSize] = useState("");
+  const WIDTH = 800;
 
   useEffect(() => {
     // Fetch POC and Event data on component mount
     const fetchPocAndEventData = async () => {
-      //   dispatch(showLoading());
       try {
-        // const response = await axios.get(`${BASE_URL}/getEvents`);
         const pocResponse = await axios.get(`${BASE_URL}/pocList`);
         const eventResponse = await axios.get(`${BASE_URL}/getEvents`);
-        // console.log(eventResponse);
         setPocList(pocResponse.data);
         setEventList(eventResponse.data);
       } catch (error) {
@@ -44,7 +43,44 @@ const AddAntyodayaParticipant = () => {
     fetchPocAndEventData();
   }, [dispatch]);
 
-  const handleSubmit = (e) => {
+  // Resizing and setting photo
+  const resizeImage = (file) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = (event) => {
+        const imageUrl = event.target.result;
+        const image = new Image();
+        image.src = imageUrl;
+
+        image.onload = () => {
+          const canvas = document.createElement("canvas");
+          const ratio = WIDTH / image.width;
+          canvas.width = WIDTH;
+          canvas.height = image.height * ratio;
+
+          const context = canvas.getContext("2d");
+          context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+          // Convert the canvas to a file
+          canvas.toBlob(
+            (blob) => {
+              const resizedFile = new File([blob], file.name, {
+                type: "image/jpeg",
+                lastModified: Date.now(),
+              });
+              resolve(resizedFile);
+            },
+            "image/jpeg",
+            0.98
+          );
+        };
+      };
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(showLoading());
     const formData = new FormData();
@@ -58,45 +94,45 @@ const AddAntyodayaParticipant = () => {
     formData.append("poc", credentials.poc);
     formData.append("events", credentials.events.join(","));
 
-    axios
-      .post(`${BASE_URL}/addParticipants`, formData)
-      .then((res) => {
-        if (res.data === "Participant Added") {
-          alert("Participant submitted successfully!");
-          setCredentials({
-            name: "",
-            class: "",
-            phone: "",
-            school: "",
-            aadhar: "",
-            address: "",
-            photo: "",
-            poc: "",
-            events: [],
-          });
-        } else if (
-          res.data === "Participant with this Aadhar number already exists"
-        ) {
-          alert("Participant with this Aadhar number already exists");
-        } else {
-          alert("Participant Not Added!");
-        }
-      })
-      .catch((err) => {
-        alert("ALL INPUT IS NOT FILLED");
-        console.error("error", err);
-      })
-      .finally(() => {
-        dispatch(hideLoading());
-      });
+    try {
+      const res = await axios.post(`${BASE_URL}/addParticipants`, formData);
+      if (res.data === "Participant Added") {
+        alert("Participant submitted successfully!");
+        setCredentials({
+          name: "",
+          class: "",
+          phone: "",
+          school: "",
+          aadhar: "",
+          address: "",
+          photo: "",
+          poc: "",
+          events: [],
+        });
+      } else {
+        alert(res.data);
+      }
+    } catch (err) {
+      alert("ALL INPUT IS NOT FILLED");
+      console.error("error", err);
+    } finally {
+      dispatch(hideLoading());
+    }
   };
 
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  const onPhotoChange = (e) => {
-    setCredentials({ ...credentials, photo: e.target.files[0] });
+  const onPhotoChange = async (e) => {
+    const imageFile = e.target.files[0];
+    if (imageFile) {
+      // Resize the image and update the credentials state
+      const resizedImage = await resizeImage(imageFile);
+      const sizeInKB = (resizedImage.size / 1024).toFixed(2); // Calculate size in KB
+      setImageSize(`${sizeInKB} KB`);
+      setCredentials({ ...credentials, photo: resizedImage });
+    }
   };
 
   const handleEventChange = (event) => {
@@ -267,6 +303,25 @@ const AddAntyodayaParticipant = () => {
                     // Specify 'camera' to use the device's camera
                     onChange={onPhotoChange}
                   />
+                  {imageSize && (
+                    <p className="text-sm mt-2 ">
+                      Uploaded image size:{" "}
+                      <span
+                        className={
+                          parseFloat(imageSize) > 1024
+                            ? "text-red-600"
+                            : "text-green-600"
+                        }
+                      >
+                        {imageSize}
+                      </span>
+                    </p>
+                  )}
+                  {parseFloat(imageSize) > 1024 && (
+                    <p className="text-sm text-red-600 mt-1">
+                      Please upload a compressed image.
+                    </p>
+                  )}
                 </div>
 
                 <div className="sm:col-span-4">
@@ -294,72 +349,82 @@ const AddAntyodayaParticipant = () => {
                   </select>
                 </div>
 
-
-
-
                 <div className="sm:col-span-4">
-  <label
-    htmlFor="events"
-    className="block text-sm font-medium leading-6 text-gray-900"
-  >
-    
-  
+                  <label
+                    htmlFor="events"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Select up to 3 events, but only one event per group.
+                  </label>
+
+                  <div className="mt-2 flex flex-col gap-2">
+                    {Object.entries(
+                      eventList.reduce((acc, event) => {
+                        // Group events by eventGroup
+                        if (!acc[event.eventGroup]) {
+                          acc[event.eventGroup] = [];
+                        }
+                        acc[event.eventGroup].push(event);
+                        return acc;
+                      }, {})
+                    ).map(([group, events]) => (
+                      <div key={group} className="mb-4">
+                        <h3 className="text-lg font-bold text-gray-900">
+                          Event-{group}
+                        </h3>
+                        <div className="flex flex-col gap-2 mt-2">
+                          {events
+                            .sort((a, b) =>
+                              a.eventName.localeCompare(b.eventName)
+                            )
+                            .map((event) => {
+                              const isEventInSameGroup =
+                                credentials.events.some((selectedEventId) => {
+                                  const selectedEvent = eventList.find(
+                                    (e) => e._id === selectedEventId
+                                  );
+                                  return (
+                                    selectedEvent &&
+                                    selectedEvent.eventGroup ===
+                                      event.eventGroup
+                                  );
+                                });
+
+                              return (
+                                <div
+                                  key={event._id}
+                                  className="flex items-center"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    value={event._id}
+                                    onChange={handleEventChange}
+                                    checked={credentials.events.includes(
+                                      event._id
+                                    )}
+                                    className="mr-2"
+                                    disabled={
+                                      (credentials.events.length >= 3 &&
+                                        !credentials.events.includes(
+                                          event._id
+                                        )) ||
+                                      isEventInSameGroup // Disable if an event from the same group is already selected
+                                    }
+                                  />
+                                  <label className="text-sm text-gray-900">
+                                    {event.eventName}
+                                  </label>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    ))}
+                    <p className="text-sm text-gray-600">
                       Select up to 3 events, but only one event per group.
-                    
-  </label>
-
-  <div className="mt-2 flex flex-col gap-2">
-    {Object.entries(
-      eventList.reduce((acc, event) => {
-        // Group events by eventGroup
-        if (!acc[event.eventGroup]) {
-          acc[event.eventGroup] = [];
-        }
-        acc[event.eventGroup].push(event);
-        return acc;
-      }, {})
-    ).map(([group, events]) => (
-      <div key={group} className="mb-4">
-        <h3 className="text-lg font-bold text-gray-900">Event-{group}</h3>
-        <div className="flex flex-col gap-2 mt-2">
-          {events.sort((a, b) => a.eventName.localeCompare(b.eventName)).map((event) => {
-            const isEventInSameGroup = credentials.events.some(
-              (selectedEventId) => {
-                const selectedEvent = eventList.find(
-                  (e) => e._id === selectedEventId
-                );
-                return selectedEvent && selectedEvent.eventGroup === event.eventGroup;
-              }
-            );
-
-            return (
-              <div key={event._id} className="flex items-center">
-                <input
-                  type="checkbox"
-                  value={event._id}
-                  onChange={handleEventChange}
-                  checked={credentials.events.includes(event._id)}
-                  className="mr-2"
-                  disabled={
-                    (credentials.events.length >= 3 &&
-                      !credentials.events.includes(event._id)) ||
-                    isEventInSameGroup // Disable if an event from the same group is already selected
-                  }
-                />
-                <label className="text-sm text-gray-900">{event.eventName}</label>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    ))}
-    <p className="text-sm text-gray-600">Select up to 3 events, but only one event per group.</p>
-  </div>
-</div>
-
-
-
-
+                    </p>
+                  </div>
+                </div>
 
                 {/* Existing fields continue here... */}
               </div>
