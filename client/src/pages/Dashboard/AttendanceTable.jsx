@@ -27,7 +27,6 @@ const Attendance = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const [selectedStudent, setSelectedStudent] = useState(null); // State for selected student
 
-
   useEffect(() => {
     if (credentials.class || credentials.month) {
       fetchAttendanceData(credentials.class);
@@ -272,7 +271,7 @@ const Attendance = () => {
                     </thead>
                     <tbody>
                       {students.map((student) => {
-                        console.log("Student data:", student); 
+                        console.log("Student data:", student);
                         let presentCount = 0;
                         return (
                           <tr
@@ -280,7 +279,7 @@ const Attendance = () => {
                             className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800  dark:border-gray-700"
                           >
                             <td
-                              className="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white cursor-pointer"
+                              className="py-2 px-4 sticky left-0 bg-gray-800 text-white z-10 cursor-pointer"
                               onClick={() => openModal(student)} // Open modal on student name click
                             >
                               {student.name}
