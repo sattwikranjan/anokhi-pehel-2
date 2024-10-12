@@ -152,7 +152,7 @@ const Attendance = () => {
                   {students.map((student) => (
                     <tr key={student._id}>
                       <td
-                        className="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white cursor-pointer"
+                        className="font-bold text-gray-900 cursor-pointer"
                         onClick={() => openModal(student)} // Open modal on student name click
                       >
                         {student.name}
