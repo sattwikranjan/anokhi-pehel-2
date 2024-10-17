@@ -81,10 +81,10 @@ const Student = () => {
                   </p>
 
                   {/* Aadhaar */}
-                  <p>
+                  {/* <p>
                     <span className="font-semibold">Aadhaar:</span>{" "}
                     <span className="text-blue-600">{student.aadhar}</span>
-                  </p>
+                  </p> */}
 
                   {/* School */}
                   <p>

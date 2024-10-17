@@ -239,29 +239,19 @@ router.get("/getEventByEventId", async (req, res) => {
 
   router.post("/addParticipants", upload.single("photo"), async (req, res) => {
     try {
-      const { name, class: studentClass, phone, school, aadhar, address, poc, events } = req.body;
-    //   console.log(req.body);
-      // If events is not provided, default to an empty array
+      const { name, class: studentClass, phone, school, address, poc, events } = req.body;
+      // console.log(req.body);
       const eventList = events ? events.split(',') : [];
-    //   console.log(req.file.filename);
-      // Check for existing participant by Aadhar number
-      const existingParticipant = await Participant.findOne({ aadhar });
-      if (existingParticipant) {
-        return res.status(400).send("Participant with this Aadhar number already exists");
-      }
-  
       // Create a new participant
       const newParticipant = new Participant({
         name,
         class: studentClass,
         phone,
         school,
-        aadhar,
         address,
          photo: req.file.filename,
-        // photo:req.file.filename,
         poc,
-        events: eventList, // Use the parsed eventList
+        events: eventList, 
       });
   
       // Save participant to the database

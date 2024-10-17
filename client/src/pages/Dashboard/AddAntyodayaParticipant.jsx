@@ -14,7 +14,7 @@ const AddAntyodayaParticipant = () => {
     class: "",
     phone: "",
     school: "",
-    aadhar: "",
+    // aadhar: "",
     address: "",
     photo: "",
     poc: "",
@@ -32,6 +32,7 @@ const AddAntyodayaParticipant = () => {
         const pocResponse = await axios.get(`${BASE_URL}/pocList`);
         const eventResponse = await axios.get(`${BASE_URL}/getEvents`);
         setPocList(pocResponse.data);
+        console.log(pocResponse);
         setEventList(eventResponse.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -88,7 +89,7 @@ const AddAntyodayaParticipant = () => {
     formData.append("class", credentials.class);
     formData.append("phone", credentials.phone);
     formData.append("school", credentials.school);
-    formData.append("aadhar", credentials.aadhar);
+    // formData.append("aadhar", credentials.aadhar);
     formData.append("address", credentials.address);
     formData.append("photo", credentials.photo);
     formData.append("poc", credentials.poc);
@@ -103,7 +104,7 @@ const AddAntyodayaParticipant = () => {
           class: "",
           phone: "",
           school: "",
-          aadhar: "",
+          // aadhar: "",
           address: "",
           photo: "",
           poc: "",
@@ -150,6 +151,18 @@ const AddAntyodayaParticipant = () => {
     });
   };
 
+  const onPocChange = (e) => {
+    const selectedPocId = e.target.value;
+    const selectedPoc = pocList.find((poc) => poc._id === selectedPocId);
+
+    // Set the selected POC and automatically update the school based on the selected POC
+    setCredentials({
+      ...credentials,
+      poc: selectedPocId,
+      school: selectedPoc ? selectedPoc.school : "", // If POC is found, set the school, otherwise leave it blank
+    });
+  };
+
   return (
     <DashboardLayout>
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
@@ -161,7 +174,7 @@ const AddAntyodayaParticipant = () => {
               </h2>
 
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                <div className="sm:col-span-4">
+                <div className="sm:col-span-2 sm:col-start-1">
                   <label
                     htmlFor="name"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -180,6 +193,24 @@ const AddAntyodayaParticipant = () => {
                         onChange={onChange}
                       />
                     </div>
+                  </div>
+                </div>
+                <div className="sm:col-span-3">
+                  <label
+                    htmlFor="phone"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Phone
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      name="phone"
+                      id="phone"
+                      value={credentials.phone}
+                      onChange={onChange}
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
                   </div>
                 </div>
 
@@ -209,6 +240,31 @@ const AddAntyodayaParticipant = () => {
                   </div>
                 </div>
 
+
+                <div className="sm:col-span-4">
+                  <label
+                    htmlFor="poc"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Point of Contact
+                  </label>
+                  <select
+                    name="poc"
+                    id="poc"
+                    value={credentials.poc}
+                    onChange={onPocChange} // Updated onChange handler
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  >
+                    <option value="">Select POC</option>
+                    {pocList
+                      .sort((a, b) => a.nameOfPoc.localeCompare(b.nameOfPoc))
+                      .map((poc) => (
+                        <option key={poc._id} value={poc._id}>
+                          {poc.nameOfPoc} - {poc.school}
+                        </option>
+                      ))}
+                  </select>
+                </div>
                 {/* <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"> */}
                 <div className="sm:col-span-3">
                   <label
@@ -229,43 +285,25 @@ const AddAntyodayaParticipant = () => {
                   </div>
                 </div>
 
-                <div className="sm:col-span-3">
+                
+                {/* <div className="sm:col-span-3">
                   <label
-                    htmlFor="phone"
+                    htmlFor="school"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Phone
+                    School
                   </label>
                   <div className="mt-2">
                     <input
                       type="text"
-                      name="phone"
-                      id="phone"
-                      value={credentials.phone}
+                      name="school"
+                      id="school"
+                      value={credentials.school} // Automatically updated when POC is selected
                       onChange={onChange}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
-                </div>
-
-                <div className="sm:col-span-3">
-                  <label
-                    htmlFor="aadhar"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Aadhar Number
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="aadhar"
-                      name="aadhar"
-                      type="aadhar"
-                      value={credentials.aadhar}
-                      onChange={onChange}
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  </div>
-                </div>
+                </div> */}
 
                 <div className="col-span-full">
                   <label
@@ -324,7 +362,7 @@ const AddAntyodayaParticipant = () => {
                   )}
                 </div>
 
-                <div className="sm:col-span-4">
+                {/* <div className="sm:col-span-4">
                   <label
                     htmlFor="poc"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -347,7 +385,7 @@ const AddAntyodayaParticipant = () => {
                         </option>
                       ))}
                   </select>
-                </div>
+                </div> */}
 
                 <div className="sm:col-span-4">
                   <label
