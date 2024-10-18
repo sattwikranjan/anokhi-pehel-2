@@ -265,7 +265,7 @@ filteredStudents = filteredStudents.filter((user) => {
               <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                 <button
                   onClick={() => {
-                    navigate("/Antyodaya-Dashboard");
+                    navigate("/addParticipant");
                   }}
                   type="button"
                   className="flex items-center justify-center text-gray-100 bg-cyan-400 hover:bg-cyan-500 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none"

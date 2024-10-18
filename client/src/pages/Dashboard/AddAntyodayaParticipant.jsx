@@ -136,21 +136,6 @@ const AddAntyodayaParticipant = () => {
     }
   };
 
-  const handleEventChange = (event) => {
-    const value = event.target.value;
-    setCredentials((prev) => {
-      const events = [...prev.events];
-      if (events.includes(value)) {
-        // Remove event if already selected
-        return { ...prev, events: events.filter((e) => e !== value) };
-      } else if (events.length < 3) {
-        // Add event if not selected and under limit
-        return { ...prev, events: [...events, value] };
-      }
-      return prev; // Do not update if limit exceeded
-    });
-  };
-
   const onPocChange = (e) => {
     const selectedPocId = e.target.value;
     const selectedPoc = pocList.find((poc) => poc._id === selectedPocId);
@@ -160,6 +145,51 @@ const AddAntyodayaParticipant = () => {
       ...credentials,
       poc: selectedPocId,
       school: selectedPoc ? selectedPoc.school : "", // If POC is found, set the school, otherwise leave it blank
+    });
+  };
+  // const handleEventChange = (selectedEvent, group) => {
+  //   setCredentials((prevCredentials) => {
+  //     // Remove any previously selected event from the same group
+  //     const filteredEvents = prevCredentials.events.filter((eventId) => {
+  //       const event = eventList.find((e) => e._id === eventId);
+  //       return event.eventGroup !== group;
+  //     });
+
+  //     // Add the newly selected event
+  //     return {
+  //       ...prevCredentials,
+  //       events: [...filteredEvents, selectedEvent._id],
+  //     };
+  //   });
+  // };
+  const handleEventChange = (selectedEvent, group) => {
+    setCredentials((prevCredentials) => {
+      // Check if the selected event is already in the selected list
+      const isAlreadySelected = prevCredentials.events.includes(
+        selectedEvent._id
+      );
+
+      if (isAlreadySelected) {
+        // If the event is already selected, remove it (uncheck)
+        return {
+          ...prevCredentials,
+          events: prevCredentials.events.filter(
+            (eventId) => eventId !== selectedEvent._id
+          ),
+        };
+      } else {
+        // Otherwise, ensure only one event from the same group is selected
+        const filteredEvents = prevCredentials.events.filter((eventId) => {
+          const event = eventList.find((e) => e._id === eventId);
+          return event.eventGroup !== group;
+        });
+
+        // Add the newly selected event
+        return {
+          ...prevCredentials,
+          events: [...filteredEvents, selectedEvent._id],
+        };
+      }
     });
   };
 
@@ -240,7 +270,6 @@ const AddAntyodayaParticipant = () => {
                   </div>
                 </div>
 
-
                 <div className="sm:col-span-4">
                   <label
                     htmlFor="poc"
@@ -285,7 +314,6 @@ const AddAntyodayaParticipant = () => {
                   </div>
                 </div>
 
-                
                 {/* <div className="sm:col-span-3">
                   <label
                     htmlFor="school"
@@ -396,72 +424,40 @@ const AddAntyodayaParticipant = () => {
                   </label>
 
                   <div className="mt-2 flex flex-col gap-2">
-                    {Object.entries(
-                      eventList.reduce((acc, event) => {
-                        // Group events by eventGroup
-                        if (!acc[event.eventGroup]) {
-                          acc[event.eventGroup] = [];
-                        }
-                        acc[event.eventGroup].push(event);
-                        return acc;
-                      }, {})
-                    ).map(([group, events]) => (
-                      <div key={group} className="mb-4">
-                        <h3 className="text-lg font-bold text-gray-900">
-                          Event-{group}
-                        </h3>
-                        <div className="flex flex-col gap-2 mt-2">
-                          {events
-                            .sort((a, b) =>
-                              a.eventName.localeCompare(b.eventName)
-                            )
-                            .map((event) => {
-                              const isEventInSameGroup =
-                                credentials.events.some((selectedEventId) => {
-                                  const selectedEvent = eventList.find(
-                                    (e) => e._id === selectedEventId
-                                  );
-                                  return (
-                                    selectedEvent &&
-                                    selectedEvent.eventGroup ===
-                                      event.eventGroup
-                                  );
-                                });
+  {Object.entries(
+    eventList.reduce((acc, event) => {
+      // Group events by eventGroup
+      if (!acc[event.eventGroup]) {
+        acc[event.eventGroup] = [];
+      }
+      acc[event.eventGroup].push(event);
+      return acc;
+    }, {})
+  ).map(([group, events]) => (
+    <div key={group} className="mb-4">
+      <h3 className="text-lg font-bold text-gray-900">Event-{group}</h3>
+      <div className="flex flex-col gap-2 mt-2">
+        {events
+          .sort((a, b) => a.eventName.localeCompare(b.eventName))
+          .map((event) => {
+            return (
+              <div key={event._id} className="flex items-center">
+                <input
+                  type="checkbox"
+                  value={event._id}
+                  onChange={() => handleEventChange(event, group)}
+                  checked={credentials.events.includes(event._id)}
+                  className="mr-2"
+                />
+                <label className="text-sm text-gray-900">{event.eventName}</label>
+              </div>
+            );
+          })}
+      </div>
+    </div>
+  ))}
+</div>
 
-                              return (
-                                <div
-                                  key={event._id}
-                                  className="flex items-center"
-                                >
-                                  <input
-                                    type="checkbox"
-                                    value={event._id}
-                                    onChange={handleEventChange}
-                                    checked={credentials.events.includes(
-                                      event._id
-                                    )}
-                                    className="mr-2"
-                                    disabled={
-                                      (credentials.events.length >= 3 &&
-                                        !credentials.events.includes(
-                                          event._id
-                                        )) ||
-                                      isEventInSameGroup // Disable if an event from the same group is already selected
-                                    }
-                                  />
-                                  <label className="text-sm text-gray-900">
-                                    {event.eventName}
-                                  </label>
-                                </div>
-                              );
-                            })}
-                        </div>
-                      </div>
-                    ))}
-                    <p className="text-sm text-gray-600">
-                      Select up to 3 events, but only one event per group.
-                    </p>
-                  </div>
                 </div>
 
                 {/* Existing fields continue here... */}
