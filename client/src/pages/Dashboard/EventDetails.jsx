@@ -70,14 +70,16 @@ const Student = () => {
             <div className="event-card flex flex-col items-start p-4 border-b border-gray-300 mb-4">
               {/* Left section: General event details */}
               <div className="event-details w-full">
-                <h3 className="text-2xl font-bold mb-2">{event.eventName}</h3>
-                <p><span className="font-semibold">Department:</span> {event.eventDepartment}</p>
+              <h3 className="text-2xl font-bold mb-2 text-center">Details of Event </h3>
+              <p><span className="font-semibold">Event Name:</span>{event.eventName}</p>
                 <p><span className="font-semibold">Location:</span> {event.location}</p>
                 <p><span className="font-semibold">Start Time:</span> {event.startTime}</p>
                 <p><span className="font-semibold">End Time:</span> {event.endTime}</p>
-                <p><span className="font-semibold">Coordinator:</span> {event.coordinator}</p>
-                <p><span className="font-semibold">Phone:</span> <span className="text-blue-600">{event.phone}</span></p>
-                <p><span className="font-semibold">Registration Number:</span> {event.regNumber}</p>
+                <h4 className="text-xl font-semibold mb-2 mt-4">Details of Event Coordinator</h4>
+<p><span className="font-semibold">Coordinator:</span> {event.coordinator}</p>
+<p><span className="font-semibold">Phone:</span> <span className="text-blue-600">{event.phone}</span></p>
+<p><span className="font-semibold">Registration Number of Coordinator:</span> {event.regNumber}</p>
+
               </div>
 
               {/* Buttons for Edit and Delete Event */}
@@ -117,7 +119,7 @@ const Student = () => {
 
    {/* Winner Details Section */}
 <div className="winner-details w-full p-4 bg-gray-100 rounded-lg shadow-md mt-4">
-  <h4 className="text-xl font-semibold mb-4 text-center">List of Winners of {event.eventName} </h4>
+  <h4 className="text-xl font-semibold mb-4 text-center">List of Winners </h4>
 
   {/* Hindi 6 to 8 Winners */}
   {event?.h6to8firstPlace && (
