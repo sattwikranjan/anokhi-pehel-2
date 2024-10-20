@@ -16,18 +16,7 @@ app.use(express.json()); // To parse incoming JSON data
 router.post("/addEvent", async (req, res) => {
 //   const { eventName, eventDepartment, location, startTime,endTime, coordinator, phone, regNumber, festName } = req.body;
   try {
-    // Create a new event object
-    // const newEvent = new Event({
-    //   eventName,
-    //   eventDepartment,
-    //   location,
-    //   startTime,
-    //   endTime,
-    //   coordinator,
-    //   phone,
-    //   regNumber,
-    //   festName
-    // });
+    
     const newEvent = new Event({...req.body});
      await newEvent.save();
     res.status(201).json({ success: true, message: "Event added successfully" });
@@ -275,8 +264,8 @@ router.get("/getEventByEventId", async (req, res) => {
   router.post("/addParticipants", upload.single("photo"), async (req, res) => {
     try {
       const { name, class: studentClass, phone, school, address, poc, events } = req.body;
-      // console.log(req.body);
       const eventList = events ? events.split(',') : [];
+  
       // Create a new participant
       const newParticipant = new Participant({
         name,
@@ -284,13 +273,27 @@ router.get("/getEventByEventId", async (req, res) => {
         phone,
         school,
         address,
-         photo: req.file.filename,
+        photo: req.file.filename,
         poc,
-        events: eventList, 
+        events: eventList,
       });
   
       // Save participant to the database
-      await newParticipant.save();
+      const savedParticipant = await newParticipant.save();
+  
+      // Update the event documents to add this participant to the respective events
+      console.log("Event List:", eventList);
+
+await Event.updateMany(
+  { _id: { $in: eventList } }, // Match events by their IDs
+  { $push: { participants: savedParticipant._id } } // Add the participant's ID to the participants array
+);
+
+
+
+
+      
+  
       return res.status(201).send("Participant Added");
     } catch (error) {
       console.error("Error adding participant:", error);
@@ -298,6 +301,17 @@ router.get("/getEventByEventId", async (req, res) => {
     }
   });
   
+  
+  router.post("/getParticipantsByIds", async (req, res) => {
+    try {
+      const { ids } = req.body;  // Expecting an array of participant IDs
+      const participants = await Participant.find({ '_id': { $in: ids } });
+      res.status(200).json(participants);  // Return the array of participants
+    } catch (error) {
+      console.error("Error fetching participants by IDs:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
   
   router.get("/participantList", async (req, res) => {
     try {

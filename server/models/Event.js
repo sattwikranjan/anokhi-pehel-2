@@ -39,6 +39,10 @@ const EventSchema = new Schema({
     type: String,
     required: true,
   },
+  participants: [{ 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: "Participant" 
+  }],
 h6to8firstPlace:{
     type: String,
     required: false,

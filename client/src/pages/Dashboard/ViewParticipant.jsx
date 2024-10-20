@@ -35,6 +35,8 @@ const Participants = () => {
   const initialUsers = 40;
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage, setUsersPerPage] = useState(initialUsers);
+
+  
   //Actions
   const toggleActionsDropdown = () => {
     setActionsDropdownOpen(!isActionsDropdownOpen);
@@ -74,7 +76,7 @@ const Participants = () => {
         setIsLoading(true);
         const response = await axios.get(`${BASE_URL}/participantList`);
         setStudents(response.data);
-        // console.log(response.data);
+         console.log(response.data);
       } catch (error) {
         console.log(error);
       } finally {
