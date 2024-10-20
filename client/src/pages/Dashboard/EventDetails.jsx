@@ -1,11 +1,10 @@
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { useNavigate, Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Button from "../../components/Dashboard/Button";
-import { BASE_URL, SERVER_URL } from "../../../src/Service/helper";
+import { BASE_URL } from "../../../src/Service/helper";
 
 const Student = () => {
   const location = useLocation();
@@ -18,10 +17,10 @@ const Student = () => {
   const eventId = searchParams.get("event._id");
   const regNumberCoordinator = searchParams.get("regNumber");
   const [event, setEvent] = useState(null);
+
   const onClick = async () => {
     try {
       if (eventId) {
-        // Pass userId as a parameter to the navigate function
         await navigate(`/editEvent?eventId=${eventId}`);
       } else {
         console.log("Event is not available");
@@ -30,32 +29,25 @@ const Student = () => {
       console.error("Error navigating:", error);
     }
   };
+
   const onClick1 = async () => {
-    // Confirmation alert before proceeding with deletion
     const confirmDelete = window.confirm("Are you sure you want to delete this event?");
-  
     if (confirmDelete) {
       try {
         const response = await axios.delete(`${BASE_URL}/deleteEvent?eventId=${eventId}`);
         if (response.status === 200) {
-          // Event deleted successfully
-          console.log("Event deleted successfully");
-          window.alert("Event deleted successfully"); // Alert for successful deletion
+          window.alert("Event deleted successfully");
         } else {
-          console.error("Failed to delete event");
-          window.alert("Failed to delete event"); // Alert for failure
+          window.alert("Failed to delete event");
         }
       } catch (error) {
-        console.error("Error deleting event:", error);
-        window.alert("Error deleting event: " + error.message); // Alert for error
+        window.alert("Error deleting event: " + error.message);
       }
     } else {
-      // User canceled the deletion
-      console.log("Deletion canceled");
-      window.alert("Event deletion canceled"); // Alert for cancellation
+      window.alert("Event deletion canceled");
     }
   };
-  
+
   useEffect(() => {
     if (eventId) {
       axios
@@ -64,7 +56,7 @@ const Student = () => {
           setEvent(res.data);
         })
         .catch((err) => {
-          console.error("Error fetching student: ", err);
+          console.error("Error fetching event: ", err);
         });
     }
   }, [eventId]);
@@ -72,79 +64,106 @@ const Student = () => {
   return (
     <DashboardLayout>
       <div>
-        <h2 className="text-2xl font-bold">Event Details</h2>
-
-        <div className="mentor-profile bg-gray-100 p-4 rounded-lg flex flex-col lg:flex-row gap-4">
+        <h2 className="text-2xl font-bold mb-4">Event Details</h2>
+        <div className="mentor-profile bg-gray-100 p-4 rounded-lg flex flex-col gap-4">
           {event ? (
-            <div className="event-card flex items-start p-4 border-b border-gray-300">
-            <div className="event-card flex items-start justify-between p-4 border-b border-gray-300">
-  {/* Left section: General event details */}
-  <div className="event-details w-2/3">
-    <h3 className="text-2xl font-bold">{event.eventName}</h3>
-    <p><span className="font-semibold">Department:</span> {event.eventDepartment}</p>
-    <p><span className="font-semibold">Location:</span> {event.location}</p>
-    <p><span className="font-semibold">Start Time:</span> {event.startTime}</p>
-    <p><span className="font-semibold">End Time:</span> {event.endTime}</p>
-    <p><span className="font-semibold">Coordinator:</span> {event.coordinator}</p>
-    <p><span className="font-semibold">Phone:</span> <span className="text-blue-600">{event.phone}</span></p>
-    <p><span className="font-semibold">Registration Number:</span> {event.regNumber}</p>
+            <div className="event-card flex flex-col items-start p-4 border-b border-gray-300 mb-4">
+              {/* Left section: General event details */}
+              <div className="event-details w-full">
+                <h3 className="text-2xl font-bold mb-2">{event.eventName}</h3>
+                <p><span className="font-semibold">Department:</span> {event.eventDepartment}</p>
+                <p><span className="font-semibold">Location:</span> {event.location}</p>
+                <p><span className="font-semibold">Start Time:</span> {event.startTime}</p>
+                <p><span className="font-semibold">End Time:</span> {event.endTime}</p>
+                <p><span className="font-semibold">Coordinator:</span> {event.coordinator}</p>
+                <p><span className="font-semibold">Phone:</span> <span className="text-blue-600">{event.phone}</span></p>
+                <p><span className="font-semibold">Registration Number:</span> {event.regNumber}</p>
+              </div>
 
-  
-  </div>
+              {/* Buttons for Edit and Delete Event */}
+              <div className="buttons w-full flex flex-col items-center mt-4">
+                <div className="justify-center mb-2">
+                  {(user?.isAdmin === true || user.regnumber === regNumberCoordinator) && (
+                    <Button
+                      color="white"
+                      bgColor={currentColor}
+                      text="Edit Event"
+                      borderRadius="8px"
+                      width="full"
+                      height="10px"
+                      custumFunc={onClick}
+                    />
+                  )}
+                </div>
 
-  {/* Right section: Winner details */}
-  <div className="winner-details w-1/3 p-4 bg-gray-100 rounded-lg shadow-md">
-    <h4 className="text-xl font-semibold mb-2">Winners</h4>
-    
-      <p><span className="font-semibold">1st Place:</span> {event.firstPlace}</p>
-   
-
-      <p><span className="font-semibold">2nd Place:</span> {event.secondPlace}</p>
-    
-   
-      <p><span className="font-semibold">3rd Place:</span> {event.thirdPlace}</p>
-   
-   
-      <p><span className="font-semibold">4th Place:</span> {event.fourtPlace}</p>
-    
-  </div>
-</div>
-
-          </div>
-          
+                <div className="justify-center">
+                  {user?.isAdmin === true && (
+                    <Button
+                      color="white"
+                      bgColor={currentColor1}
+                      text="Delete Event"
+                      borderRadius="8px"
+                      width="full"
+                      height="10px"
+                      custumFunc={onClick1}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
           ) : (
             <p>No Event data available.</p>
           )}
 
-<div className=" justify-center items-center">
-            {(user?.isAdmin === true || user.regnumber === regNumberCoordinator) && (
-              <Button
-                color="white"
-                bgColor={currentColor}
-                text="Edit Event"
-                borderRadius="8px"
-                width="5px"
-                height="10px"
-                custumFunc={onClick}
-              />
+          {/* Winner Details Section */}
+          <div className="winner-details w-full p-4 bg-gray-100 rounded-lg shadow-md mt-4">
+            <h4 className="text-xl font-semibold mb-2">Winners</h4>
+
+            {/* Hindi 6 to 8 Winners */}
+            {event?.h6to8firstPlace && (
+              <div className="winner-category mb-4">
+                <h5 className="text-lg font-semibold">Hindi 6 to 8</h5>
+                <p><span className="font-semibold">1st Place:</span> {event.h6to8firstPlace}</p>
+                {event.h6to8secondPlace && <p><span className="font-semibold">2nd Place:</span> {event.h6to8secondPlace}</p>}
+                {event.h6to8thirdPlace && <p><span className="font-semibold">3rd Place:</span> {event.h6to8thirdPlace}</p>}
+                {event.h6to8fourthPlace && <p><span className="font-semibold">4th Place:</span> {event.h6to8fourthPlace}</p>}
+              </div>
+            )}
+
+            {/* Hindi 9 to 12 Winners */}
+            {event?.h9to12firstPlace && (
+              <div className="winner-category mb-4">
+                <h5 className="text-lg font-semibold">Hindi 9 to 12</h5>
+                <p><span className="font-semibold">1st Place:</span> {event.h9to12firstPlace}</p>
+                {event.h9to12secondPlace && <p><span className="font-semibold">2nd Place:</span> {event.h9to12secondPlace}</p>}
+                {event.h9to12thirdPlace && <p><span className="font-semibold">3rd Place:</span> {event.h9to12thirdPlace}</p>}
+                {event.h9to12fourthPlace && <p><span className="font-semibold">4th Place:</span> {event.h9to12fourthPlace}</p>}
+              </div>
+            )}
+
+            {/* English 6 to 8 Winners */}
+            {event?.e6to8firstPlace && (
+              <div className="winner-category mb-4">
+                <h5 className="text-lg font-semibold">English 6 to 8</h5>
+                <p><span className="font-semibold">1st Place:</span> {event.e6to8firstPlace}</p>
+                {event.e6to8secondPlace && <p><span className="font-semibold">2nd Place:</span> {event.e6to8secondPlace}</p>}
+                {event.e6to8thirdPlace && <p><span className="font-semibold">3rd Place:</span> {event.e6to8thirdPlace}</p>}
+                {event.e6to8fourthPlace && <p><span className="font-semibold">4th Place:</span> {event.e6to8fourthPlace}</p>}
+              </div>
+            )}
+
+            {/* English 9 to 12 Winners */}
+            {event?.e9to12firstPlace && (
+              <div className="winner-category mb-4">
+                <h5 className="text-lg font-semibold">English 9 to 12</h5>
+                <p><span className="font-semibold">1st Place:</span> {event.e9to12firstPlace}</p>
+                {event.e9to12secondPlace && <p><span className="font-semibold">2nd Place:</span> {event.e9to12secondPlace}</p>}
+                {event.e9to12thirdPlace && <p><span className="font-semibold">3rd Place:</span> {event.e9to12thirdPlace}</p>}
+                {event.e9to12fourthPlace && <p><span className="font-semibold">4th Place:</span> {event.e9to12fourthPlace}</p>}
+              </div>
             )}
           </div>
-          <div className=" justify-center items-center">
-            {user?.isAdmin === true && (
-              <Button
-                color="white"
-                bgColor={currentColor1}
-                text="Delete Event"
-                borderRadius="8px"
-                width="5px"
-                height="10px"
-                custumFunc={onClick1}
-              />
-            )}
-          </div>
-          
         </div>
-        
       </div>
     </DashboardLayout>
   );

@@ -86,13 +86,11 @@ router.get("/getEventByEventId", async (req, res) => {
   });
 
 
-
   router.post("/editEvent", async (req, res) => {
     const {
       eventId,
       eventName,
       eventGroup,
-    //   eventDepartment,
       location,
       startTime,
       endTime,
@@ -100,46 +98,83 @@ router.get("/getEventByEventId", async (req, res) => {
       phone,
       regNumber,
       festName,
+      subcategory,
       firstPlace,
       secondPlace,
       thirdPlace,
       fourthPlace,
     } = req.body;
+  console.log(req.body);
+    let updateFields = {
+      eventName,
+      eventGroup,
+      location,
+      startTime,
+      endTime,
+      coordinator,
+      phone,
+      regNumber,
+      festName,
+    };
   
-
+    // Add winners based on subcategory
+    switch (subcategory) {
+      case "hindi6to8":
+        console.log("Setting h6to8 winners");
+        updateFields.h6to8firstPlace = firstPlace;
+        updateFields.h6to8secondPlace = secondPlace;
+        updateFields.h6to8thirdPlace = thirdPlace;
+        updateFields.h6to8fourthPlace = fourthPlace;
+        break;
+      case "hindi9to12":
+        console.log("Setting h9to12 winners");
+        updateFields.h9to12firstPlace = firstPlace;
+        updateFields.h9to12secondPlace = secondPlace;
+        updateFields.h9to12thirdPlace = thirdPlace;
+        updateFields.h9to12fourthPlace = fourthPlace;
+        break;
+      case "english6to8":
+        console.log("Setting e6to8 winners");
+        updateFields.e6to8firstPlace = firstPlace;
+        updateFields.e6to8secondPlace = secondPlace;
+        updateFields.e6to8thirdPlace = thirdPlace;
+        updateFields.e6to8fourthPlace = fourthPlace;
+        break;
+      case "english9to12":
+        console.log("Setting e9to12 winners");
+        updateFields.e9to12firstPlace = firstPlace;
+        updateFields.e9to12secondPlace = secondPlace;
+        updateFields.e9to12ThirdPlace = thirdPlace;
+        updateFields.e9to12fourthPlace = fourthPlace;
+        break;
+      default:
+        console.log("Invalid subcategory:", subcategory);
+        return res.status(400).json({ message: "Invalid subcategory" });
+    }
+    
+  
     try {
-      // Find the event by eventId and update it
+      // Find the event by eventId and update it with the dynamic fields
       const updatedEvent = await Event.findByIdAndUpdate(
         eventId,
-        {
-          eventName,
-          eventGroup,
-        //   eventDepartment,
-          location,
-          startTime,
-          endTime,
-          coordinator,
-          phone,
-          regNumber,
-          festName,
-          firstPlace,
-          secondPlace,
-          thirdPlace,
-          fourthPlace,
-        },
-        { new: true } // This option returns the updated document
+        updateFields,
+        { new: true } // Return the updated document
       );
   
       if (!updatedEvent) {
         return res.status(404).json({ message: "Event not found" });
       }
   
-      res.status(201).json({ message: "Event updated successfully", updatedEvent });
+      res.status(201).json({
+        message: "Event updated successfully",
+        updatedEvent,
+      });
     } catch (error) {
       console.error("Error updating event:", error);
       res.status(500).json({ message: "Server error" });
     }
   });
+  
 
 
 

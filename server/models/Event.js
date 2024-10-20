@@ -11,10 +11,6 @@ const EventSchema = new Schema({
     type: String,
     required: true,
   },
-//   eventDepartment: {
-//     type: String,
-//     required: true,
-//   },
   location: {
     type: String,
     required: true,
@@ -43,23 +39,70 @@ const EventSchema = new Schema({
     type: String,
     required: true,
   },
-  firstPlace:{
+h6to8firstPlace:{
     type: String,
     required: false,
   },
-  secondPlace:{
+  h6to8secondPlace:{
     type: String,
     required: false,
   },
-  thirdPlace:{
+  h6to8thirdPlace:{
     type: String,
     required: false,
   },
-  forthPlace:{
+  h6to8forthPlace:{
     type: String,
     required: false,
   },
-  
+  h9to12firstPlace:{
+    type: String,
+    required: false,
+  },
+  h9to12secondPlace:{
+    type: String,
+    required: false,
+  },
+  h9to12thirdPlace:{
+    type: String,
+    required: false,
+  },
+  h9to12forthPlace:{
+    type: String,
+    required: false,
+  },
+  e6to8firstPlace:{
+    type: String,
+    required: false,
+  },
+  e6to8secondPlace:{
+    type: String,
+    required: false,
+  },
+  e6to8thirdPlace:{
+    type: String,
+    required: false,
+  },
+  e6to8forthPlace:{
+    type: String,
+    required: false,
+  },
+  e9to12firstPlace:{
+    type: String,
+    required: false,
+  },
+  e9to12secondPlace:{
+    type: String,
+    required: false,
+  },
+  e9to12thirdPlace:{
+    type: String,
+    required: false,
+  },
+  e9to12forthPlace:{
+    type: String,
+    required: false,
+  },
 });
 
 module.exports = mongoose.model("Event", EventSchema);
