@@ -104,7 +104,7 @@ router.get("/getEventByEventId", async (req, res) => {
       thirdPlace,
       fourthPlace,
     } = req.body;
-  console.log(req.body);
+   console.log(req.body);
     let updateFields = {
       eventName,
       eventGroup,

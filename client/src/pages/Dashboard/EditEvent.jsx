@@ -371,7 +371,7 @@ const EditEvent = () => {
                         htmlFor="fourthPlace"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        Fourth Place
+                        Fourth Place or Special Mention
                       </label>
                       <input
                         type="text"

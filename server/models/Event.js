@@ -51,7 +51,7 @@ h6to8firstPlace:{
     type: String,
     required: false,
   },
-  h6to8forthPlace:{
+  h6to8fourthPlace:{
     type: String,
     required: false,
   },
@@ -67,7 +67,7 @@ h6to8firstPlace:{
     type: String,
     required: false,
   },
-  h9to12forthPlace:{
+  h9to12fourthPlace:{
     type: String,
     required: false,
   },
@@ -83,7 +83,7 @@ h6to8firstPlace:{
     type: String,
     required: false,
   },
-  e6to8forthPlace:{
+  e6to8fourthPlace:{
     type: String,
     required: false,
   },
@@ -99,7 +99,7 @@ h6to8firstPlace:{
     type: String,
     required: false,
   },
-  e9to12forthPlace:{
+  e9to12fourthPlace:{
     type: String,
     required: false,
   },
