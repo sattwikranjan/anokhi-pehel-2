@@ -89,7 +89,6 @@ const AddAntyodayaParticipant = () => {
     formData.append("class", credentials.class);
     formData.append("phone", credentials.phone);
     formData.append("school", credentials.school);
-    // formData.append("aadhar", credentials.aadhar);
     formData.append("address", credentials.address);
     formData.append("photo", credentials.photo);
     formData.append("poc", credentials.poc);
@@ -104,7 +103,6 @@ const AddAntyodayaParticipant = () => {
           class: "",
           phone: "",
           school: "",
-          // aadhar: "",
           address: "",
           photo: "",
           poc: "",
@@ -147,52 +145,39 @@ const AddAntyodayaParticipant = () => {
       school: selectedPoc ? selectedPoc.school : "", // If POC is found, set the school, otherwise leave it blank
     });
   };
-  // const handleEventChange = (selectedEvent, group) => {
-  //   setCredentials((prevCredentials) => {
-  //     // Remove any previously selected event from the same group
-  //     const filteredEvents = prevCredentials.events.filter((eventId) => {
-  //       const event = eventList.find((e) => e._id === eventId);
-  //       return event.eventGroup !== group;
-  //     });
-
-  //     // Add the newly selected event
-  //     return {
-  //       ...prevCredentials,
-  //       events: [...filteredEvents, selectedEvent._id],
-  //     };
-  //   });
-  // };
   const handleEventChange = (selectedEvent, group) => {
     setCredentials((prevCredentials) => {
-      // Check if the selected event is already in the selected list
-      const isAlreadySelected = prevCredentials.events.includes(
-        selectedEvent._id
-      );
-
+      const selectedEventId = selectedEvent._id;
+      const isAlreadySelected = prevCredentials.events.includes(selectedEventId);
+  
+      // Check if the event is already selected, remove it if so
       if (isAlreadySelected) {
-        // If the event is already selected, remove it (uncheck)
         return {
           ...prevCredentials,
-          events: prevCredentials.events.filter(
-            (eventId) => eventId !== selectedEvent._id
-          ),
-        };
-      } else {
-        // Otherwise, ensure only one event from the same group is selected
-        const filteredEvents = prevCredentials.events.filter((eventId) => {
-          const event = eventList.find((e) => e._id === eventId);
-          return event.eventGroup !== group;
-        });
-
-        // Add the newly selected event
-        return {
-          ...prevCredentials,
-          events: [...filteredEvents, selectedEvent._id],
+          events: prevCredentials.events.filter((eventId) => eventId !== selectedEventId),
         };
       }
+  
+      // Check if the max number of events (3) is reached
+      if (prevCredentials.events.length >= 3) {
+        alert("You can only select up to 3 events.");
+        return prevCredentials;
+      }
+  
+      // Ensure only one event per group is selected
+      const filteredEvents = prevCredentials.events.filter((eventId) => {
+        const event = eventList.find((e) => e._id === eventId);
+        return event.eventGroup !== group;
+      });
+  
+      // Add the newly selected event
+      return {
+        ...prevCredentials,
+        events: [...filteredEvents, selectedEventId],
+      };
     });
   };
-
+  
   return (
     <DashboardLayout>
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
@@ -314,24 +299,7 @@ const AddAntyodayaParticipant = () => {
                   </div>
                 </div>
 
-                {/* <div className="sm:col-span-3">
-                  <label
-                    htmlFor="school"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    School
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="school"
-                      id="school"
-                      value={credentials.school} // Automatically updated when POC is selected
-                      onChange={onChange}
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  </div>
-                </div> */}
+              
 
                 <div className="col-span-full">
                   <label
@@ -390,30 +358,7 @@ const AddAntyodayaParticipant = () => {
                   )}
                 </div>
 
-                {/* <div className="sm:col-span-4">
-                  <label
-                    htmlFor="poc"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Point of Contact
-                  </label>
-                  <select
-                    name="poc"
-                    id="poc"
-                    value={credentials.poc}
-                    onChange={onChange}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                  >
-                    <option value="">Select POC</option>
-                    {pocList
-                      .sort((a, b) => a.nameOfPoc.localeCompare(b.nameOfPoc)) // Sort alphabetically by nameOfPoc
-                      .map((poc) => (
-                        <option key={poc._id} value={poc._id}>
-                          {poc.nameOfPoc} - {poc.school}
-                        </option>
-                      ))}
-                  </select>
-                </div> */}
+                
 
                 <div className="sm:col-span-4">
                   <label
