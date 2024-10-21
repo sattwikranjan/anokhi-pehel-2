@@ -109,21 +109,21 @@ router.get("/getEventByEventId", async (req, res) => {
     // Add winners based on subcategory
     switch (subcategory) {
       case "hindi6to8":
-        console.log("Setting h6to8 winners");
+        // console.log("Setting h6to8 winners");
         updateFields.h6to8firstPlace = firstPlace;
         updateFields.h6to8secondPlace = secondPlace;
         updateFields.h6to8thirdPlace = thirdPlace;
         updateFields.h6to8fourthPlace = fourthPlace;
         break;
       case "hindi9to12":
-        console.log("Setting h9to12 winners");
+        // console.log("Setting h9to12 winners");
         updateFields.h9to12firstPlace = firstPlace;
         updateFields.h9to12secondPlace = secondPlace;
         updateFields.h9to12thirdPlace = thirdPlace;
         updateFields.h9to12fourthPlace = fourthPlace;
         break;
       case "english6to8":
-        console.log("Setting e6to8 winners");
+        // console.log("Setting e6to8 winners");
         updateFields.e6to8firstPlace = firstPlace;
         updateFields.e6to8secondPlace = secondPlace;
         updateFields.e6to8thirdPlace = thirdPlace;
@@ -137,7 +137,7 @@ router.get("/getEventByEventId", async (req, res) => {
         updateFields.e9to12fourthPlace = fourthPlace;
         break;
       default:
-        console.log("Invalid subcategory:", subcategory);
+        // console.log("Invalid subcategory:", subcategory);
         return res.status(400).json({ message: "Invalid subcategory" });
     }
     

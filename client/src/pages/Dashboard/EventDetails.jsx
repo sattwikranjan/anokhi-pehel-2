@@ -175,24 +175,25 @@ const Student = () => {
 
   {/* Filters - Stacked Vertically on Small Screens */}
   <div className="mb-6 flex flex-col sm:flex-row justify-center items-center space-y-1 sm:space-y-0 sm:space-x-4 mt-6">
-    {/* Name Filter */}
-    <input
-      type="text"
-      placeholder="Search by Name"
-      value={nameFilter}
-      onChange={(e) => setNameFilter(e.target.value)}
-      className="mb-6 flex flex-col sm:flex-row rounded-md justify-center space-y-1 sm:space-y-0 sm:space-x-4"
-    />
+  {/* Name Filter */}
+  <input
+    type="text"
+    placeholder="Search by Name"
+    value={nameFilter}
+    onChange={(e) => setNameFilter(e.target.value)}
+    className="border px-4 py-2 rounded-md focus:outline-none text-gray-700 w-full sm:w-auto"
+  />
 
-    {/* Class Filter */}
-    <input
-      type="text"
-      placeholder="Search by Class"
-      value={classFilter}
-      onChange={(e) => setClassFilter(e.target.value)}
-      className="mb-6 flex flex-col sm:flex-row rounded-md justify-center space-y-1 sm:space-y-0 sm:space-x-4"
-    />
-  </div>
+  {/* Class Filter */}
+  <input
+    type="text"
+    placeholder="Search by Class"
+    value={classFilter}
+    onChange={(e) => setClassFilter(e.target.value)}
+    className="border px-4 py-2 rounded-md focus:outline-none text-gray-700 w-full sm:w-auto"
+  />
+</div>
+
 
   {/* Download Buttons - Stacked Vertically on Small Screens */}
   <div className="mb-6 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-6">
@@ -324,255 +325,176 @@ const Student = () => {
           )}
 
           {/* Winner Details Section */}
-          <div className="winner-details w-full p-4 bg-gray-100 rounded-lg shadow-md mt-4">
-            <h4 className="text-xl font-semibold mb-4 text-center">
-              List of Winners{" "}
-            </h4>
+<div className="winner-details w-full p-4 bg-gray-100 rounded-lg shadow-md mt-4">
+  <h4 className="text-xl font-semibold mb-4 text-center">
+    List of Winners
+  </h4>
 
-            {/* Hindi 6 to 8 Winners */}
-            {event?.h6to8firstPlace && (
-              <div className="winner-category mb-8">
-                <h5 className="text-lg font-semibold mb-2 text-center">
-                  Sub-category: Hindi 6 to 8
-                </h5>
-                <table className="table-auto w-full border-collapse border border-gray-300">
-                  <thead>
-                    <tr className="bg-gray-200">
-                      <th className="border border-gray-400 px-4 py-2 text-center">
-                        Position
-                      </th>
-                      <th className="border border-gray-400 px-4 py-2 text-center">
-                        Name
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="border border-gray-400 px-4 py-2 text-center">
-                        1st Place
-                      </td>
-                      <td className="border border-gray-400 px-4 py-2 text-center">
-                        {event.h6to8firstPlace}
-                      </td>
-                    </tr>
-                    {event.h6to8secondPlace && (
-                      <tr>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          2nd Place
-                        </td>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          {event.h6to8secondPlace}
-                        </td>
-                      </tr>
-                    )}
-                    {event.h6to8thirdPlace && (
-                      <tr>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          3rd Place
-                        </td>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          {event.h6to8thirdPlace}
-                        </td>
-                      </tr>
-                    )}
-                    {event.h6to8fourthPlace && (
-                      <tr>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          4th Place
-                        </td>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          {event.h6to8fourthPlace}
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            )}
+  {/* Hindi 6 to 8 Winners */}
+  {event?.h6to8firstPlace && (
+    <div className="winner-category mb-8">
+      <h5 className="text-lg font-semibold mb-2 text-center">
+        Sub-category: Hindi 6 to 8
+      </h5>
+      <table className="table-auto w-full border-collapse bg-white rounded-lg shadow-md overflow-hidden">
+        <thead>
+          <tr className="bg-blue-900 text-white">
+            <th className="px-4 py-2 text-center rounded-tl-lg">Position</th>
+            <th className="px-4 py-2 text-center rounded-tr-lg">Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="px-4 py-2 text-center">1st Place</td>
+            <td className="px-4 py-2 text-center">{event.h6to8firstPlace}</td>
+          </tr>
+          {event.h6to8secondPlace && (
+            <tr>
+              <td className="px-4 py-2 text-center">2nd Place</td>
+              <td className="px-4 py-2 text-center">{event.h6to8secondPlace}</td>
+            </tr>
+          )}
+          {event.h6to8thirdPlace && (
+            <tr>
+              <td className="px-4 py-2 text-center">3rd Place</td>
+              <td className="px-4 py-2 text-center">{event.h6to8thirdPlace}</td>
+            </tr>
+          )}
+          {event.h6to8fourthPlace && (
+            <tr>
+              <td className="px-4 py-2 text-center">4th Place</td>
+              <td className="px-4 py-2 text-center">{event.h6to8fourthPlace}</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  )}
 
-            {/* Hindi 9 to 12 Winners */}
-            {event?.h9to12firstPlace && (
-              <div className="winner-category mb-8">
-                <h5 className="text-lg font-semibold mb-2 text-center">
-                  Sub-category: Hindi 9 to 12
-                </h5>
-                <table className="table-auto w-full border-collapse border border-gray-300">
-                  <thead>
-                    <tr className="bg-gray-200">
-                      <th className="border border-gray-400 px-4 py-2 text-center">
-                        Position
-                      </th>
-                      <th className="border border-gray-400 px-4 py-2 text-center">
-                        Name
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="border border-gray-400 px-4 py-2 text-center">
-                        1st Place
-                      </td>
-                      <td className="border border-gray-400 px-4 py-2 text-center">
-                        {event.h9to12firstPlace}
-                      </td>
-                    </tr>
-                    {event.h9to12secondPlace && (
-                      <tr>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          2nd Place
-                        </td>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          {event.h9to12secondPlace}
-                        </td>
-                      </tr>
-                    )}
-                    {event.h9to12thirdPlace && (
-                      <tr>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          3rd Place
-                        </td>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          {event.h9to12thirdPlace}
-                        </td>
-                      </tr>
-                    )}
-                    {event.h9to12fourthPlace && (
-                      <tr>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          4th Place
-                        </td>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          {event.h9to12fourthPlace}
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            )}
+  {/* Hindi 9 to 12 Winners */}
+  {event?.h9to12firstPlace && (
+    <div className="winner-category mb-8">
+      <h5 className="text-lg font-semibold mb-2 text-center">
+        Sub-category: Hindi 9 to 12
+      </h5>
+      <table className="table-auto w-full border-collapse bg-white rounded-lg shadow-md overflow-hidden">
+        <thead>
+          <tr className="bg-blue-900 text-white">
+            <th className="px-4 py-2 text-center rounded-tl-lg">Position</th>
+            <th className="px-4 py-2 text-center rounded-tr-lg">Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="px-4 py-2 text-center">1st Place</td>
+            <td className="px-4 py-2 text-center">{event.h9to12firstPlace}</td>
+          </tr>
+          {event.h9to12secondPlace && (
+            <tr>
+              <td className="px-4 py-2 text-center">2nd Place</td>
+              <td className="px-4 py-2 text-center">{event.h9to12secondPlace}</td>
+            </tr>
+          )}
+          {event.h9to12thirdPlace && (
+            <tr>
+              <td className="px-4 py-2 text-center">3rd Place</td>
+              <td className="px-4 py-2 text-center">{event.h9to12thirdPlace}</td>
+            </tr>
+          )}
+          {event.h9to12fourthPlace && (
+            <tr>
+              <td className="px-4 py-2 text-center">4th Place</td>
+              <td className="px-4 py-2 text-center">{event.h9to12fourthPlace}</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  )}
 
-            {/* English 6 to 8 Winners */}
-            {event?.e6to8firstPlace && (
-              <div className="winner-category mb-8">
-                <h5 className="text-lg font-semibold mb-2 text-center">
-                  Sub-category: English 6 to 8
-                </h5>
-                <table className="table-auto w-full border-collapse border border-gray-300">
-                  <thead>
-                    <tr className="bg-gray-200">
-                      <th className="border border-gray-400 px-4 py-2 text-center">
-                        Position
-                      </th>
-                      <th className="border border-gray-400 px-4 py-2 text-center">
-                        Name
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="border border-gray-400 px-4 py-2 text-center">
-                        1st Place
-                      </td>
-                      <td className="border border-gray-400 px-4 py-2 text-center">
-                        {event.e6to8firstPlace}
-                      </td>
-                    </tr>
-                    {event.e6to8secondPlace && (
-                      <tr>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          2nd Place
-                        </td>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          {event.e6to8secondPlace}
-                        </td>
-                      </tr>
-                    )}
-                    {event.e6to8thirdPlace && (
-                      <tr>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          3rd Place
-                        </td>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          {event.e6to8thirdPlace}
-                        </td>
-                      </tr>
-                    )}
-                    {event.e6to8fourthPlace && (
-                      <tr>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          4th Place
-                        </td>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          {event.e6to8fourthPlace}
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            )}
+  {/* English 6 to 8 Winners */}
+  {event?.e6to8firstPlace && (
+    <div className="winner-category mb-8">
+      <h5 className="text-lg font-semibold mb-2 text-center">
+        Sub-category: English 6 to 8
+      </h5>
+      <table className="table-auto w-full border-collapse bg-white rounded-lg shadow-md overflow-hidden">
+        <thead>
+          <tr className="bg-blue-900 text-white">
+            <th className="px-4 py-2 text-center rounded-tl-lg">Position</th>
+            <th className="px-4 py-2 text-center rounded-tr-lg">Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="px-4 py-2 text-center">1st Place</td>
+            <td className="px-4 py-2 text-center">{event.e6to8firstPlace}</td>
+          </tr>
+          {event.e6to8secondPlace && (
+            <tr>
+              <td className="px-4 py-2 text-center">2nd Place</td>
+              <td className="px-4 py-2 text-center">{event.e6to8secondPlace}</td>
+            </tr>
+          )}
+          {event.e6to8thirdPlace && (
+            <tr>
+              <td className="px-4 py-2 text-center">3rd Place</td>
+              <td className="px-4 py-2 text-center">{event.e6to8thirdPlace}</td>
+            </tr>
+          )}
+          {event.e6to8fourthPlace && (
+            <tr>
+              <td className="px-4 py-2 text-center">4th Place</td>
+              <td className="px-4 py-2 text-center">{event.e6to8fourthPlace}</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  )}
 
-            {/* English 9 to 12 Winners */}
-            {event?.e9to12firstPlace && (
-              <div className="winner-category mb-8">
-                <h5 className="text-lg font-semibold mb-2 text-center">
-                  Sub-category: English 9 to 12
-                </h5>
-                <table className="table-auto w-full border-collapse border border-gray-300">
-                  <thead>
-                    <tr className="bg-gray-200">
-                      <th className="border border-gray-400 px-4 py-2 text-center">
-                        Position
-                      </th>
-                      <th className="border border-gray-400 px-4 py-2 text-center">
-                        Name
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="border border-gray-400 px-4 py-2 text-center">
-                        1st Place
-                      </td>
-                      <td className="border border-gray-400 px-4 py-2 text-center">
-                        {event.e9to12firstPlace}
-                      </td>
-                    </tr>
-                    {event.e9to12secondPlace && (
-                      <tr>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          2nd Place
-                        </td>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          {event.e9to12secondPlace}
-                        </td>
-                      </tr>
-                    )}
-                    {event.e9to12thirdPlace && (
-                      <tr>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          3rd Place
-                        </td>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          {event.e9to12thirdPlace}
-                        </td>
-                      </tr>
-                    )}
-                    {event.e9to12fourthPlace && (
-                      <tr>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          4th Place
-                        </td>
-                        <td className="border border-gray-400 px-4 py-2 text-center">
-                          {event.e9to12fourthPlace}
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
+  {/* English 9 to 12 Winners */}
+  {event?.e9to12firstPlace && (
+    <div className="winner-category mb-8">
+      <h5 className="text-lg font-semibold mb-2 text-center">
+        Sub-category: English 9 to 12
+      </h5>
+      <table className="table-auto w-full border-collapse bg-white rounded-lg shadow-md overflow-hidden">
+        <thead>
+          <tr className="bg-blue-900 text-white">
+            <th className="px-4 py-2 text-center rounded-tl-lg">Position</th>
+            <th className="px-4 py-2 text-center rounded-tr-lg">Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="px-4 py-2 text-center">1st Place</td>
+            <td className="px-4 py-2 text-center">{event.e9to12firstPlace}</td>
+          </tr>
+          {event.e9to12secondPlace && (
+            <tr>
+              <td className="px-4 py-2 text-center">2nd Place</td>
+              <td className="px-4 py-2 text-center">{event.e9to12secondPlace}</td>
+            </tr>
+          )}
+          {event.e9to12thirdPlace && (
+            <tr>
+              <td className="px-4 py-2 text-center">3rd Place</td>
+              <td className="px-4 py-2 text-center">{event.e9to12thirdPlace}</td>
+            </tr>
+          )}
+          {event.e9to12fourthPlace && (
+            <tr>
+              <td className="px-4 py-2 text-center">4th Place</td>
+              <td className="px-4 py-2 text-center">{event.e9to12fourthPlace}</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  )}
+</div>
+
         </div>
       </div>
       {renderParticipantsTable()}
