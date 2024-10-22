@@ -54,6 +54,7 @@ import AddAtyodayaParticipant from "./pages/Dashboard/AddAntyodayaParticipant"
 import ViewParticipants from "./pages/Dashboard/ViewParticipant";
 import ParticipantProfile from "./pages/Dashboard/ParticipantProfile";
 import Issue from "./pages/Dashboard/Issue";
+
 const App = () => {
   const { loading } = useSelector((state) => state.alerts);
 
