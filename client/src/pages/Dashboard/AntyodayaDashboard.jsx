@@ -31,6 +31,11 @@ const Dashboard = () => {
   const viewPoc = () => {
     navigate("/viewPoc");
   };
+  const winners = () => {
+    navigate("/viewWinners");
+  };
+  
+  
   return (
     <DashboardLayout>
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
@@ -132,7 +137,22 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-
+        <div className="flex-1 sm:w-1/2 lg:w-1/4 bg-blue-200 rounded-lg p-4 mt-4 sm:mt-0">
+          <div className="flex justify-center">
+            <div className="rounded-lg p-4">
+              <Button
+                color="black"
+                bgColor={currentColor}
+                text="Winner List of all Event"
+                borderRadius="8px"
+                width="5px"
+                height="10px"
+                custumFunc={winners}
+              />
+            </div>
+            
+          </div>
+        </div>
       </div>
       
 

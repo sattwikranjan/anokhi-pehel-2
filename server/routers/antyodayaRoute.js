@@ -364,5 +364,16 @@ router.get("/getParticipantByUserId", async (req, res) => {
   }
 });
 
+// Fetch all events with winners
+router.get("/getEventsWithWinners", async (req, res) => {
+  try {
+    const events = await Event.find();
+    // console.log(events);
+    res.json(events);
+  } catch (error) {
+    res.status(500).send("Server Error");
+  }
+});
+
 
 module.exports = router;
