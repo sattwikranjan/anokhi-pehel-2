@@ -64,7 +64,7 @@ const Participants = () => {
 
   const [students, setStudents] = useState([]);
   const [filterName, setFilterName] = useState("");
-
+  const [filterSchool, setFilterSchool] = useState(""); 
   const [openDropdownId, setOpenDropdownId] = useState(null);
   const toggleDropdown = (studentId) => {
     setOpenDropdownId(openDropdownId === studentId ? null : studentId);
@@ -143,9 +143,14 @@ if (selectedClasses.length > 0) {
   );
 }
 
+// Filter by student name and school
 filteredStudents = filteredStudents.filter((user) => {
   const userName = user.name ? user.name.toLowerCase() : "";
-  return userName.includes(filterName.toLowerCase());
+  const schoolName = user.school ? user.school.toLowerCase() : ""; // Add filter by school
+  return (
+    userName.includes(filterName.toLowerCase()) &&
+    schoolName.includes(filterSchool.toLowerCase())
+  );
 });
 
 // console.log(filteredStudents);
@@ -256,10 +261,30 @@ filteredStudents = filteredStudents.filter((user) => {
                       type="text"
                       id="simple-search"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full pl-10 p-2"
-                      placeholder="Search"
+                      placeholder="Search by name"
                       required=""
                       value={filterName}
                       onChange={(e) => setFilterName(e.target.value)}
+                    />
+                  </div>
+                </form>
+              </div>
+              <div className="w-full md:w-1/2">
+                <form className="flex items-center">
+                  <label htmlFor="school-search" className="sr-only">
+                    Search
+                  </label>
+                  <div className="relative w-full">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <MdManageSearch />
+                    </div>
+                    <input
+                      type="text"
+                      id="school-search"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full pl-10 p-2"
+                      placeholder="Search by School"
+                      value={filterSchool} // Add search by school value
+                      onChange={(e) => setFilterSchool(e.target.value)} // Add search by school onChange
                     />
                   </div>
                 </form>
@@ -287,13 +312,13 @@ filteredStudents = filteredStudents.filter((user) => {
                   ) : (
                     <IoIosArrowDown />
                   )}
-                  <span className="mx-1">Actions</span>
+                  <span className="mx-1">Download</span>
                 </button>
                 {/* Dropdown */}
                 {isActionsDropdownOpen && (
                   <div className="absolute top-20 mt-20 z-10 w-40 bg-gray-200 rounded-md divide-y divide-gray-300 shadow">
                     <ul className="py-1 text-sm text-gray-700">
-                      <li>
+                      {/* <li>
                         <a
                           href="#"
                           className="flex py-2 px-4 text-sky-600 hover:bg-sky-200"
@@ -301,7 +326,7 @@ filteredStudents = filteredStudents.filter((user) => {
                           <MdEdit className="mt-1" />{" "}
                           <span className="ml-1">Edit</span>
                         </a>
-                      </li>
+                      </li> */}
                       <li onClick={handleDownloadTable}>
                         <a
                           href="#"
@@ -312,15 +337,7 @@ filteredStudents = filteredStudents.filter((user) => {
                         </a>
                       </li>
                     </ul>
-                    <div className="py-1">
-                      <a
-                        href="#"
-                        className="flex flex-center py-2 px-4 text-sm text-red-600 hover:bg-red-200"
-                      >
-                        <MdDelete className="mt-1" />{" "}
-                        <span className="ml-1">Delete</span>
-                      </a>
-                    </div>
+                   
                   </div>
                 )}
 
