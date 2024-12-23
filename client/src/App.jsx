@@ -55,6 +55,7 @@ import ViewParticipants from "./pages/Dashboard/ViewParticipant";
 import ParticipantProfile from "./pages/Dashboard/ParticipantProfile";
 import Issue from "./pages/Dashboard/Issue";
 import JoinAsMentor from "./pages/Home/JoinAsMentor";
+import Winners from "./pages/Dashboard/Winners";
 const App = () => {
   const { loading } = useSelector((state) => state.alerts);
 
@@ -111,6 +112,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <EditProfile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/viewWinners"
+              element={
+                <ProtectedRoute>
+                  <Winners />
                 </ProtectedRoute>
               }
             />
