@@ -17,6 +17,8 @@ const JoinAsMentor = () => {
     photo: "",
     branch: "",
     isActive: "false",
+    instagram: "",
+    linkedin: "",
   });
 
   const [acceptResponse, setAcceptResponse] = useState(false);
@@ -103,6 +105,20 @@ const JoinAsMentor = () => {
       );
       return;
     }
+    const linkedinRegex = /^(https?:\/\/)?(www\.)?linkedin\.com\/.*$/;
+    if (linkedinRegex.test(credentials.linkedin)) {
+      alert(
+        "Please provide only the LinkedIn ID (e.g., 'username') and not the full link."
+      );
+      return;
+    }
+    const instagramRegex = /^(https?:\/\/)?(www\.)?instagram\.com\/.*$/;
+    if (instagramRegex.test(credentials.instagram)) {
+      alert(
+        "Please provide only the Instagram ID (e.g., 'username') and not the full link."
+      );
+      return;
+    }
 
     const formData = new FormData();
     formData.append("name", credentials.name);
@@ -114,11 +130,18 @@ const JoinAsMentor = () => {
     formData.append("role", credentials.role);
     formData.append("photo", credentials.photo);
     formData.append("isActive", credentials.isActive);
+    formData.append("linkedin", credentials.linkedin);
+    formData.append("instagram", credentials.instagram);
     axios
       .post(`${BASE_URL}/createUser`, formData)
       .then((res) => {
         console.log(res);
-
+        if (
+          res.data.message ===
+          "User with this registration number already exists"
+        ) {
+          alert("User request with this registration number already exists");
+        }
         if (res.data === "Mentor Added") {
           alert("Your request is successfully submitted ");
 
@@ -131,6 +154,9 @@ const JoinAsMentor = () => {
             branch: "",
             role: "",
             photo: "",
+            linkedin: "",
+            instagram: "",
+            isActive: false,
           });
         }
       })
@@ -315,6 +341,42 @@ const JoinAsMentor = () => {
                     </div>
                   </div>
 
+                  <div className="sm:col-span-3">
+                    <label
+                      htmlFor="linkedin"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Linkedin ID
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        id="linkedin"
+                        name="linkedin"
+                        type="text"
+                        value={credentials.linkedin}
+                        onChange={onChange}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
+                  </div>
+                  <div className="sm:col-span-3">
+                    <label
+                      htmlFor="instagram"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Instagram ID
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        id="instagram"
+                        name="instagram"
+                        type="text"
+                        value={credentials.instagram}
+                        onChange={onChange}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
+                  </div>
                   <div className="col-span-full">
                     <label
                       htmlFor="photo"
@@ -355,16 +417,10 @@ const JoinAsMentor = () => {
 
             <div className="mt-6 flex items-center justify-end gap-x-6">
               <button
-                type="button"
-                className="text-sm font-semibold leading-6 text-gray-900"
-              >
-                Cancel
-              </button>
-              <button
                 type="submit"
                 className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Save
+                Join
               </button>
             </div>
           </form>
