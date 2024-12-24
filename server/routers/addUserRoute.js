@@ -44,6 +44,8 @@ router.route("/createUser").post(upload.single("photo"), async (req, res) => {
   const Ppassword = req.body.password;
   const branch = req.body.branch;
   const isActive = req.body.isActive;
+  const linkedin = req.body.linkedin;
+  const instagram = req.body.instagram;
   const saltRounds = 10;
 
   try {
@@ -51,7 +53,7 @@ router.route("/createUser").post(upload.single("photo"), async (req, res) => {
     const existingUser = await User.findOne({ regnumber: regnumber });
     if (existingUser) {
       return res
-        .status(400)
+        .status(200)
         .json({ message: "User with this registration number already exists" });
     }
 
@@ -66,6 +68,10 @@ router.route("/createUser").post(upload.single("photo"), async (req, res) => {
       photo,
       branch,
       isActive,
+      socialMedia: {
+        linkedin,
+        instagram,
+      },
     };
 
     const newUser = new User(newUserData);

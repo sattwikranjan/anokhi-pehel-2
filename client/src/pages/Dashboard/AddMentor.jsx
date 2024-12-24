@@ -18,9 +18,26 @@ const AddMentor = () => {
     role: "",
     photo: "",
     branch: "",
+    linkedin: "",
+    instagram: "",
+    isActive: true,
   });
   const handleSubmit = (e) => {
     e.preventDefault();
+    const linkedinRegex = /^(https?:\/\/)?(www\.)?linkedin\.com\/.*$/;
+    if (linkedinRegex.test(credentials.linkedin)) {
+      alert(
+        "Please provide only the LinkedIn ID (e.g., 'username') and not the full link."
+      );
+      return;
+    }
+    const instagramRegex = /^(https?:\/\/)?(www\.)?instagram\.com\/.*$/;
+    if (instagramRegex.test(credentials.instagram)) {
+      alert(
+        "Please provide only the Instagram ID (e.g., 'username') and not the full link."
+      );
+      return;
+    }
     const formData = new FormData();
     formData.append("name", credentials.name);
     formData.append("email", credentials.email);
@@ -30,11 +47,19 @@ const AddMentor = () => {
     formData.append("branch", credentials.branch);
     formData.append("role", credentials.role);
     formData.append("photo", credentials.photo);
+    formData.append("linkedin", credentials.linkedin);
+    formData.append("instagram", credentials.instagram);
+    formData.append("isActive", credentials.isActive);
     axios
       .post(`${BASE_URL}/createUser`, formData)
       .then((res) => {
         console.log(res);
-
+        if (
+          res.data.message ===
+          "User with this registration number already exists"
+        ) {
+          alert("User with this registration number already exists");
+        }
         if (res.data === "Mentor Added") {
           alert("Mentor submitted successfully!");
 
@@ -47,6 +72,9 @@ const AddMentor = () => {
             branch: "",
             role: "",
             photo: "",
+            linkedin: "",
+            instagram: "",
+            isActive: true,
           });
         }
       })
@@ -197,6 +225,42 @@ const AddMentor = () => {
                             </option>
                           ))}
                         </select>
+                      </div>
+                    </div>
+                    <div className="sm:col-span-3">
+                      <label
+                        htmlFor="linkedin"
+                        className="block text-sm font-medium leading-6 text-gray-900"
+                      >
+                        Linkedin ID
+                      </label>
+                      <div className="mt-2">
+                        <input
+                          id="linkedin"
+                          name="linkedin"
+                          type="text"
+                          value={credentials.linkedin}
+                          onChange={onChange}
+                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        />
+                      </div>
+                    </div>
+                    <div className="sm:col-span-3">
+                      <label
+                        htmlFor="instagram"
+                        className="block text-sm font-medium leading-6 text-gray-900"
+                      >
+                        Instagram ID
+                      </label>
+                      <div className="mt-2">
+                        <input
+                          id="instagram"
+                          name="instagram"
+                          type="text"
+                          value={credentials.instagram}
+                          onChange={onChange}
+                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        />
                       </div>
                     </div>
                     <div className="sm:col-span-3">
