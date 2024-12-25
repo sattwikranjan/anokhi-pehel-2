@@ -38,7 +38,7 @@ const Alumni = () => {
         setIsLoading(true);
         const response = await axios.get(`${BASE_URL}/teamList`);
         const alumniMentors = response.data.filter(
-          (mentor) => mentor.role === ROLES.ALUMNI && mentor.isActive === true
+          (mentor) => mentor.role === ROLES.ALUMNI
         );
         setAlumni(alumniMentors);
         // console.log(users);
