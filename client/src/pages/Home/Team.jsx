@@ -22,11 +22,11 @@ const Team = () => {
       try {
         const response = await axios.get(`${BASE_URL}/teamList`);
         const filteredUsers = response.data.filter(
-          (user) => user.role === ROLES.FINAL_YEAR_COORDINATOR
+          (user) => user.role === ROLES.FINAL_YEAR_COORDINATOR && user.isActive === true
         );
         setUsers(filteredUsers);
         const filteredAlum = response.data.filter(
-          (user) => user.role === ROLES.ALUMNI
+          (user) => user.role === ROLES.ALUMNI && user.isActive === true
         );
         setAlum(filteredAlum);
       } catch (error) {

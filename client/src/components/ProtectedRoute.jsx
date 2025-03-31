@@ -20,10 +20,20 @@ export default function ProtectedRoute({ children }) {
         },
       });
       dispatch(hideLoading());
-      // console.log(res.data);
+      // Check if the response is successful and the user is active
       if (res.data.success) {
-        dispatch(setUser(res.data.data));
+        const fetchedUser = res.data.data;
+
+        // Check if user is active
+        if (fetchedUser.isActive) {
+          dispatch(setUser(fetchedUser)); // Set the user data if active
+        } else {
+          // If user is not active, log them out
+          localStorage.clear();
+          return <Navigate to="/login" />;
+        }
       } else {
+        // Handle if the response was not successful
         localStorage.clear();
         return <Navigate to="/login" />;
       }

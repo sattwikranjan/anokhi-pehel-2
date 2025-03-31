@@ -23,8 +23,8 @@ import Blog from "./pages/Home/Blog";
 import Gallery from "./pages/Home/Gallery";
 import Team from "./pages/Home/Team";
 import AddTestScore from "./pages/Dashboard/AddTestScore";
-import Performance from "./pages/Dashboard/Performance";
-import ViewTestScore from "./pages/Dashboard/ViewTestScore";
+import PerformancePage from "./pages/Performance/PerformancePage";
+import StudentsScoreTabular from "./pages/Performance/StudentsScoreTabular";
 import TakeAttendance from "./pages/Dashboard/TakeAttendance";
 import Attendance from "./pages/Dashboard/Attendance";
 import AttendanceTable from "./pages/Dashboard/AttendanceTable";
@@ -56,6 +56,7 @@ import ParticipantProfile from "./pages/Dashboard/ParticipantProfile";
 import Issue from "./pages/Dashboard/Issue";
 import JoinAsMentor from "./pages/Home/JoinAsMentor";
 import Winners from "./pages/Dashboard/Winners";
+import StudentScoresPictorially from "./pages/Performance/StudentScoresPictorially";
 const App = () => {
   const { loading } = useSelector((state) => state.alerts);
 
@@ -78,7 +79,15 @@ const App = () => {
               path="/Scores"
               element={
                 <ProtectedRoute>
-                  <ViewTestScore />
+                  <StudentsScoreTabular />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/Scores-Pict"
+              element={
+                <ProtectedRoute>
+                  <StudentScoresPictorially />
                 </ProtectedRoute>
               }
             />
@@ -279,7 +288,7 @@ const App = () => {
               path="/performance"
               element={
                 <ProtectedRoute>
-                  <Performance />
+                  <PerformancePage />
                 </ProtectedRoute>
               }
             />

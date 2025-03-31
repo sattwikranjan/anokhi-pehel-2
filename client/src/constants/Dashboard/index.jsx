@@ -127,9 +127,9 @@ export const modes = [
   { id: "Line Shivkuti", mode: "Line Shivkuti" },
 ];
 
+// ROLES.ADMIN -> Deprecated
 export const ROLES = {
   FINAL_YEAR_COORDINATOR: "Final Year Coordinator",
-  ADMIN: "Admin",
   COORDINATOR: "Coordinator",
   ALUMNI: "Alumni",
 };
